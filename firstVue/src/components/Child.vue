@@ -1,6 +1,8 @@
 <template>
 	<div class="child">
 		<h3>child</h3>
+		<p> {{mesFather}}</p>
+		<p> {{fromFather}} </p>
 	</div>
 </template>
 
@@ -8,6 +10,12 @@
 <script>
 	export default {
 		name: "child",
+		data: function () {
+			return {
+				fromFather: this.mesFather
+			}
+		},
+		props:['mesFather'],
 		beforeCreate: function () {
 			//在实例初始化之后，数据观测(data observer) 和 event/watcher 事件配置之前被调用。
 			console.log('child beforeCreate 钩子执行...');

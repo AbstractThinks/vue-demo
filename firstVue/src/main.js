@@ -3,10 +3,16 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Vuex from 'vuex'
+Vue.use(Vuex)
 
-Vue.config.productionTip = false
-
+Vue.config.productionTip = true
+Vue.config.debug = true;
 /* eslint-disable no-new */
+Vue.component('my-component', {
+  template: '<div>A custom component!</div>'
+})
+
 new Vue({
   el: '#app',
   router,
@@ -45,3 +51,5 @@ new Vue({
     console.log(this.number)
   },
 })
+
+

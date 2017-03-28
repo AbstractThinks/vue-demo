@@ -6,10 +6,14 @@
 			<h3>数据绑定</h3>
 			<p>{{ msg }}</p>
 
+			<h3>v-model</h3>
+			<input v-model="msg" placeholder="edit me">
 
 			<h3>v-bind</h3>
 			<p v-bind:title="msg">鼠标悬停</p>
-
+			
+			<h3>v-html</h3>
+			<div v-html="rawHtml"></div>
 
 			<h3>v-if v-show</h3>
 			<div>
@@ -32,12 +36,29 @@
 				<button v-on:click="_handleClick">click事件</button>
 				<button @click="_handleClick">_handleClick</button>
 			</div>
+
+			<h3>组件</h3>
+			<div>
+				<Child mes-father="message from father">></Child>
+			</div>
+			
+			<h3>全局组件</h3>
+			<em>
+				<pre class="code">
+Vue.component('my-component', {
+  template: `&lt;div&gt; 
+  		A custom component! 
+  		&lt;/div&gt;`
+})
+				</pre>
+			</em>
+			<my-component></my-component>
 		</div>
 	</div>
 </template>
 
 <script>
-	import child form './Child';
+	import Child from './Child';
 	export default {
 		name: "tutorial",
 		data:function () {
@@ -45,6 +66,7 @@
 		    	yes: true,
 		    	no: false,
 				msg: 'Welcome to Your Vue.js App',
+				rawHtml: '<p><em>rawHtml</em></p>',
 				people: [{
                     name: 'Jack',
                     age: 30,
@@ -69,12 +91,17 @@
 				console.log(1);
 			}
 		},
+		computed: {
+            msg: function() {
+                return this.msg +"computed";
+            }
+        },
 		props: {
 
 		},
-		components: {[
-			child
-		]},
+		components: {
+			Child
+		},
 		beforeCreate: function () {
 			//在实例初始化之后，数据观测(data observer) 和 event/watcher 事件配置之前被调用。
 			console.log('tutorial beforeCreate 钩子执行...');
@@ -120,3 +147,8 @@
 															
 	}
 </script>
+<style>
+	.code {
+		text-align: left
+	}
+</style>
