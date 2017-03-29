@@ -3,19 +3,25 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Vuex from 'vuex'
-Vue.use(Vuex)
 
-Vue.config.productionTip = true
+import store from './store/index'
+// import store from './store/simple';  //vuex 简单例子
+import { currency } from './filter/filter'
+
+Vue.config.productionTip = false
 Vue.config.debug = true;
 /* eslint-disable no-new */
+
 Vue.component('my-component', {
   template: '<div>A custom component!</div>'
 })
 
+Vue.filter('currency', currency);
+
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App },
   beforeCreate: function () {

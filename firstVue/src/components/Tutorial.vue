@@ -53,6 +53,10 @@ Vue.component('my-component', {
 				</pre>
 			</em>
 			<my-component></my-component>
+
+			<h3>自定义filter</h3>
+			<p>Total: {{ num | currency }}</p>
+			<p>Total: {{ num | currency("$") }}</p>
 		</div>
 	</div>
 </template>
@@ -67,6 +71,7 @@ Vue.component('my-component', {
 		    	no: false,
 				msg: 'Welcome to Your Vue.js App',
 				rawHtml: '<p><em>rawHtml</em></p>',
+				num: "0",
 				people: [{
                     name: 'Jack',
                     age: 30,
