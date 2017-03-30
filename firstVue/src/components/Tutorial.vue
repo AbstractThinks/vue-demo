@@ -11,6 +11,7 @@
 
 			<h3>v-bind</h3>
 			<p v-bind:title="msg">鼠标悬停</p>
+			<p :title="msg">鼠标悬停</p> <!--简写-->
 			
 			<h3>v-html</h3>
 			<div v-html="rawHtml"></div>
@@ -34,7 +35,7 @@
 			<h3>v-on</h3>
 			<div>
 				<button v-on:click="_handleClick">click事件</button>
-				<button @click="_handleClick">_handleClick</button>
+				<button @click="_handleClick">_handleClick</button><!--简写-->
 			</div>
 
 			<h3>组件</h3>

@@ -1,17 +1,19 @@
-import * as types from '../mutations';
-
+import shop from '../../api/shop'
+import * as types from '../mutation-types'
 
 // initial state
 const state = {
-  products: []
+  all: []
 }
 
 // getters
 const getters = {
-  allProducts: state => state.products
+  allProducts: state => state.all
 }
 
-// actions
+// Action 提交的是 mutation，而不是直接变更状态。
+// Action 可以包含任意异步操作。
+// store.dispatch('increment')
 const actions = {
   getAllProducts ({ commit }) {
     shop.getProducts(products => {
@@ -23,7 +25,7 @@ const actions = {
 // mutations
 const mutations = {
   [types.RECEIVE_PRODUCTS] (state, { products }) {
-    state.products = products
+    state.all = products
   }
 }
 
