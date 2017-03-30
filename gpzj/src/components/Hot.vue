@@ -1,5 +1,5 @@
 <template>
-  <mu-content-block id="hot">
+  <div id="hot">
     <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
     <mu-list>
       <template v-for="item in list">
@@ -16,7 +16,7 @@
       </template>
     </mu-list>
   	<mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore" loadingText="正在加载中..."/>
-  </mu-content-block>
+  </div>
 </template>
 
 <script>
@@ -73,14 +73,6 @@ export default {
   height: 100%;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
-	border: 1px solid #d9d9d9;
   position: relative;
-  user-select: none;
-  background: grey;
-}
-
-#hot .mu-list{
-  padding: 0;
-  background: white;
 }
 </style>
