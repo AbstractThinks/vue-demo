@@ -75,4 +75,18 @@ export default {
 	-webkit-overflow-scrolling: touch;
   position: relative;
 }
+
+.blank20 {
+  height: 20px;
+}
+.blank30 {
+  height: 30px;
+}
+.blank50 {
+  height: 50px;
+}
+.blank60 {
+  height: 60px;
+}
+
 </style>
