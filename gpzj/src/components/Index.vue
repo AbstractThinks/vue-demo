@@ -1,6 +1,6 @@
 <template>
   <div id="index">
-    <mu-appbar>
+    <mu-appbar color="red500">
       <span>是否开启推送？</span>
       <mu-switch labelLeft class="demo-switch" slot="right"/>
     </mu-appbar>
@@ -13,7 +13,6 @@
           <div class="search-container">
             <mu-text-field hintText="搜索" fullWidth>
             </mu-text-field>
-            <mu-icon-button icon="search" @click="searchContent"/>
           </div>
         </mu-content-block>
 

@@ -1,14 +1,35 @@
 <template>
   <div id="app">
     <router-view></router-view>
+    <mu-dialog :open="dialog" @close="close" dialogClass="loading">
+      <mu-circular-progress :size="60" :strokeWidth="5"/>
+    </mu-dialog>
   </div>
+  
 </template>
 
 <script>
-import 'muse-ui/dist/theme-light.css';
 
 export default {
-  name: 'app'
+  name: 'app',
+  data () {
+    return {
+      dialog: true
+    }
+  },
+  methods: {
+    open () {
+      this.dialog = true
+    },
+    close () {
+      this.dialog = false
+    }
+  },
+  mounted: function () {
+    setTimeout(()=>this.dialog = false, 500)
+    
+  },
+
 }
 </script>
 
@@ -26,5 +47,11 @@ export default {
     .blank#{$i*10} {
       height: #{$i*10}px;
     }
+  }
+
+  .mu-dialog.loading {
+    background-color: rgba(0,0,0,0);
+    text-align: center;
+    box-shadow:none;
   }
 </style>
