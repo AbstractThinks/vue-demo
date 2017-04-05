@@ -51,7 +51,7 @@ export default {
     this.getHotList({
         "page":1,
         "pagesize":4
-      });
+    })
   },
   computed: mapState({
     hotlist: state => state.hot.hotlist,
@@ -63,6 +63,8 @@ export default {
         this.getHotList({
           "page":this.hotlist.pageNumber+1,
           "pagesize":4
+        }).then(() => {
+          this.loading = false;
         });
 
       } else {

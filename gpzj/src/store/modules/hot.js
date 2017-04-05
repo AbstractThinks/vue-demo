@@ -15,20 +15,26 @@ const getters = {
 
 const actions = {
   [types.HOTLIST_ACTION] ({ commit ,state}, queryCondition={}) {
-    commit(types.HOTLIST_REQUEST);
-    api.get(
-      `api/resources/queryByCondition?page=${queryCondition.page}&pageSize=${queryCondition.pagesize}`,
-      (payload) => commit(types.HOTLIST_SUCCESS, payload),
-      (payload) => commit(types.HOTLIST_FAILURE, payload)
-    )
+    return new Promise((resolve, reject) => {
+      commit(types.HOTLIST_REQUEST);
+      api.get(
+        `api/resources/queryByCondition?page=${queryCondition.page}&pageSize=${queryCondition.pagesize}`,
+        (payload) => commit(types.HOTLIST_SUCCESS, payload),
+        (payload) => commit(types.HOTLIST_FAILURE, payload),
+        resolve
+      )
+    })
+    
   },
   [types.HOTDETAIL_ACTION] ({ commit ,state}, queryCondition={}) {
-    commit(types.HOTDETAIL_REQUEST);
-    api.get(
-      `api/resources/queryByCondition?page=${queryCondition.page}&pageSize=${queryCondition.pagesize}`,
-      (payload) => commit(types.HOTDETAIL_SUCCESS, payload),
-      (payload) => commit(types.HOTDETAIL_FAILURE, payload)
-    )
+    return new Promise((resolve, reject) => {
+      commit(types.HOTDETAIL_REQUEST);
+      api.get(
+        `api/resources/queryByCondition?page=${queryCondition.page}&pageSize=${queryCondition.pagesize}`,
+        (payload) => commit(types.HOTDETAIL_SUCCESS, payload),
+        (payload) => commit(types.HOTDETAIL_FAILURE, payload)
+      )
+    });
   }
 }
 
@@ -38,7 +44,7 @@ const mutations = {
   [types.HOTLIST_REQUEST] (state) {
     state.hotlist = {
       ...state.hotlist,
-      loading: 0,
+      loading: true,
       status: 0
     }
     
@@ -51,7 +57,7 @@ const mutations = {
     state.hotlist = {
       ...state.hotlist,
       ...payload,
-      loading: 1,
+      loading: false,
       status: 0
     }
   },
@@ -59,7 +65,7 @@ const mutations = {
   [types.HOTLIST_FAILURE] (state, payload) {
     state.hotlist = {
       ...state.hotlist,
-      loading: 1,
+      loading: false,
       status: 1,
     }
   },
@@ -68,7 +74,7 @@ const mutations = {
   [types.HOTDETAIL_REQUEST] (state) {
     state.hotdetail = {
       ...state.hotdetail,
-      loading: 0,
+      loading: true,
       status: 0
     }
     
@@ -78,14 +84,14 @@ const mutations = {
     state.hotdetail = {
       ...state.hotdetail,
       ...payload,
-      loading: 1,
+      loading: false,
       status: 0
     }
   },
   [types.HOTDETAIL_FAILURE] (state, payload) {
     state.hotdetail = {
       ...state.hotdetail,
-      loading: 1,
+      loading: false,
       status: 1,
     }
   }
