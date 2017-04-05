@@ -4,13 +4,15 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import Vuex from 'vuex';
+var VueResource = require('vue-resource');
 import store from './store/index';
 import MuseUI from 'muse-ui';
 import './assets/muse-ui.css';
 import './assets/theme-gpzj.css';
 
-Vue.use(Vuex)
-Vue.use(MuseUI)
+Vue.use(Vuex);
+Vue.use(MuseUI);
+Vue.use(VueResource);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createLogger from 'vuex/dist/logger'
-import products from './modules/products'
-
+import hot from './modules/hot'
 
 Vue.use(Vuex)
 
@@ -10,7 +9,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    products
+    hot
   },
   plugins: [createLogger()]
 })

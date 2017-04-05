@@ -12,6 +12,7 @@
     "material-design-icons": "^3.0.1",
     "muse-ui": "^2.0.0",
     "vue": "^2.2.2",
+    "vue-resource": "^1.2.1",
     "vue-router": "^2.2.0",
     "vuex": "^2.2.1"
   },

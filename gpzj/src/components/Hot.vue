@@ -1,92 +1,89 @@
 <template>
   <div id="hot">
-    <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
     <mu-list>
-      <template v-for="item in list">
+      <template v-for="item in hotlist.entries">
         <router-link :to="{ name: 'hotdetail', params: { id: item }}">
             <mu-list-item>
-              <div>{{item}}</div>
-              <div>{{item}}</div>
-              <div>{{item}}</div>
-              <div>{{item}}</div>
-              <div>{{item}}</div>
-              <div>{{item}}</div>
+              <div>{{item.resourceName}}</div>
+              <div>{{item.createdTime}}</div>
+              <div>{{item.resourcePhysicalId}}</div>
+              <div>{{item.staffName}}</div>
+              <div>{{item.createdTime}}</div>
+              <div>{{item.resourcePhysicalId}}</div>
+              <div>{{item.staffName}}</div>
+              <div>{{item.createdTime}}</div>
+              <div>{{item.resourcePhysicalId}}</div>
+              <div>{{item.staffName}}</div>
+              <div>{{item.resourceName}}</div>
             </mu-list-item>          
         </router-link>
       </template>
     </mu-list>
-  	<mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore" loadingText="正在加载中..."/>
+  	<mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore" :loadingText="loadText" v-if="hasNext"/>
+    <div v-if="hasNoNext">没有更多了</div>
   </div>
 </template>
 
 <script>
+import { 
+  mapGetters,
+  mapActions,
+  mapState
+} from 'vuex';
+import * as types from '../store/mutation-types';
+
 export default {
-  name: 'hot',
+   name: 'hot',
    data () {
-    const list = []
-    for (let i = 0; i < 10; i++) {
-      list.push('item' + (i + 1))
-    }
     return {
-      list,
-      num: 10,
-      refreshing: false,
-      trigger: null,
       loading: false,
       scroller: null,
+      loadText:"正在加载中...",
+      hasNext: true,
+      hasNoNext:false    
     }
+  },
+  created: function () {
+    
   },
   mounted () {
     this.scroller = this.$el;
-    this.trigger = this.$el
+    this.getHotList({
+        "page":1,
+        "pagesize":4
+      });
   },
+  computed: mapState({
+    hotlist: state => state.hot.hotlist,
+  }),
   methods: {
-    loadMore () {
-      this.loading = true
-      setTimeout(() => {
-        for (let i = this.num; i < this.num + 10; i++) {
-          this.list.push('item' + (i + 1))
-        }
-        this.num += 10
-        this.loading = false
-      }, 1000)
+    loadMore () { 
+      if (this.hotlist.hasNext) {
+        this.loading = true
+        this.getHotList({
+          "page":this.hotlist.pageNumber+1,
+          "pagesize":4
+        });
+
+      } else {
+        this.hasNext = false;
+        this.hasNoNext = true;
+      }  
     },
-    refresh () {
-      this.refreshing = true
-      setTimeout(() => {
-        const list = []
-        for (let i = this.num; i < this.num + 10; i++) {
-          list.push('item' + (i + 1))
-        }
-        this.list = list
-        this.num += 10
-        this.refreshing = false
-      }, 2000)
-    }
+    ...mapActions({
+      getHotList: types.HOTLIST_ACTION 
+    }),
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 #hot {
 	width: 100%;
   height: 100%;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
   position: relative;
-}
-
-.blank20 {
-  height: 20px;
-}
-.blank30 {
-  height: 30px;
-}
-.blank50 {
-  height: 50px;
-}
-.blank60 {
-  height: 60px;
 }
 
 </style>

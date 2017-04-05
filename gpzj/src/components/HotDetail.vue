@@ -91,6 +91,12 @@
 </template>
 
 <script>
+import { 
+  mapGetters,
+  mapActions,
+  mapState
+} from 'vuex';
+import * as types from '../store/mutation-types';
 export default {
   name: 'hotdetail',
   data () {
@@ -98,24 +104,40 @@ export default {
       dialog: false
     }
   },
+  mounted () {
+  	this.getHotDetail({
+        "page":1,
+        "pagesize":16
+      });
+  },
+  computed: mapState({
+    hotdetail: state => state.hot.hotdetail,
+  }),
   methods: {
     open () {
       this.dialog = true
     },
     close () {
       this.dialog = false
-    }
+    },
+     ...mapActions({
+      getHotDetail: types.HOTDETAIL_ACTION 
+    }),
   }
 
 }
 </script>
 
-<style>
-	#hot-detail .paper {
-		margin: 32px 0px;
-	}
-	#hot-detail div[class*="col-"] {
-		padding: 8px;
-		text-align: center;
+<style lang="scss">
+	#hot-detail {
+		height: 100%;
+		overflow-y: scroll;
+		.paper {
+			margin: 32px 0px;
+		}
+		div[class*="col-"] {
+			padding: 8px;
+			text-align: center;
+		}
 	}
 </style>
