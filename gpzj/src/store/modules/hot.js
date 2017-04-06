@@ -21,7 +21,8 @@ const actions = {
         `api/resources/queryByCondition?page=${queryCondition.page}&pageSize=${queryCondition.pagesize}`,
         (payload) => commit(types.HOTLIST_SUCCESS, payload),
         (payload) => commit(types.HOTLIST_FAILURE, payload),
-        resolve
+        resolve,
+        reject
       )
     })
     

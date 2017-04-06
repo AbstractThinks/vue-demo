@@ -23,7 +23,7 @@
                     <div class="blank20"></div>
                     <mu-flexbox>
                         <mu-flexbox-item class="flex-item">
-                        <router-link :to="{ name: 'hot'}">
+                        <router-link :to="{ name: 'hotlist'}">
                           <mu-icon-button>
                             <mu-icon value="home" label="热点追击" />
                           </mu-icon-button>

@@ -27,7 +27,6 @@ export default {
   },
   mounted: function () {
     setTimeout(()=>this.dialog = false, 500)
-    
   },
 
 }
