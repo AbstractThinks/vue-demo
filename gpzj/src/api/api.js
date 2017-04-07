@@ -1,8 +1,8 @@
 
 import Vue from 'vue';
-// const domain = "http://192.168.2.24:9080/";
+const domain = "http://192.168.2.190:9080/";
 // const domain = "http://wxtest.hx168.com.cn/";
-const domain = "http://k12.iyunbei.com/";
+// const domain = "http://k12.iyunbei.com/";
 // const domain = "https://ajax.googleapis.com/";
 export default {
 	get(url, cb, errorCb, resolve, reject) {
@@ -11,7 +11,6 @@ export default {
 			{emulateJSON: true}
 			).then(response => {
 				cb(response.data);
-				console.log(1);
 				resolve && resolve();
 			}, response => {
 				errorCb(response.data);

@@ -53,4 +53,7 @@ export default {
     text-align: center;
     box-shadow:none;
   }
+  .text-center {
+    text-align: center;
+  }
 </style>

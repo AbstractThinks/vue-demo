@@ -1,0 +1,33 @@
+--------查看用户是否订阅，已经订阅总人数
+http://localhost:9080/hxwwz/rest/json/IPO/getUserIPOState
+{"message":"查询成功","rscode":"0","results":[{"isordered":"1","cnt":"1"}],"error":false,"page":{"pageSizeSetted":true,"nextPage":1,"orderBy":null,"pageSize":20,"firstSetted":true,"prePage":1,"hasPre":false,"asc":true,"totalCount":1,"pageNo":1,"hasNext":false,"orderBySetted":false,"autoCount":false,"first":0,"totalPages":1},"rslevel":"0","firstData":{"isordered":"1","cnt":"1"},"extraInfo":null,"totalRow":1}
+
+
+
+--------订阅
+http://localhost:9080/hxwwz/rest/json/IPO/order
+{"message":"更新成功","rscode":"0","results":[{"errormsg":"更新成功","errorcode":"0"}],"error":false,"page":{"pageSizeSetted":true,"nextPage":1,"orderBy":null,"pageSize":20,"firstSetted":true,"prePage":1,"hasPre":false,"asc":true,"totalCount":1,"pageNo":1,"hasNext":false,"orderBySetted":false,"autoCount":false,"first":0,"totalPages":1},"rslevel":"0","firstData":{"errormsg":"更新成功","errorcode":"0"},"extraInfo":null,"totalRow":1}
+---也可能是插入成功
+
+
+
+
+--------取消订阅
+http://localhost:9080/hxwwz/rest/json/IPO/unOrder
+{"message":"更新成功","rscode":"0","results":[{"errormsg":"更新成功","errorcode":"0"}],"error":false,"page":{"pageSizeSetted":true,"nextPage":1,"orderBy":null,"pageSize":20,"firstSetted":true,"prePage":1,"hasPre":false,"asc":true,"totalCount":1,"pageNo":1,"hasNext":false,"orderBySetted":false,"autoCount":false,"first":0,"totalPages":1},"rslevel":"0","firstData":{"errormsg":"更新成功","errorcode":"0"},"extraInfo":null,"totalRow":1}
+
+
+
+
+--------查看ipo股票列表，只看当天及其以后的
+http://localhost:9080/hxwwz/rest/json/IPO/getIPOList
+{"message":"查询成功","rscode":"0","results":[{"id":"14","issue_price":"9.41","online_issue_date":"2017-04-17 00:00:00","subscribe_limit":"","code":"300640","short_name":"德艺文创","stock_exchange":"sz"},{"id":"17","issue_price":"9.94","online_issue_date":"2017-04-14 00:00:00","subscribe_limit":"","code":"300604","short_name":"长川科技","stock_exchange":"sz"},{"id":"1","issue_price":"","online_issue_date":"2017-04-12 00:00:00","subscribe_limit":"","code":"002863","short_name":"飞凯达","stock_exchange":"sh"},{"id":"13","issue_price":"","online_issue_date":"2017-04-11 00:00:00","subscribe_limit":"","code":"300642","short_name":"丹股份","stock_exchange":"sh"},{"id":"12","issue_price":"","online_issue_date":"2017-04-09 00:00:00","subscribe_limit":"","code":"300641","short_name":"正股份","stock_exchange":"sh"},{"id":"11","issue_price":"","online_issue_date":"2017-04-08 00:00:00","subscribe_limit":"","code":"000001","short_name":"今凯达","stock_exchange":"sz"}],"error":false,"page":{"pageSizeSetted":true,"nextPage":1,"orderBy":null,"pageSize":20,"firstSetted":true,"prePage":1,"hasPre":false,"asc":true,"totalCount":6,"pageNo":1,"hasNext":false,"orderBySetted":false,"autoCount":false,"first":0,"totalPages":1},"rslevel":"0","firstData":{"id":"14","issue_price":"9.41","online_issue_date":"2017-04-17 00:00:00","subscribe_limit":"","code":"300640","short_name":"德艺文创","stock_exchange":"sz"},"extraInfo":null,"totalRow":6}
+
+
+
+
+--------查看股票详情
+http://localhost:9080/hxwwz/rest/json/IPO/getIPODetail?id=14
+---主要是多了[fundament] 公司基本面
+{"message":"查询成功","rscode":"0","results":[{"former_stock_transfer_circulation":"","payment_date":"","lottery_rate":"","status":"0","ipo_date":"","issue_price":"9.41","fundament":" ","initial_circulation":"","subscribe_limit":"","lottery_result_publish_date":"2017/4/7","code":"300640","short_name":"德艺文创","stage":"1","online_issue_circulation":"2000","id":"14","issue_price_earning_ratio":"22.98","issue_circulation":"2000","online_issue_date":"2017-04-17 00:00:00","new_stock_issue_circulation":"2000","refurl":"","stock_exchange":"sz","real_raise_fund":""}],"error":false,"page":{"pageSizeSetted":true,"nextPage":1,"orderBy":null,"pageSize":20,"firstSetted":true,"prePage":1,"hasPre":false,"asc":true,"totalCount":1,"pageNo":1,"hasNext":false,"orderBySetted":false,"autoCount":false,"first":0,"totalPages":1},"rslevel":"0","firstData":{"former_stock_transfer_circulation":"","payment_date":"","lottery_rate":"","status":"0","ipo_date":"","issue_price":"9.41","fundament":" ","initial_circulation":"","subscribe_limit":"","lottery_result_publish_date":"2017/4/7","code":"300640","short_name":"德艺文创","stage":"1","online_issue_circulation":"2000","id":"14","issue_price_earning_ratio":"22.98","issue_circulation":"2000","online_issue_date":"2017-04-17 00:00:00","new_stock_issue_circulation":"2000","refurl":"","stock_exchange":"sz","real_raise_fund":""},"extraInfo":null,"totalRow":1}
+
