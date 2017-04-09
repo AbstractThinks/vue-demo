@@ -3,8 +3,11 @@
       <mu-content-block class="banner">
         <img src="../../assets/img/stockindex_text_banner.png" style="" alt=""> <br />
         <div>提醒服务</div>
-        <div><mu-flat-button label="已订阅服务" class="observer"/></div>
-        <div class="description">2345人已使用</div>
+        <div>
+          <mu-flat-button  v-if="show" label="已订阅服务" class="observer"  @click="_cancelObserver"/>
+          <mu-flat-button  v-if="!show" label="未订阅服务" class="observer"  @click="_observer"/>
+        </div>
+        <div class="description">{{observer.firstData?observer.firstData.cnt:0}}人已使用</div>
       </mu-content-block>
       <mu-content-block class="primary">
         <mu-list>
@@ -46,13 +49,26 @@ import * as types from '../../store/mutation-types';
 
 export default {
   name: 'newstockindex',
+  data() {
+    return {
+      show: true
+    }
+  },
   mounted () {
-    this.getObserver();
+    this.getObserver().then(() => {
+      this.show = false;
+    });
   },
   computed: mapState({
     observer: state => state.newstock.observer,
   }),
   methods: {
+    _cancelObserver() {
+      this.show = false;
+    },
+    _observer() {
+      this.show = true;
+    },
     ...mapActions({
       getObserver: types.NEWSTOCK_OBSERVER_ACTION 
     }),

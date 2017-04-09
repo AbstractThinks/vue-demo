@@ -17,6 +17,7 @@ export default new Router({
 
     { path: '/error', name: 'error', component: Error },
     // 新股
+    { path: '/newstock', name: 'newstockindex', component: NewStockIndex },
     { path: '/newstock/index', name: 'newstockindex', component: NewStockIndex },
     { path: '/newstock/list', name: 'newstocklist', component: NewStockList },
     { path: '/newstock/rule', name: 'newstockrule', component: NewStockRule },

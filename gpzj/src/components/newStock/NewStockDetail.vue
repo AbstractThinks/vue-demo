@@ -3,27 +3,24 @@
         <div class="blank30"></div>
         <mu-content-block class="title">
             <mu-row gutter>
-              <mu-col width="60" tablet="60" desktop="60"><span class="main">今日凯飞</span><span class="description">002863</span></mu-col>
+              <mu-col width="60" tablet="60" desktop="60"><span class="main">{{stockdetail.firstData.short_name}}</span><span class="description">{{stockdetail.firstData.code}}</span></mu-col>
               <mu-col width="40" tablet="40" desktop="40"><mu-raised-button label="立即申购" primary /></mu-col>
             </mu-row>
             <div class="blank10"></div>
             <mu-divider />
         </mu-content-block>
-       
-
-          <mu-content-block class="article">
+        <mu-content-block class="article">
+          <div class="blank20"></div>
+            <mu-row gutter>
+                <mu-col width="50" tablet="50" desktop="50" ><span class="description">新股名称&nbsp;&nbsp;&nbsp;</span>今飞开打</mu-col>
+                <mu-col width="50" tablet="50" desktop="50" ><span class="description">新股名称&nbsp;&nbsp;&nbsp;</span>今飞开打</mu-col>
+                <mu-col width="50" tablet="50" desktop="50" ><span class="description">新股名称&nbsp;&nbsp;&nbsp;</span>今飞开打</mu-col>
+                <mu-col width="50" tablet="50" desktop="50" ><span class="description">新股名称&nbsp;&nbsp;&nbsp;</span>今飞开打</mu-col>
+                <mu-col width="50" tablet="50" desktop="50" ><span class="description">新股名称&nbsp;&nbsp;&nbsp;</span>今飞开打</mu-col>
+            </mu-row>
             <div class="blank20"></div>
-              <mu-row gutter>
-                  <mu-col width="50" tablet="50" desktop="50" ><span class="description">新股名称&nbsp;&nbsp;&nbsp;</span>今飞开打</mu-col>
-                  <mu-col width="50" tablet="50" desktop="50" ><span class="description">新股名称&nbsp;&nbsp;&nbsp;</span>今飞开打</mu-col>
-                  <mu-col width="50" tablet="50" desktop="50" ><span class="description">新股名称&nbsp;&nbsp;&nbsp;</span>今飞开打</mu-col>
-                  <mu-col width="50" tablet="50" desktop="50" ><span class="description">新股名称&nbsp;&nbsp;&nbsp;</span>今飞开打</mu-col>
-                  <mu-col width="50" tablet="50" desktop="50" ><span class="description">新股名称&nbsp;&nbsp;&nbsp;</span>今飞开打</mu-col>
-              </mu-row>
-              <div class="blank20"></div>
-              <mu-divider />
-          </mu-content-block>
-
+            <mu-divider />
+        </mu-content-block>
         <mu-content-block class="article">
           <div class="blank20"></div>
           <mu-row gutter>
@@ -50,7 +47,6 @@
           </mu-row>
           <div class="blank20"></div>
         </mu-content-block>
-
         <div class="blank10"></div>
         <mu-content-block>
           <div class="blank20"></div>
@@ -82,6 +78,16 @@ export default {
   computed: mapState({
     stockdetail: state => state.newstock.stockdetail,
   }),
+  mounted () {
+    this.getStockDetail().then(() => {
+      this.show = false;
+    });
+  },
+  methods: {
+    ...mapActions({
+      getStockDetail: types.NEWSTOCK_DETAIL_ACTION 
+    }),
+  }
 }
 </script>
 

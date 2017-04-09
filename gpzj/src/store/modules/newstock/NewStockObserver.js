@@ -58,7 +58,7 @@ const actions = {
 // mutations
 const mutations = {
   [types.NEWSTOCK_OBSERVER_REQUEST] (state) {
-    state.stocklist = {
+    state.observer = {
       ...state.observer,
       loading: true,
       status: 0
@@ -67,7 +67,9 @@ const mutations = {
   },
 
   [types.NEWSTOCK_OBSERVER_SUCCESS] (state, payload) {
-    state.stocklist = {
+    payload = {"message":"查询成功","rscode":"0","results":[{"isordered":"1","cnt":"1"}],"error":false,"page":{"pageSizeSetted":true,"nextPage":1,"orderBy":null,"pageSize":20,"firstSetted":true,"prePage":1,"hasPre":false,"asc":true,"totalCount":1,"pageNo":1,"hasNext":false,"orderBySetted":false,"autoCount":false,"first":0,"totalPages":1},"rslevel":"0","firstData":{"isordered":"1","cnt":"1"},"extraInfo":null,"totalRow":1}
+
+    state.observer = {
       ...state.observer,
       ...payload,
       loading: false,
@@ -76,14 +78,14 @@ const mutations = {
   },
 
   [types.NEWSTOCK_OBSERVER_FAILURE] (state, payload) {
-    state.stocklist = {
+    state.observer = {
       ...state.observer,
       loading: false,
       status: 1,
     }
   },
   [types.NEWSTOCK_OBSERVER_ORDER_REQUEST] (state) {
-    state.stocklist = {
+    state.observer = {
       ...state.observer,
       loading: true,
       status: 0
@@ -92,7 +94,7 @@ const mutations = {
   },
 
   [types.NEWSTOCK_OBSERVER_ORDER_SUCCESS] (state, payload) {
-    state.stocklist = {
+    state.observer = {
       ...state.observer,
       ...payload,
       loading: false,
@@ -101,14 +103,14 @@ const mutations = {
   },
 
   [types.NEWSTOCK_OBSERVER_ORDER_FAILURE] (state, payload) {
-    state.stocklist = {
+    state.observer = {
       ...state.observer,
       loading: false,
       status: 1,
     }
   },
   [types.NEWSTOCK_OBSERVER_UNORDER_REQUEST] (state) {
-    state.stocklist = {
+    state.observer = {
       ...state.observer,
       loading: true,
       status: 0
@@ -117,7 +119,7 @@ const mutations = {
   },
 
   [types.NEWSTOCK_OBSERVER_UNORDER_SUCCESS] (state, payload) {
-    state.stocklist = {
+    state.observer = {
       ...state.observer,
       ...payload,
       loading: false,
@@ -126,7 +128,7 @@ const mutations = {
   },
 
   [types.NEWSTOCK_OBSERVER_UNORDER_FAILURE] (state, payload) {
-    state.stocklist = {
+    state.observer = {
       ...state.observer,
       loading: false,
       status: 1,

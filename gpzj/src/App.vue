@@ -56,4 +56,16 @@ export default {
   .text-center {
     text-align: center;
   }
+  .text-left {
+    text-align: left;
+  }
+  .text-right {
+    text-align: right;
+  }
+  .left {
+    float: left;
+  }
+  .right {
+    float: right;
+  }
 </style>

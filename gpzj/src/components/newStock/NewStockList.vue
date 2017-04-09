@@ -99,9 +99,17 @@ import * as types from '../../store/mutation-types';
 
 export default {
    name: 'newstocklist',
+   mounted () {
+    this.getStockList()
+  },
    computed: mapState({
     stocklist: state => state.newstock.stocklist,
   }),
+   methods: {
+    ...mapActions({
+      getStockList: types.NEWSTOCK_LIST_ACTION,
+    }),
+  }
    
 }
 </script>

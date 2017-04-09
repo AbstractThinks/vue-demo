@@ -6,16 +6,18 @@ const domain = "http://192.168.2.190:9080/";
 // const domain = "https://ajax.googleapis.com/";
 export default {
 	get(url, cb, errorCb, resolve, reject) {
-		Vue.http.get(
-			domain+url,
-			{emulateJSON: true}
-			).then(response => {
-				cb(response.data);
-				resolve && resolve();
-			}, response => {
-				errorCb(response.data);
-				reject && reject(response);
-			});
+		// Vue.http.get(
+		// 	domain+url,
+		// 	{emulateJSON: true}
+		// 	).then(response => {
+		// 		cb(response.data);
+		// 		resolve && resolve();
+		// 	}, response => {
+		// 		errorCb(response.data);
+		// 		reject && reject(response);
+		// 	});
+		cb();
+		resolve && resolve();
 	},
 	post(url, params, cb, errorCb, resolve, reject) {
 		Vue.http.post(

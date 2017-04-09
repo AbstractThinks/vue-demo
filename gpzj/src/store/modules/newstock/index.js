@@ -21,7 +21,7 @@ const actions = {
   ...newstocklist.actions,
   ...newstockdetail.actions
 }
-
+console.log(actions)
 // mutations
 const mutations = {
   ...newstockobserver.mutations,
