@@ -3,9 +3,10 @@ import newstocklist from './NewStockList';
 import newstockdetail from './NewStockDetail';
 // initial state
 const state = {
-  ...newstockobserver.state,
   ...newstocklist.state,
-  ...newstockdetail.state
+  ...newstockdetail.state,
+  ...newstockobserver.state,
+  
 
 }
 
@@ -21,7 +22,7 @@ const actions = {
   ...newstocklist.actions,
   ...newstockdetail.actions
 }
-console.log(actions)
+
 // mutations
 const mutations = {
   ...newstockobserver.mutations,

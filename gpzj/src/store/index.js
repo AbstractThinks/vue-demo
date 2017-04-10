@@ -9,7 +9,6 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    // hot,
     newstock
   },
   plugins: [createLogger()]

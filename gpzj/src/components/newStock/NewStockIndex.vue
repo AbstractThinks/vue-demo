@@ -1,11 +1,12 @@
 <template>
   <div id="newstockindex">
       <mu-content-block class="banner">
+        <mu-toast v-if="toast" :message="msg" />
         <img src="../../assets/img/stockindex_text_banner.png" style="" alt=""> <br />
         <div>提醒服务</div>
         <div>
-          <mu-flat-button  v-if="show" label="已订阅服务" class="observer"  @click="_cancelObserver"/>
-          <mu-flat-button  v-if="!show" label="未订阅服务" class="observer"  @click="_observer"/>
+          <mu-flat-button  v-if="observer.firstData && observer.firstData.isordered == '1'" label="已订阅服务" class="observer"  @click="_cancelObserver"/>
+          <mu-flat-button  v-if="observer.firstData && observer.firstData.isordered == '0'" label="未订阅服务" class="observer"  @click="_observer"/>
         </div>
         <div class="description">{{observer.firstData?observer.firstData.cnt:0}}人已使用</div>
       </mu-content-block>
@@ -51,26 +52,47 @@ export default {
   name: 'newstockindex',
   data() {
     return {
-      show: true
+      show: true,
+      toast: false,
+      msg:""
     }
   },
   mounted () {
+
     this.getObserver().then(() => {
       this.show = false;
     });
+
+    
   },
   computed: mapState({
     observer: state => state.newstock.observer,
   }),
   methods: {
     _cancelObserver() {
-      this.show = false;
+      this.cancelObserverOrder().then(() => {
+        this.msg = "取消订阅成功";
+        this.toast = true;
+        if (this.toastTimer) clearTimeout(this.toastTimer);
+        this.toastTimer = setTimeout(() => { this.toast = false }, 2000);
+        this.show = false;
+      });
+      
     },
     _observer() {
-      this.show = true;
+      this.observerOrder().then(() => {
+        this.msg = "订阅成功";
+        this.toast = true; 
+        if (this.toastTimer) clearTimeout(this.toastTimer);
+        this.toastTimer = setTimeout(() => { this.toast = false }, 2000);
+        this.show = true;
+      });
+      
     },
     ...mapActions({
-      getObserver: types.NEWSTOCK_OBSERVER_ACTION 
+      getObserver: types.NEWSTOCK_OBSERVER_ACTION,
+      observerOrder: types.NEWSTOCK_OBSERVER_ORDER_ACTION,
+      cancelObserverOrder: types.NEWSTOCK_OBSERVER_UNORDER_ACTION 
     }),
   }
 }
@@ -79,7 +101,7 @@ export default {
 <style lang="scss">
 #newstockindex {
   .blank10 {
-    background: #eeeeee;
+    background: #e6e6e6;
   }
   .mu-content-block.banner {
     background-image: url(../../assets/img/stockindex_banner.jpg);

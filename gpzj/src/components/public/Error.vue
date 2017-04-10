@@ -3,6 +3,7 @@
     <div class="blank20"></div>
     <mu-content-block class="text-center">
       <p>服务器维护中，请稍后重试...</p>
+      <p>123456</p>
     </mu-content-block>
   </div>
   

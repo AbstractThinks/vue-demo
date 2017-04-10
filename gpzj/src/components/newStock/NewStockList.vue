@@ -1,91 +1,43 @@
 <template>
   <div id="newstocklist">
-            <mu-card class="banner">
-              <mu-card-media subTitle="有2只新股今日发行">
-                <img src="../../assets/img/stocklist_banner.jpg"/>
-              </mu-card-media>
-            </mu-card>
+        <mu-card class="banner">
+          <mu-card-media subTitle="有2只新股今日发行">
+            <img src="../../assets/img/stocklist_banner.jpg"/>
+          </mu-card-media>
+        </mu-card>
+        <mu-list v-for="results in stocklist.results">
 
-            
-              <mu-list>
-                  <mu-content-block>
-                  <mu-list-item title="2017-04-06 周四" afterText="申购中...">
-                      <mu-icon slot="left" value=":iconfont icon-pandianjihua"/>
-                  </mu-list-item>
-                  </mu-content-block>
-                  <mu-content-block class="list-item">
-                  <mu-list-item href="#/newstock/detail/1">
-                      <mu-icon slot="right" value=":iconfont icon-jiantou"/>
-                      <mu-row gutter>
-                      <mu-col width="750" tablet="25" desktop="25">今日凯飞<br /><span class="description">深 002863</span></mu-col>
-                      <mu-col width="25" tablet="25" desktop="25">5.48</mu-col>
-                      <mu-col width="25" tablet="25" desktop="25">顶格申购市值</mu-col>
-                      <mu-col width="25" tablet="25" desktop="25">20.5万</mu-col>
-                      </mu-row>
-                  </mu-list-item>
-                  <mu-divider />
-                  </mu-content-block>
-                  <mu-content-block class="list-item">
-                  <mu-list-item href="#/newstock/detail/1">
-                      <mu-icon slot="right" value=":iconfont icon-jiantou"/>
-                      <mu-row gutter>
-                      <mu-col width="750" tablet="25" desktop="25">今日凯飞<br /><span class="description">深 002863</span></mu-col>
-                      <mu-col width="25" tablet="25" desktop="25">5.48</mu-col>
-                      <mu-col width="25" tablet="25" desktop="25">顶格申购市值</mu-col>
-                      <mu-col width="25" tablet="25" desktop="25">20.5万</mu-col>
-                      </mu-row>
-                  </mu-list-item>
-                  <mu-divider />
-                  </mu-content-block>
-                  <mu-content-block class="list-item">
-                      <div class="blank20"></div>
-                      <mu-raised-button label="立即申购" fullWidth primary/>
-                      <div class="blank20"></div>
-                  </mu-content-block>
-                  <div class="blank10"></div>
-              </mu-list>
+            <mu-content-block>
+              <!-- {{results[1].online_issue_date}} -->
+              <mu-list-item :title="results[1].online_issue_date|dateFormat('yyyy-MM-dd')|show_weekend" :afterText="results[1].online_issue_date|show_apply">
+                  <mu-icon slot="left" value=":iconfont icon-pandianjihua"/>
+              </mu-list-item>
+            </mu-content-block>
+            <mu-content-block class="list-item">
+              <mu-list-item :href="item.id|urlReq" v-for="item in results">
+                  <mu-icon slot="right" value=":iconfont icon-jiantou"/>
+                  <mu-row gutter>
+                  <mu-col width="750" tablet="25" desktop="25">{{item.short_name}}<br /><span class="description">{{item.stock_exchange|show_addr}} {{item.code}}</span></mu-col>
+                  <mu-col width="25" tablet="25" desktop="25">{{item.issue_price}}</mu-col>
+                  <mu-col width="25" tablet="25" desktop="25">顶格申购市值</mu-col>
+                  <mu-col width="25" tablet="25" desktop="25">{{item.subscribe_limit}}万</mu-col>
+                  </mu-row>
+              </mu-list-item>
+              <mu-divider />
+            </mu-content-block>
 
-
-              <mu-list>
-                  <mu-content-block>
-                  <mu-list-item title="2017-04-06 周四">
-                      <mu-icon slot="left" value=":iconfont icon-pandianjihua"/>
-                  </mu-list-item>
-                  </mu-content-block>
-                  <mu-content-block class="list-item">
-                  <mu-list-item href="#/newstock/detail/1">
-                      <mu-icon slot="right" value=":iconfont icon-jiantou"/>
-                      <mu-row gutter>
-                      <mu-col width="750" tablet="25" desktop="25">今日凯飞<br /><span class="description">深 002863</span></mu-col>
-                      <mu-col width="25" tablet="25" desktop="25">5.48</mu-col>
-                      <mu-col width="25" tablet="25" desktop="25">顶格申购市值</mu-col>
-                      <mu-col width="25" tablet="25" desktop="25">20.5万</mu-col>
-                      </mu-row>
-                  </mu-list-item>
-                  <mu-divider />
-                  </mu-content-block>
-                  <mu-content-block class="list-item">
-                  <mu-list-item href="#/newstock/detail/1">
-                      <mu-icon slot="right" value=":iconfont icon-jiantou"/>
-                      <mu-row gutter>
-                      <mu-col width="750" tablet="25" desktop="25">今日凯飞<br /><span class="description">深 002863</span></mu-col>
-                      <mu-col width="25" tablet="25" desktop="25">5.48</mu-col>
-                      <mu-col width="25" tablet="25" desktop="25">顶格申购市值</mu-col>
-                      <mu-col width="25" tablet="25" desktop="25">20.5万</mu-col>
-                      </mu-row>
-                  </mu-list-item>
-                  <mu-divider />
-                  </mu-content-block>
-                  <div class="blank10"></div>
-              </mu-list>
-              
-            
-            
-            
-            
-
-           
-      
+            <mu-content-block class="list-item" v-if="_filterShow(results[1].online_issue_date)">
+                <div class="blank20"></div>
+                <mu-raised-button label="立即申购" fullWidth primary href="https://trade.hx168.com.cn/v2/m/trade/index.html#!/newshare/apply.html"/>
+                <div class="blank20"></div>
+            </mu-content-block>
+            <div class="blank10"></div>
+        </mu-list>
+        <div class="blank40"></div> 
+        <mu-dialog :open="dialog" title="系统提示" @close="close">
+          新股列表加载失败，请稍后重试...
+          <mu-flat-button slot="actions" @click="close" primary label="确定"/>
+        </mu-dialog>   
   </div>
 </template>
 
@@ -99,8 +51,20 @@ import * as types from '../../store/mutation-types';
 
 export default {
    name: 'newstocklist',
+   data() {
+    return {
+      dialog: false
+    }
+   },
    mounted () {
-    this.getStockList()
+    this.getStockList().then(() => {
+      if (this.stocklist.error) {
+        this.dialog = true;
+      }
+       console.log(1);
+    }, () => {
+      console.log(2)
+    });
   },
    computed: mapState({
     stocklist: state => state.newstock.stocklist,
@@ -109,6 +73,81 @@ export default {
     ...mapActions({
       getStockList: types.NEWSTOCK_LIST_ACTION,
     }),
+    close () {
+      this.dialog = false
+    },
+    _showNone(value) {
+      if (value) {
+        return true;
+      }
+      return false;
+    },
+    _filterShow (value) {
+      let nowDate = new Date();
+          let myDate = new Date(value.replace(/-/g,'/'));
+          nowDate = `${nowDate.getFullYear()}-${nowDate.getMonth()+1}-${nowDate.getDate()}`;
+          myDate = `${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()}`;
+          if (myDate === nowDate) {
+            return true;
+          } 
+          return false;
+    }
+  },
+  filters: {
+      show_addr: function (value) {
+          switch(value){
+            case "sz":
+              return "深圳: ";
+            case "sh":
+              return "上海: ";
+            default:
+              return "";
+          }
+      },
+     show_apply: function (value) {
+          let nowDate = new Date();
+          let myDate = new Date(value.replace(/-/g,'/'));
+          nowDate = `${nowDate.getFullYear()}-${nowDate.getMonth()+1}-${nowDate.getDate()}`;
+          myDate = `${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()}`;
+          if (myDate === nowDate) {
+            return "申购中...";
+          } 
+          return "";
+
+      },
+      show_weekend: function (value) {
+          let myDate = new Date(value)
+          let day = myDate.getDay();
+          switch(day){
+            case 0:
+              return `${value} 周日`;
+            case 1:
+              return `${value} 周一`;
+            case 2:
+              return `${value} 周二`;
+            case 3:
+              return `${value} 周三`;
+            case 4:
+              return `${value} 周四`;
+            case 5:
+              return `${value} 周五`;
+            case 6:
+              return `${value} 周六`;
+            default:
+              return `${value}`;
+          }
+      },
+      show_button: function (value) {
+          let myDate = new Date()
+          let result = `${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()} 00:00:00`;
+          if ( result === value) {
+            return true;
+          }
+          return false;
+      },
+      urlReq: function(value) {
+        return `#/newstock/detail/${value}`;
+      }
   }
    
 }
@@ -122,7 +161,7 @@ export default {
   -webkit-overflow-scrolling: touch;
   position: relative;
   .blank10 {
-    background: #dddddd;
+    background: #e6e6e6;
   }
   .description {
     font-size: 12px;
@@ -141,7 +180,7 @@ export default {
     }
   }
   .mu-content-block.list-item {
-    background: #eeeeee;
+    background: #f5f5f5;
     padding-top: 0;
     padding-bottom: 0;
     .mu-item {

@@ -40,6 +40,18 @@ export default {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    .mu-toast{
+      width: 200px;
+      left: 50%;
+      top: 0;
+      bottom: initial;
+      margin-left: -100px;
+    }
+    .mu-dialog.loading {
+      background-color: rgba(0,0,0,0);
+      text-align: center;
+      box-shadow:none;
+    }
   }
 
   @for $i from 1 to 10 {
@@ -48,11 +60,7 @@ export default {
     }
   }
 
-  .mu-dialog.loading {
-    background-color: rgba(0,0,0,0);
-    text-align: center;
-    box-shadow:none;
-  }
+  
   .text-center {
     text-align: center;
   }
