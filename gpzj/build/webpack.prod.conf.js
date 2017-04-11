@@ -8,6 +8,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+var EncodingPlugin = require('webpack-encoding-plugin');
 
 var env = config.build.env
 
@@ -26,6 +27,7 @@ var webpackConfig = merge(baseWebpackConfig, {
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
+    new EncodingPlugin('GBK'),
     new webpack.DefinePlugin({
       'process.env': env
     }),

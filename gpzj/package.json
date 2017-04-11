@@ -14,10 +14,12 @@
     "vue": "^2.2.2",
     "vue-resource": "^1.2.1",
     "vue-router": "^2.2.0",
+    "vue-wechat-title": "^2.0.4",
     "vuex": "^2.2.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
+    "axios": "^0.16.1",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
     "babel-plugin-transform-runtime": "^6.22.0",
@@ -51,6 +53,7 @@
     "webpack": "^2.2.1",
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
+    "webpack-encoding-plugin": "^0.2.1",
     "webpack-hot-middleware": "^2.16.1",
     "webpack-merge": "^2.6.1"
   },

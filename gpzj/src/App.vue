@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <!-- <div v-wechat-title="$route.meta.title"></div> -->
+    <router-view v-wechat-title="$route.meta.title"></router-view>
     <mu-dialog :open="dialog" @close="close" dialogClass="loading">
       <mu-circular-progress :size="60" :strokeWidth="5"/>
     </mu-dialog>
@@ -60,7 +61,9 @@ export default {
     }
   }
 
-  
+  .none-text {
+    color: #999999;
+  }
   .text-center {
     text-align: center;
   }
