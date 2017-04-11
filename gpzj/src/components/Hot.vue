@@ -54,18 +54,18 @@ export default {
     })
   },
   computed: mapState({
-    hotlist: state => state.hot.hotlist,
+    // hotlist: state => state.hot.hotlist,
   }),
   methods: {
     loadMore () { 
       if (this.hotlist.hasNext) {
         this.loading = true
-        this.getHotList({
-          "page":this.hotlist.pageNumber+1,
-          "pagesize":4
-        }).then(() => {
-          this.loading = false;
-        });
+        // this.getHotList({
+        //   "page":this.hotlist.pageNumber+1,
+        //   "pagesize":4
+        // }).then(() => {
+        //   this.loading = false;
+        // });
 
       } else {
         this.hasNext = false;
@@ -73,7 +73,7 @@ export default {
       }  
     },
     ...mapActions({
-      getHotList: types.HOTLIST_ACTION 
+      // getHotList: types.HOTLIST_ACTION 
     }),
   }
 }
