@@ -10,9 +10,11 @@ import NewStockIndex from '@/components/newStock/NewStockIndex'
 import NewStockList from '@/components/newStock/NewStockList'
 import NewStockRule from '@/components/newStock/NewStockRule'
 
-Vue.use(Router)
+Vue.use(Router);
+router.beforeEach(({meta, path}, from, next) => {
 
-export default new Router({
+});
+const router = new Router({
   routes: [
 
     { path: '/error', name: 'error', component: Error },
@@ -24,3 +26,4 @@ export default new Router({
     { path: '/newstock/detail/:id', name: 'newstockdetail', component: NewStockDetail },
   ]
 })
+export default router
