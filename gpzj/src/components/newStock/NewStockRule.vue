@@ -13,7 +13,7 @@
       <div class="blank20"></div>
         <div class="before">
           <mu-chip >
-            &nbsp;&nbsp;&nbsp;以前&nbsp;&nbsp;&nbsp;
+            以前
           </mu-chip>
         </div>
         
@@ -27,7 +27,7 @@
       <div class="blank20"></div>
       <div class="now">
         <mu-chip >
-          &nbsp;&nbsp;&nbsp;现在&nbsp;&nbsp;&nbsp;
+          现在
         </mu-chip>
       </div>
         
@@ -134,7 +134,7 @@
           </p>
           <mu-divider />
           <p class="title">
-            <span class="emphasize">中签缴款&nbsp;<i class="iconfont icon-xinxi"></i></span>
+            <span class="emphasize">中签缴款  <i class="iconfont icon-xinxi"></i></span>
           </p>
           <p class="description">
             查看个人资金是否足够缴纳新股申购所需金额，不足建议立即补充资金

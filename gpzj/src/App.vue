@@ -60,7 +60,9 @@ export default {
     }
   }
 
-  
+  .none-text {
+    color: #999999;
+  }
   .text-center {
     text-align: center;
   }

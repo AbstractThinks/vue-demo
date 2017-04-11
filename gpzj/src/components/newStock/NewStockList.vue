@@ -1,11 +1,11 @@
 <template>
   <div id="newstocklist">
         <mu-card class="banner">
-          <mu-card-media subTitle="有2只新股今日发行">
+          <mu-card-media >
             <img src="../../assets/img/stocklist_banner.jpg"/>
           </mu-card-media>
         </mu-card>
-        <mu-list v-for="results in stocklist.results">
+        <mu-list v-for="(results, index) in stocklist.results" :key="index">
 
             <mu-content-block>
               <!-- {{results[1].online_issue_date}} -->
@@ -14,25 +14,29 @@
               </mu-list-item>
             </mu-content-block>
             <mu-content-block class="list-item">
-              <mu-list-item :href="item.id|urlReq" v-for="item in results">
+              <mu-list-item :href="item.id|urlReq" v-for="item in results" :key="item.id">
                   <mu-icon slot="right" value=":iconfont icon-jiantou"/>
                   <mu-row gutter>
                   <mu-col width="750" tablet="25" desktop="25">{{item.short_name}}<br /><span class="description">{{item.stock_exchange|show_addr}} {{item.code}}</span></mu-col>
-                  <mu-col width="25" tablet="25" desktop="25">{{item.issue_price}}</mu-col>
+                  <mu-col width="25" tablet="25" desktop="25">{{item.issue_price?parseInt(item.issue_price).toFixed(2):""}}</mu-col>
                   <mu-col width="25" tablet="25" desktop="25">顶格申购市值</mu-col>
-                  <mu-col width="25" tablet="25" desktop="25">{{item.subscribe_limit}}万</mu-col>
+                  <mu-col width="25" tablet="25" desktop="25">{{item.subscribe_limit?parseInt(item.subscribe_limit).toFixed(2):""}}万</mu-col>
                   </mu-row>
               </mu-list-item>
               <mu-divider />
             </mu-content-block>
 
-            <mu-content-block class="list-item" v-if="_filterShow(results[1].online_issue_date)">
+            <mu-content-block class="list-item button-container" v-if="_filterShow(results[1].online_issue_date)">
                 <div class="blank20"></div>
                 <mu-raised-button label="立即申购" fullWidth primary href="https://trade.hx168.com.cn/v2/m/trade/index.html#!/newshare/apply.html"/>
                 <div class="blank20"></div>
             </mu-content-block>
             <div class="blank10"></div>
         </mu-list>
+        <div class="text-center none-text" v-if="stocklist.firstData == null">
+          <div class="blank90"></div>
+          暂无数据
+        </div>
         <div class="blank40"></div> 
         <mu-dialog :open="dialog" title="系统提示" @close="close">
           新股列表加载失败，请稍后重试...
@@ -61,9 +65,7 @@ export default {
       if (this.stocklist.error) {
         this.dialog = true;
       }
-       console.log(1);
     }, () => {
-      console.log(2)
     });
   },
    computed: mapState({
@@ -76,6 +78,7 @@ export default {
     close () {
       this.dialog = false
     },
+
     _showNone(value) {
       if (value) {
         return true;
@@ -160,6 +163,9 @@ export default {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   position: relative;
+  .mu-content-block {
+    padding: 8px 0px;
+  }
   .blank10 {
     background: #e6e6e6;
   }
@@ -181,8 +187,10 @@ export default {
   }
   .mu-content-block.list-item {
     background: #f5f5f5;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0;
+    &.button-container {
+      padding: 0px 16px;
+    }
     .mu-item {
       color: #757575;
     }
