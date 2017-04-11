@@ -61,12 +61,14 @@ export default {
     }
    },
    mounted () {
-    this.getStockList().then(() => {
-      if (this.stocklist.error) {
-        this.dialog = true;
-      }
-    }, () => {
-    });
+    if ((!this.$store.state.newstock.stocklist) || (!this.$store.state.newstock.stocklist.firstData)) {
+      this.getStockList().then(() => {
+          if (this.stocklist.error) {
+            this.dialog = true;
+          }
+        }, () => {
+        });
+    }
   },
    computed: mapState({
     stocklist: state => state.newstock.stocklist,

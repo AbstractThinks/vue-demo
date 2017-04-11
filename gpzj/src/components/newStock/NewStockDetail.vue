@@ -91,12 +91,14 @@ export default {
     stockdetail: state => state.newstock.stockdetail,
   }),
   mounted () {
+    if ((!this.$store.state.newstock.stockdetail) || (!this.$store.state.newstock.stockdetail.firstData)) {
+      this.getStockDetail({id:this.$route.params.id}).then(() => {
+        if (this.stockdetail.error) {
+          this.dialog = true;
+        }
+      });
+    }
     
-    this.getStockDetail({id:this.$route.params.id}).then(() => {
-      if (this.stockdetail.error) {
-        this.dialog = true;
-      }
-    });
   },
   methods: {
     ...mapActions({

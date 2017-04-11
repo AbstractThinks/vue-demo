@@ -58,10 +58,11 @@ export default {
     }
   },
   mounted () {
-
-    this.getObserver().then(() => {
-      this.show = false;
-    });
+    if ((!this.$store.state.newstock.observer) || (!this.$store.state.newstock.observer.firstData)) {
+      this.getObserver().then(() => {
+        this.show = false;
+      });
+    }
 
     
   },
