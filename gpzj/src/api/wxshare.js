@@ -21,15 +21,20 @@ export function shareConfig(configMsg = {}) {
 	            
 	        }
 	    };
-
+	    console.log(opts);
 	    var configData = eval('(' + response.data + ')');
 	    
 	    var wxconfig = {
 	    	debug: true,
-	    	...configData.data
+	    	...configData.data,
+	    	jsApiList:[
+	    		"onMenuShareTimeline",
+	    		"onMenuShareAppMessage",
+	    		"onMenuShareQQ",
+	    		"onMenuShareWeibo"
+	    	]
 	    }
 		wx.config(wxconfig);
-		// console.log(wxconfig)
 		wx.ready(function() {
 
 		    // 分享到朋友圈
