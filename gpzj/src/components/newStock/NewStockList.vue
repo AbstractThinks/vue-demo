@@ -2,7 +2,7 @@
   <div id="newstocklist">
         <mu-card class="banner">
           <mu-card-media >
-            <img src="../../assets/img/stocklist_banner.jpg"/>
+            <img src="../../assets/img/newstock/stocklist_banner.jpg"/>
           </mu-card-media>
         </mu-card>
         <mu-list v-for="(results, index) in stocklist.results" :key="index">
@@ -26,7 +26,7 @@
               <mu-divider />
             </mu-content-block>
 
-            <mu-content-block class="list-item button-container" v-if="_filterShow(results[1].online_issue_date)">
+            <mu-content-block class="list-item button-container" v-if="_filterShow(results[1].online_issue_date, results[1].intime)">
                 <div class="blank20"></div>
                 <mu-raised-button label="立即申购" fullWidth primary href="https://trade.hx168.com.cn/v2/m/trade/index.html#!/newshare/apply.html"/>
                 <div class="blank20"></div>
@@ -87,12 +87,12 @@ export default {
       }
       return false;
     },
-    _filterShow (value) {
+    _filterShow (value, value2) {
       let nowDate = new Date();
           let myDate = new Date(value.replace(/-/g,'/'));
           nowDate = `${nowDate.getFullYear()}-${nowDate.getMonth()+1}-${nowDate.getDate()}`;
           myDate = `${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()}`;
-          if (myDate === nowDate) {
+          if (myDate === nowDate && value2 === "1") {
             return true;
           } 
           return false;

@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <!-- <div v-wechat-title="$route.meta.title"></div> -->
     <router-view v-wechat-title="$route.meta.title"></router-view>
     <mu-dialog :open="dialog" @close="close" dialogClass="loading">
       <mu-circular-progress :size="60" :strokeWidth="5"/>
@@ -41,13 +40,6 @@ export default {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    .mu-toast{
-      width: 200px;
-      left: 50%;
-      top: 0;
-      bottom: initial;
-      margin-left: -100px;
-    }
     .mu-dialog.loading {
       background-color: rgba(0,0,0,0);
       text-align: center;

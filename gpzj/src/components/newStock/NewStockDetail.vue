@@ -5,6 +5,9 @@
           <mu-content-block class="title">
               <mu-row gutter>
                 <mu-col width="60" tablet="60" desktop="60"><span class="main">{{stockdetail.firstData?stockdetail.firstData.short_name:""}}</span><span class="description">{{stockdetail.firstData?stockdetail.firstData.code:""}}</span></mu-col>
+                <mu-col width="40" tablet="40" desktop="40" class="text-right">
+                  <mu-raised-button label="立即申购" primary href="https://trade.hx168.com.cn/v2/m/trade/index.html#!/newshare/apply.html" v-if="_filterShow(stockdetail.firstData.online_issue_date, stockdetail.firstData.intime)"/>
+                </mu-col>
               </mu-row>
               <div class="blank10"></div>
               <mu-divider />
@@ -13,7 +16,7 @@
             <div class="blank20"></div>
               <mu-row gutter>
                   <mu-col width="50" tablet="50" desktop="50" ><span class="description">新股名称</span>{{stockdetail.firstData?stockdetail.firstData.short_name:""}}</mu-col>
-                  <!-- <mu-col width="50" tablet="50" desktop="50" ><span class="description">申购日期&nbsp;&nbsp;&nbsp;</span>{{stockdetail.firstData?stockdetail.firstData.online_issue_date:""|dateFormat('yyyy-MM-dd')}}</mu-col> -->
+                  <mu-col width="50" tablet="50" desktop="50" ><span class="description">申购日期</span>{{stockdetail.firstData?stockdetail.firstData.online_issue_date:""|dateFormat('yyyy-MM-dd')}}</mu-col>
                   <mu-col width="50" tablet="50" desktop="50" ><span class="description">申购代码</span>{{stockdetail.firstData?stockdetail.firstData.code:""}}</mu-col>
                   <mu-col width="50" tablet="50" desktop="50" ><span class="description">上市地点</span>{{stockdetail.firstData?stockdetail.firstData.stock_exchange:""|show_addr }}</mu-col>
                   <mu-col width="50" tablet="50" desktop="50" ><span class="description">发行价格</span>{{stockdetail.firstData&&stockdetail.firstData.issue_price?parseInt(stockdetail.firstData.issue_price).toFixed(2):""}}</mu-col>
@@ -91,13 +94,12 @@ export default {
     stockdetail: state => state.newstock.stockdetail,
   }),
   mounted () {
-    if ((!this.$store.state.newstock.stockdetail) || (!this.$store.state.newstock.stockdetail.firstData)) {
       this.getStockDetail({id:this.$route.params.id}).then(() => {
         if (this.stockdetail.error) {
           this.dialog = true;
         }
       });
-    }
+
     
   },
   methods: {
@@ -113,12 +115,12 @@ export default {
     close () {
       this.dialog = false
     },
-    _filterShow (value) {
+    _filterShow (value, value2) {
       let nowDate = new Date();
           let myDate = new Date(value.replace(/-/g,'/'));
           nowDate = `${nowDate.getFullYear()}-${nowDate.getMonth()+1}-${nowDate.getDate()}`;
           myDate = `${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()}`;
-          if (myDate === nowDate) {
+          if (myDate === nowDate && value2 === "1") {
             return true;
           } 
           return false;

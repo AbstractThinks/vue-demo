@@ -2,7 +2,7 @@
   <div id="newstockrule">
   <div class="banner">
     <div class="blank50"></div>
-    <img src="../../assets/img/stockrule_text.png">
+    <img src="../../assets/img/newstock/stockrule_text.png">
     <div class="blank50"></div>
   </div>
   
@@ -167,9 +167,9 @@
     
   <mu-content-block>
     <div class="blank40"></div>
-    <mu-raised-button label="分享" fullWidth primary>
+   <!--  <mu-raised-button label="分享" fullWidth primary>
       <i class="iconfont icon-fenxiang"></i>
-    </mu-raised-button>
+    </mu-raised-button> -->
     <div class="blank40"></div>
   </mu-content-block>
   </div>
@@ -201,7 +201,7 @@ export default {
   }
   .banner {
     text-align: center;
-    background: url(../../assets/img/stockrule_banner.jpg);
+    background: url(../../assets/img/newstock/stockrule_banner.jpg);
     background-size: 100% 100%;
     img {
       width: 220px;
