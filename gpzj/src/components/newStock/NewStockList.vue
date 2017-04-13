@@ -1,5 +1,8 @@
 <template>
   <div id="newstocklist">
+        <mu-dialog :open="loading" @close="close" dialogClass="loading">
+          <mu-circular-progress :size="60" :strokeWidth="5"/>
+        </mu-dialog>
         <mu-card class="banner">
           <mu-card-media >
             <img src="../../assets/img/newstock/stocklist_banner.jpg"/>
@@ -9,7 +12,7 @@
 
             <mu-content-block>
               <!-- {{results[1].online_issue_date}} -->
-              <mu-list-item :title="results[1].online_issue_date|dateFormat('yyyy-MM-dd')|show_weekend" :afterText="results[1].online_issue_date|show_apply">
+              <mu-list-item :title="results[1].online_issue_date|dateFormat('yyyy-MM-dd')|show_weekend" :afterText="results[1].online_issue_date|show_apply(results[1].online_issue_date, results[1].intime)">
                   <mu-icon slot="left" value=":iconfont icon-pandianjihua"/>
               </mu-list-item>
             </mu-content-block>
@@ -18,9 +21,9 @@
                   <mu-icon slot="right" value=":iconfont icon-jiantou"/>
                   <mu-row gutter>
                   <mu-col width="750" tablet="25" desktop="25">{{item.short_name}}<br /><span class="description">{{item.stock_exchange|show_addr}} {{item.code}}</span></mu-col>
-                  <mu-col width="25" tablet="25" desktop="25">{{item.issue_price?parseInt(item.issue_price).toFixed(2):""}}</mu-col>
+                  <mu-col width="25" tablet="25" desktop="25">{{item.issue_price?parseFloat(item.issue_price).toFixed(2):"暂无"}}</mu-col>
                   <mu-col width="25" tablet="25" desktop="25">顶格申购市值</mu-col>
-                  <mu-col width="25" tablet="25" desktop="25">{{item.subscribe_limit?parseInt(item.subscribe_limit).toFixed(2):""}}万</mu-col>
+                  <mu-col width="25" tablet="25" desktop="25">{{item.subscribe_limit_total?parseFloat(item.subscribe_limit_total).toFixed(0)+"万":"暂无"}}</mu-col>
                   </mu-row>
               </mu-list-item>
               <mu-divider />
@@ -52,24 +55,35 @@ import {
   mapState
 } from 'vuex';
 import * as types from '../../store/mutation-types';
-
+import { shareConfig } from '../../api/wxshare';
 export default {
    name: 'newstocklist',
    data() {
     return {
+      loading: true,
       dialog: false
     }
    },
    mounted () {
+    // console.log(this.$route)
+    
     if ((!this.$store.state.newstock.stocklist) || (!this.$store.state.newstock.stocklist.firstData)) {
-      this.getStockList().then(() => {
+      this.getStockList()
+        .then(() => {
           if (this.stocklist.error) {
             this.dialog = true;
           }
-        }, () => {
+        }).then(() => {
+          this.loading = false;
         });
+    } else {
+      this.loading = false;
     }
   },
+  // ready () {
+  //   alert(1);
+  //   shareConfig(this.$route.meta);
+  // },
    computed: mapState({
     stocklist: state => state.newstock.stocklist,
   }),
@@ -109,13 +123,16 @@ export default {
               return "";
           }
       },
-     show_apply: function (value) {
+     show_apply: function (value, value2) {
           let nowDate = new Date();
           let myDate = new Date(value.replace(/-/g,'/'));
           nowDate = `${nowDate.getFullYear()}-${nowDate.getMonth()+1}-${nowDate.getDate()}`;
           myDate = `${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()}`;
-          if (myDate === nowDate) {
+          if (myDate === nowDate && value2 === "1") {
             return "申购中...";
+          } 
+          if (myDate === nowDate && value2 === "0") {
+            return "申购已结束";
           } 
           return "";
 

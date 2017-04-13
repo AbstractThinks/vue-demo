@@ -1,5 +1,8 @@
 <template>
   <div id="newstockdetail">
+        <mu-dialog :open="loading" @close="close" dialogClass="loading">
+          <mu-circular-progress :size="60" :strokeWidth="5"/>
+        </mu-dialog>
         <div class="blank30"></div>
         <div v-if="_showNone(stockdetail.firstData)">
           <mu-content-block class="title">
@@ -19,7 +22,7 @@
                   <mu-col width="50" tablet="50" desktop="50" ><span class="description">申购日期</span>{{stockdetail.firstData?stockdetail.firstData.online_issue_date:""|dateFormat('yyyy-MM-dd')}}</mu-col>
                   <mu-col width="50" tablet="50" desktop="50" ><span class="description">申购代码</span>{{stockdetail.firstData?stockdetail.firstData.code:""}}</mu-col>
                   <mu-col width="50" tablet="50" desktop="50" ><span class="description">上市地点</span>{{stockdetail.firstData?stockdetail.firstData.stock_exchange:""|show_addr }}</mu-col>
-                  <mu-col width="50" tablet="50" desktop="50" ><span class="description">发行价格</span>{{stockdetail.firstData&&stockdetail.firstData.issue_price?parseInt(stockdetail.firstData.issue_price).toFixed(2):""}}</mu-col>
+                  <mu-col width="50" tablet="50" desktop="50" ><span class="description">发行价格</span>{{stockdetail.firstData&&stockdetail.firstData.issue_price?parseFloat(stockdetail.firstData.issue_price).toFixed(2):""}}</mu-col>
                   <mu-col width="50" tablet="50" desktop="50" ><span class="description">所属板块</span>{{stockdetail.firstData?stockdetail.firstData.channel:""}}</mu-col>
               </mu-row>
               <div class="blank20"></div>
@@ -30,23 +33,23 @@
             <mu-row gutter>
               <mu-col width="100" tablet="100" desktop="100">
                 <span class="description">市盈率（倍）</span>
-                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.issue_price_earning_ratio?parseInt(stockdetail.firstData.issue_price_earning_ratio).toFixed(2):""}}</span>
+                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.issue_price_earning_ratio?parseFloat(stockdetail.firstData.issue_price_earning_ratio).toFixed(2):"暂无"}}</span>
               </mu-col>
               <mu-col width="100" tablet="100" desktop="100">
                 <span class="description">总发行数量</span>
-                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.issue_circulation?parseInt(stockdetail.firstData.issue_circulation).toFixed(2):""}} 万股</span>
+                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.issue_circulation?parseInt(stockdetail.firstData.issue_circulation).toFixed(0)+"万股":"暂无"}} </span>
               </mu-col>
               <mu-col width="100" tablet="100" desktop="100">
                 <span class="description">网上发行数量</span>
-                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.online_issue_circulation?parseInt(stockdetail.firstData.online_issue_circulation).toFixed(2):""}} 万股</span>
+                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.online_issue_circulation?parseInt(stockdetail.firstData.online_issue_circulation).toFixed(0)+"万股":"暂无"}} </span>
               </mu-col>
               <mu-col width="100" tablet="100" desktop="100">
                 <span class="description">网上申购上限</span>
-                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.subscribe_limit?parseInt(stockdetail.firstData.subscribe_limit).toFixed(2):""}} 万股</span>
+                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.subscribe_limit?parseFloat(stockdetail.firstData.subscribe_limit).toFixed(2)+"万股":"暂无"}} </span>
               </mu-col>
               <mu-col width="100" tablet="100" desktop="100">
                 <span class="description">顶格申购需市值</span>
-                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.subscribe_limit_total?parseInt(stockdetail.firstData.subscribe_limit_total).toFixed(2):""}} 万</span>
+                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.subscribe_limit_total?parseInt(stockdetail.firstData.subscribe_limit_total).toFixed(0)+"万":"暂无"}} </span>
               </mu-col>
             </mu-row>
             <div class="blank20"></div>
@@ -87,6 +90,7 @@ export default {
   name: 'newstockdetail',
   data(){
     return {
+      loading: true,
       dialog: false
     }
   },
@@ -94,11 +98,15 @@ export default {
     stockdetail: state => state.newstock.stockdetail,
   }),
   mounted () {
-      this.getStockDetail({id:this.$route.params.id}).then(() => {
-        if (this.stockdetail.error) {
-          this.dialog = true;
-        }
-      });
+      this.getStockDetail({id:this.$route.params.id})
+        .then(() => {
+          if (this.stockdetail.error) {
+            this.dialog = true;
+          }
+        })
+        .then(() => {
+          this.loading = false;
+        });
 
     
   },

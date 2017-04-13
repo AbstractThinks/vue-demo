@@ -41,7 +41,7 @@
         中签结果公布提前至申购日的下两个交易日
       </p>
       <p class="tooltip">
-        中签结果公布提前至申购日的下两个交易日
+        一年内累计出现3次中签后未足额缴款，半年内不准打新
       </p>
     </div>
     <div class="blank30"></div>
@@ -182,7 +182,7 @@ import {
   mapState
 } from 'vuex';
 import * as types from '../../store/mutation-types';
-
+import { filePath } from '../../api/config';
 export default {
    name: 'newstockrule',
    

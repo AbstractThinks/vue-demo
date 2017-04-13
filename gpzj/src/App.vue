@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <router-view v-wechat-title="$route.meta.title"></router-view>
-    <mu-dialog :open="dialog" @close="close" dialogClass="loading">
+    <router-view v-wechat-title="$route.meta.title" img-set="http://wxtest.hx168.com.cn/hxwwz/rest/json/gaoshou/info/param/page/favicon.ico"></router-view>
+    <!-- <mu-dialog :open="dialog" @close="close" dialogClass="loading">
       <mu-circular-progress :size="60" :strokeWidth="5"/>
-    </mu-dialog>
+    </mu-dialog> -->
   </div>
   
 </template>
@@ -12,22 +12,6 @@
 
 export default {
   name: 'app',
-  data () {
-    return {
-      dialog: true
-    }
-  },
-  methods: {
-    open () {
-      this.dialog = true
-    },
-    close () {
-      this.dialog = false
-    }
-  },
-  mounted: function () {
-    setTimeout(()=>this.dialog = false, 500)
-  },
 
 }
 </script>
@@ -41,9 +25,12 @@ export default {
     padding: 0;
     overflow: hidden;
     .mu-dialog.loading {
-      background-color: rgba(0,0,0,0);
-      text-align: center;
       box-shadow:none;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 

@@ -1,12 +1,15 @@
 <template>
   <div id="newstockindex">
+      <mu-dialog :open="loading" dialogClass="loading">
+        <mu-circular-progress :size="60" :strokeWidth="5"/>
+      </mu-dialog>
       <mu-content-block class="banner">
         <mu-toast v-if="toast" :message="msg" />
         <img src="../../assets/img/newstock/stockindex_text_banner.png" style="" alt=""> <br />
         <div>提醒服务</div>
         <div>
-          <mu-flat-button  v-if="observer.firstData && observer.firstData.isordered == '1'" label="已订阅服务" class="observer"  @click="_cancelObserver"/>
-          <mu-flat-button  v-if="observer.firstData && observer.firstData.isordered == '0'" label="未订阅服务" class="observer"  @click="_observer"/>
+          <mu-flat-button  v-if="observer.firstData && observer.firstData.isordered == '1'" label="已订阅" class="observer"  @click="_unorderTipsOpen"/>
+          <mu-flat-button  v-if="observer.firstData && observer.firstData.isordered == '0'" label="未订阅" class="observer"  @click="_observer"/>
         </div>
         <div class="description">{{observer.firstData?observer.firstData.orderedcnt:0}}人已使用</div>
       </mu-content-block>
@@ -21,22 +24,31 @@
         <div class="blank10"></div>
         <mu-content-block class="list">
         <mu-list>
-            <router-link :to="{ name: 'newstocklist'}">
-              <mu-list-item title="新股发行计划" href="">
+            <!-- <router-link :to="{ name: 'newstocklist'"> -->
+              <mu-list-item title="新股发行计划" href="#/newstock/list">
                   <mu-icon slot="left" value=":iconfont icon-pandianjihua"/>
                   <mu-icon slot="right" value=":iconfont icon-jiantou"/>
               </mu-list-item>
-            </router-link>
+            <!-- </router-link> -->
             <mu-divider />
 
-            <router-link :to="{ name: 'newstockrule'}">
-                <mu-list-item title="跟我学新规">
+            <!-- <router-link :to="{ name: 'newstockrule'}" > -->
+                <mu-list-item title="跟我学新规" href="#/newstock/rule">
                     <mu-icon slot="left" value=":iconfont icon-kaidianguize"/>
                     <mu-icon slot="right" value=":iconfont icon-jiantou"/>
                 </mu-list-item>
-            </router-link>
+            <!-- </router-link> -->
         </mu-list>
         </mu-content-block>
+      <mu-dialog :open="orderTips" @close="_orderTipsClose" title="您已加入成功">
+        <p>您已经成功加入“新股申购提醒”服务，后期有相关提醒内容将会通过微信推送通知您，请注意查收。谢谢。</p>
+        <mu-flat-button slot="actions" primary label="知道了" @click="_orderTipsClose"/>
+      </mu-dialog>
+      <mu-dialog :open="unorderTips" @close="_unorderTipsClose" title="您确定退出？">
+        <p>退出“新股申购提醒”服务后，我们将停止对您进行相关服务的推送，确定要退出吗？</p>
+        <mu-flat-button slot="actions" primary label="确定" @click="_cancelObserver"/>
+        <mu-flat-button slot="actions" primary label="取消" @click="_unorderTipsClose"/>
+      </mu-dialog>
   </div>
 </template>
 
@@ -52,16 +64,25 @@ export default {
   name: 'newstockindex',
   data() {
     return {
+      loading:true,
       show: true,
       toast: false,
+      orderTips: false,
+      unorderTips: false,
       msg:""
     }
   },
   mounted () {
     if ((!this.$store.state.newstock.observer) || (!this.$store.state.newstock.observer.firstData)) {
-      this.getObserver().then(() => {
-        this.show = false;
-      });
+      this.getObserver()
+        .then(() => {
+          this.show = false;
+        })
+        .then(() => {
+          this.loading = false;
+        });
+    } else {
+      this.loading = false;
     }
 
     
@@ -70,7 +91,20 @@ export default {
     observer: state => state.newstock.observer,
   }),
   methods: {
+    _orderTipsClose: function () {
+      this.orderTips = false;
+    },
+    _orderTipsOpen: function () {
+      this.orderTips = true;
+    },
+    _unorderTipsClose: function () {
+      this.unorderTips = false;
+    },
+    _unorderTipsOpen: function () {
+      this.unorderTips = true;
+    },
     _cancelObserver() {
+      this._unorderTipsClose();
       this.cancelObserverOrder().then(() => {
         this.msg = "取消订阅成功";
         this.toast = true;
@@ -82,11 +116,7 @@ export default {
     },
     _observer() {
       this.observerOrder().then(() => {
-        this.msg = "订阅成功";
-        this.toast = true; 
-        if (this.toastTimer) clearTimeout(this.toastTimer);
-        this.toastTimer = setTimeout(() => { this.toast = false }, 2000);
-        this.show = true;
+        this._orderTipsOpen();
       });
       
     },

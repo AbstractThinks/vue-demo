@@ -15,6 +15,7 @@ Vue.use(Router);
 Vue.use(require('vue-wechat-title'));
 
 const router = new Router({
+
   routes: [
 
     { path: '/error', name: 'error', component: Error },
@@ -23,9 +24,9 @@ const router = new Router({
 	    path: '/newstock', 
 	    name: 'newstockindex', 
 	    meta: {
-	      title: '新股申购',
-        desc: "新股申购是股市中风险最低而收益稳定的投资方式。",
-        imgUrl: "../assets/img/layer-share-logo.png",
+	    title: '新股申购',
+        desc: "今日新股申购提醒：XX新股（300XXX），XX新股（300XXX）",
+        imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
 	    },
 	    component: NewStockIndex 
 	},
@@ -33,9 +34,9 @@ const router = new Router({
     	path: '/newstock/index', 
     	name: 'newstockindex', 
     	meta: {
-	      title: '新股申购',
-        desc: "新股申购是股市中风险最低而收益稳定的投资方式。",
-        imgUrl: "../assets/img/layer-share-logo.png",
+	    title: '新股申购',
+        desc: "今日新股申购提醒：XX新股（300XXX），XX新股（300XXX）",
+        imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
 	    },
     	component: NewStockIndex 
     },
@@ -43,9 +44,9 @@ const router = new Router({
     	path: '/newstock/list', 
     	name: 'newstocklist', 
     	meta: {
-	      title: '新股发行一览',
-        desc: "从《公司法》、《证券法》的规定来看，股份的发行可分为设立发行、改组发行及新股发行等若干种不同的发行。",
-        imgUrl: "../assets/img/layer-share-logo.png",
+	    title: '新股发行一览',
+        desc: "今日新股申购提醒：XX新股（300XXX），XX新股（300XXX）",
+        imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
 	    },
     	component: NewStockList 
     },
@@ -55,7 +56,7 @@ const router = new Router({
     	meta: {
 	      title: '学新规',
         desc: "2016新股新“玩法”有什么要点？",
-        imgUrl: "../assets/img/layer-share-logo.png",
+        imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
 	    },
     	component: NewStockRule 
     },
@@ -63,17 +64,21 @@ const router = new Router({
     	path: '/newstock/detail/:id', 
     	name: 'newstockdetail', 
     	meta: {
-	      title: '新股详情',
+	    title: '新股详情',
         desc: "新股申购技巧,2017超火的投资项目,三天让你学会抓牛股",
-        imgUrl: "../assets/img/layer-share-logo.png",
+        imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
 	    },
     	component: NewStockDetail 
     },
   ]
 });
 router.beforeEach(({meta, path}, from, next) => {　　
-    // console.log(meta)
-    shareConfig(meta);
+    // window.location.href = window.link = `http://wxtest.hx168.com.cn/hxwwz/rest/json/gaoshou/info/param/page/index#/newstock/list`;
+
+    if (path==="/newstock/list" || path === "/newstock/rule" || path.indexOf("/newstock/detail/") > -1) {
+        shareConfig(meta,path);
+    }
+    
 
 // 　　const {auth = true} = meta      // meta代表的是to中的meta对象，path代表的是to中的path对象
 
@@ -86,4 +91,17 @@ router.beforeEach(({meta, path}, from, next) => {　　
 
 　　next()   // 进行下一个钩子函数
 })
+// router.afterEach((route) => {
+//     // console.log(route)
+//     // setTimeout(() => {
+//     //     if (route.path==="/newstock/list" || route.path === "/newstock/rule" || route.path.indexOf("/newstock/detail/") > -1) {
+//     //         shareConfig(route.meta);
+//     //     }
+//     // }, 100);
+    
+//     // console.log(location.href);
+//     // shareConfig(route.meta);
+//     // console.log(route)
+//   // next()
+// })
 export default router

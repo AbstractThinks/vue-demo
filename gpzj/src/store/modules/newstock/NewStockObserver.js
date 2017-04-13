@@ -95,7 +95,7 @@ const mutations = {
 
   [types.NEWSTOCK_OBSERVER_ORDER_SUCCESS] (state, payload) {
     state.observer.firstData.isordered = "1";
-    state.observer.firstData.cnt = parseInt(state.observer.firstData.cnt) + 1;
+    state.observer.firstData.orderedcnt = parseInt(state.observer.firstData.orderedcnt) + 1;
     state.observer = {
       ...state.observer,
       loading: false,
@@ -121,7 +121,7 @@ const mutations = {
 
   [types.NEWSTOCK_OBSERVER_UNORDER_SUCCESS] (state, payload) {
     state.observer.firstData.isordered = "0";
-    state.observer.firstData.cnt = parseInt(state.observer.firstData.cnt) - 1;
+    state.observer.firstData.orderedcnt = parseInt(state.observer.firstData.orderedcnt) - 1;
     state.observer = {
       ...state.observer,
       loading: false,
