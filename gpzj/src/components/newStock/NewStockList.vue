@@ -12,7 +12,7 @@
 
             <mu-content-block>
               <!-- {{results[1].online_issue_date}} -->
-              <mu-list-item :title="results[1].online_issue_date|dateFormat('yyyy-MM-dd')|show_weekend" :afterText="results[1].online_issue_date|show_apply(results[1].online_issue_date, results[1].intime)">
+              <mu-list-item :title="results[1].online_issue_date|dateFormat('yyyy-MM-dd')|show_weekend" :afterText="_filterShowText(results[1].online_issue_date, results[1].intime)">
                   <mu-icon slot="left" value=":iconfont icon-pandianjihua"/>
               </mu-list-item>
             </mu-content-block>
@@ -21,9 +21,9 @@
                   <mu-icon slot="right" value=":iconfont icon-jiantou"/>
                   <mu-row gutter>
                   <mu-col width="750" tablet="25" desktop="25">{{item.short_name}}<br /><span class="description">{{item.stock_exchange|show_addr}} {{item.code}}</span></mu-col>
-                  <mu-col width="25" tablet="25" desktop="25">{{item.issue_price?parseFloat(item.issue_price).toFixed(2):"暂无"}}</mu-col>
+                  <mu-col width="25" tablet="25" desktop="25">{{item.issue_price?parseFloat(item.issue_price).toFixed(2):""}}</mu-col>
                   <mu-col width="25" tablet="25" desktop="25">顶格申购市值</mu-col>
-                  <mu-col width="25" tablet="25" desktop="25">{{item.subscribe_limit_total?parseFloat(item.subscribe_limit_total).toFixed(0)+"万":"暂无"}}</mu-col>
+                  <mu-col width="25" tablet="25" desktop="25">{{item.subscribe_limit_total&&parseFloat(item.subscribe_limit_total)!== 0?parseFloat(item.subscribe_limit_total).toFixed(0)+"万":""}}</mu-col>
                   </mu-row>
               </mu-list-item>
               <mu-divider />
@@ -70,20 +70,19 @@ export default {
     if ((!this.$store.state.newstock.stocklist) || (!this.$store.state.newstock.stocklist.firstData)) {
       this.getStockList()
         .then(() => {
-          if (this.stocklist.error) {
-            this.dialog = true;
-          }
+          // if (this.stocklist.error) {
+            this.dialog = false;
+          // }
+        },() => {
+          this.dialog = false;
         }).then(() => {
           this.loading = false;
         });
     } else {
       this.loading = false;
     }
+
   },
-  // ready () {
-  //   alert(1);
-  //   shareConfig(this.$route.meta);
-  // },
    computed: mapState({
     stocklist: state => state.newstock.stocklist,
   }),
@@ -110,7 +109,21 @@ export default {
             return true;
           } 
           return false;
-    }
+    },
+    _filterShowText(value, value2) {
+        let nowDate = new Date();
+            let myDate = new Date(value.replace(/-/g,'/'));
+            nowDate = `${nowDate.getFullYear()}-${nowDate.getMonth()+1}-${nowDate.getDate()}`;
+            myDate = `${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()}`;
+            if (myDate === nowDate && value2 === "1") {
+              return "申购中...";
+            } 
+            if (myDate === nowDate && value2 === "0") {
+              return "申购已结束";
+            } 
+            return "";
+
+      }
   },
   filters: {
       show_addr: function (value) {
@@ -123,20 +136,20 @@ export default {
               return "";
           }
       },
-     show_apply: function (value, value2) {
-          let nowDate = new Date();
-          let myDate = new Date(value.replace(/-/g,'/'));
-          nowDate = `${nowDate.getFullYear()}-${nowDate.getMonth()+1}-${nowDate.getDate()}`;
-          myDate = `${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()}`;
-          if (myDate === nowDate && value2 === "1") {
-            return "申购中...";
-          } 
-          if (myDate === nowDate && value2 === "0") {
-            return "申购已结束";
-          } 
-          return "";
+     // show_apply: function (value, value2) {
+     //      let nowDate = new Date();
+     //      let myDate = new Date(value.replace(/-/g,'/'));
+     //      nowDate = `${nowDate.getFullYear()}-${nowDate.getMonth()+1}-${nowDate.getDate()}`;
+     //      myDate = `${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()}`;
+     //      if (myDate === nowDate && value2 === "1") {
+     //        return "申购中...";
+     //      } 
+     //      if (myDate === nowDate && value2 === "0") {
+     //        return "申购已结束";
+     //      } 
+     //      return "";
 
-      },
+     //  },
       show_weekend: function (value) {
           let myDate = new Date(value)
           let day = myDate.getDay();
@@ -176,6 +189,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../../assets/css/variable.scss";
 #newstocklist {
   width: 100%;
   height: 100%;
@@ -186,11 +200,11 @@ export default {
     padding: 8px 0px;
   }
   .blank10 {
-    background: #e6e6e6;
+    background: $grey;
   }
   .description {
     font-size: 12px;
-    color: #8e8e8e;
+    color: $grey3;
   }
   .mu-list {
     padding: 0px;
@@ -201,22 +215,22 @@ export default {
       background: linear-gradient(to right, rgba(255,255,255,0.8) , rgba(255,255,255,0));
     }
     .mu-card-sub-title {
-      color: #f44336;
+      color: $primary;
     }
   }
   .mu-content-block.list-item {
-    background: #f5f5f5;
+    background: $grey4;
     padding: 0;
     &.button-container {
       padding: 0px 16px;
     }
     .mu-item {
-      color: #757575;
+      color: $grey5;
     }
   }
   .mu-item-after {
     font-size: 13px;
-    color: #f44336;
+    color: $primary;
   }
 }
 

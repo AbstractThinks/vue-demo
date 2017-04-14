@@ -167,10 +167,6 @@
     
   <mu-content-block>
     <div class="blank40"></div>
-   <!--  <mu-raised-button label="分享" fullWidth primary>
-      <i class="iconfont icon-fenxiang"></i>
-    </mu-raised-button> -->
-    <div class="blank40"></div>
   </mu-content-block>
   </div>
 </template>
@@ -182,7 +178,7 @@ import {
   mapState
 } from 'vuex';
 import * as types from '../../store/mutation-types';
-import { filePath } from '../../api/config';
+
 export default {
    name: 'newstockrule',
    
@@ -190,6 +186,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../../assets/css/variable.scss";
 #newstockrule {
   width: 100%;
   height: 100%;
@@ -212,7 +209,7 @@ export default {
     display: inline-block;
     padding-left: 8px;
     padding-right: 18px;
-    color: #f44336;
+    color: $primary;
   }
   .mu-step-content-inner {
     padding:4px;
@@ -228,7 +225,7 @@ export default {
   }
   .emphasize {
     font-size: 16px;
-    color: #f44336;
+    color: $primary;
     font-weight: bolder;
   }
   .before-container,
@@ -253,12 +250,12 @@ export default {
   }
   .now {
     .mu-chip {
-      background: #f44336;
+      background: $primary;
       color: #fff;
     }
   }
   .grey {
-    color: #cccccc;
+    color: $grey2;
   }
   .warning {
     color: #ffa726;

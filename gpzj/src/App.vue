@@ -17,7 +17,13 @@ export default {
 </script>
 
 <style lang="scss">
+  //变量
+  // $pathDomain: "http://wxtest.hx168.com.cn/";
+  $pathDomain: "../../";
+  $nocolor: #999999;
+  $grey1: #e6e6e6;
 
+  //global
   html,body,#app {
     width: 100%;
     height: 100%;
@@ -41,7 +47,7 @@ export default {
   }
 
   .none-text {
-    color: #999999;
+    color: $nocolor;
   }
   .text-center {
     text-align: center;
@@ -58,4 +64,5 @@ export default {
   .right {
     float: right;
   }
+
 </style>

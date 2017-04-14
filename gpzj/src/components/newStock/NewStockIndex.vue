@@ -24,21 +24,26 @@
         <div class="blank10"></div>
         <mu-content-block class="list">
         <mu-list>
-            <!-- <router-link :to="{ name: 'newstocklist'"> -->
-              <mu-list-item title="新股发行计划" href="#/newstock/list">
-                  <mu-icon slot="left" value=":iconfont icon-pandianjihua"/>
+            <router-link :to="{ name: 'newstocklist'}">
+            <!-- <a href="#/newstock/list"> -->
+              <mu-list-item title="新股发行计划" >
+                  <mu-icon slot="left" value=":iconfont icon-pandianjihua" href="http://192.168.2.24:8080/#/newstock/list"/>
                   <mu-icon slot="right" value=":iconfont icon-jiantou"/>
               </mu-list-item>
-            <!-- </router-link> -->
+              <!-- </a> -->
+            </router-link>
             <mu-divider />
 
             <!-- <router-link :to="{ name: 'newstockrule'}" > -->
-                <mu-list-item title="跟我学新规" href="#/newstock/rule">
+            <!-- <a href="#/newstock/rule"> -->
+                <mu-list-item title="跟我学新规" href="http://192.168.2.24:8080/#/newstock/rule">
                     <mu-icon slot="left" value=":iconfont icon-kaidianguize"/>
                     <mu-icon slot="right" value=":iconfont icon-jiantou"/>
                 </mu-list-item>
+            <!-- </a> -->
             <!-- </router-link> -->
         </mu-list>
+        <div class="blank40"></div>
         </mu-content-block>
       <mu-dialog :open="orderTips" @close="_orderTipsClose" title="您已加入成功">
         <p>您已经成功加入“新股申购提醒”服务，后期有相关提醒内容将会通过微信推送通知您，请注意查收。谢谢。</p>
@@ -76,6 +81,8 @@ export default {
     if ((!this.$store.state.newstock.observer) || (!this.$store.state.newstock.observer.firstData)) {
       this.getObserver()
         .then(() => {
+          this.show = false;
+        },() => {
           this.show = false;
         })
         .then(() => {
@@ -139,12 +146,18 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../../assets/css/variable.scss";
 #newstockindex {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
   .blank10 {
-    background: #e6e6e6;
+    background: $grey;
   }
   .mu-content-block.banner {
-    background-image: url(../../assets/img/newstock/stockindex_banner.jpg);
+    background: url(../../assets/img/newstock/stockindex_banner.jpg);
     background-size: 100% 100%;
     padding-top: 48px;
     padding-bottom: 24px;
@@ -154,7 +167,7 @@ export default {
       font-size: 12px;
     }
     .mu-list.primary {
-      background-color: #f44336;
+      background-color: $primary;
     }
     .mu-flat-button.observer {
       color: #fff;
@@ -166,7 +179,7 @@ export default {
     }
   }
   .mu-content-block.primary {
-    background-color: #f44336;
+    background-color: $primary;
     padding-top: 0;
     padding-bottom: 0;
     .mu-item {
@@ -194,7 +207,7 @@ export default {
       padding: 0px;
     }
     .mu-item-left {
-      color: #f44336;
+      color: $primary;
     }
     .mu-item-right {
       color: #cccccc;

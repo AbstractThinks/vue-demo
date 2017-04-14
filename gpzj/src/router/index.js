@@ -9,8 +9,8 @@ import NewStockDetail from '@/components/newStock/NewStockDetail';
 import NewStockIndex from '@/components/newStock/NewStockIndex';
 import NewStockList from '@/components/newStock/NewStockList';
 import NewStockRule from '@/components/newStock/NewStockRule';
-import { shareConfig } from '../api/wxshare.js'
-
+import { shareConfig } from '../api/wxshare';
+import { sharelocation } from '../api/config'
 Vue.use(Router);
 Vue.use(require('vue-wechat-title'));
 
@@ -73,35 +73,12 @@ const router = new Router({
   ]
 });
 router.beforeEach(({meta, path}, from, next) => {　　
-    // window.location.href = window.link = `http://wxtest.hx168.com.cn/hxwwz/rest/json/gaoshou/info/param/page/index#/newstock/list`;
+    if (path == "/newstock/list") {
 
-    if (path==="/newstock/list" || path === "/newstock/rule" || path.indexOf("/newstock/detail/") > -1) {
-        shareConfig(meta,path);
-    }
+        shareConfig(meta, path);
+    } 
+    next();
     
-
-// 　　const {auth = true} = meta      // meta代表的是to中的meta对象，path代表的是to中的path对象
-
-// 　　var isLogin = Boolean(store.state.user.id)    // true用户已登录， false用户未登录　
-// 　　
-// 　　if (auth  &&  !isLogin  &&  path !== '/login') {   // auth 代表需要通过用户身份验证，默认为true，代表需要被验证， false为不用检验
-// 　　　　return next({ path: '/login' })   //  跳转到login页面
-// 　　}
-
-
-　　next()   // 进行下一个钩子函数
 })
-// router.afterEach((route) => {
-//     // console.log(route)
-//     // setTimeout(() => {
-//     //     if (route.path==="/newstock/list" || route.path === "/newstock/rule" || route.path.indexOf("/newstock/detail/") > -1) {
-//     //         shareConfig(route.meta);
-//     //     }
-//     // }, 100);
-    
-//     // console.log(location.href);
-//     // shareConfig(route.meta);
-//     // console.log(route)
-//   // next()
-// })
+ 
 export default router
