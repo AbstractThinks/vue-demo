@@ -11,13 +11,9 @@
         <mu-list v-for="(results, index) in stocklist.results" :key="index">
 
             <mu-content-block class="bgwhite">
-              <mu-list-item :title="results[1].online_issue_date|dateFormat('yyyy-MM-dd')|show_weekend" :afterText="_filterShowText(results[1].online_issue_date, results[1].intime)">
+              <mu-list-item :title="results[1].online_issue_date|dateFormat('yyyy-MM-dd')|show_weekend" :afterText="_filterShowText(results[1].online_issue_date, results[1].intime)" @click="toggleShow()">
                   <mu-icon slot="left" value=":iconfont icon-pandianjihua"/>
-                  <mu-icon-button slot="right" v-if="_filterShowContent(results[1].online_issue_date)" @click="toggleShow()">
-                    <mu-icon  :value="iconValue" />
-                  </mu-icon-button>
-                  <!-- <mu-icon-button  value=":iconfont icon-pandianjihua" /> -->
-                  <!-- <mu-icon-button slot="right" value=":iconfont icon-pandianjihua" /> -->
+                  <mu-icon slot="right" :value="iconValue" v-if="_filterShowContent(results[1].online_issue_date)"/>
               </mu-list-item>
             </mu-content-block>
             <transition name="slide">
