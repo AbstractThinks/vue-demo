@@ -16,7 +16,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       commit(types.NEWSTOCK_LIST_REQUEST);
       api.get(
-        `hxwwz/rest/json/IPO/getIPOList`,
+        `hxwwz/rest/json/IPO/getIPOList2`,
         (payload) => commit(types.NEWSTOCK_LIST_SUCCESS, payload),
         (payload) => commit(types.NEWSTOCK_LIST_FAILURE, payload),
         resolve,

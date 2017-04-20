@@ -49,7 +49,7 @@
               </mu-col>
               <mu-col width="100" tablet="100" desktop="100">
                 <span class="description">顶格申购需市值</span>
-                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.subscribe_limit_total&&parseInt(stockdetail.firstData.subscribe_limit_total)!==0?parseInt(stockdetail.firstData.subscribe_limit_total).toFixed(0)+"万":""}} </span>
+                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.subscribe_limit_total&&parseInt(stockdetail.firstData.subscribe_limit_total)!==0?parseInt(stockdetail.firstData.subscribe_limit_total).toFixed(0)+"万":""|show_price(stockdetail.firstData.stock_exchange)}} </span>
               </mu-col>
             </mu-row>
             <div class="blank20"></div>
@@ -58,7 +58,7 @@
           <mu-content-block>
             <div class="blank20"></div>
             公司基本面
-            <p>
+            <p class="desc">
               {{stockdetail.firstData?stockdetail.firstData.fundament:""}}
             </p>
             
@@ -145,6 +145,21 @@ export default {
               return "";
           }
       },
+      show_price: function(value, value2) {
+        if (value !== "") {
+          switch(value2){
+            case "sz":
+              return `深圳市值${value}`;
+            case "sh":
+              return `上海市值${value}`;
+            default:
+              return "";
+          }
+        } else {
+          return "";
+        }
+        
+      }
   }
 }
 </script>
@@ -167,12 +182,16 @@ export default {
     font-size: 24px;
     display: inline-block;
     padding-right: 8px;
+    color: $grey8;
   }
   .description {
     display: inline-block;
     padding-right: 4px;
     font-size: 13px;
     color: $grey6;
+  }
+  .desc {
+    color: $grey9;
   }
   .mu-content-block {
     padding-top: 0px;

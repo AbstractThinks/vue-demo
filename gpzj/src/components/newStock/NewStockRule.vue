@@ -1,9 +1,9 @@
 <template>
   <div id="newstockrule">
   <div class="banner">
-    <div class="blank50"></div>
+    <div class="blank40"></div>
     <img src="../../assets/img/newstock/stockrule_text.png">
-    <div class="blank50"></div>
+    <div class="blank40"></div>
   </div>
   
   <mu-content-block class="bg-grey">
@@ -165,9 +165,7 @@
 
 
     
-  <mu-content-block>
-    <div class="blank40"></div>
-  </mu-content-block>
+  <appFooter></appFooter>
   </div>
 </template>
 
@@ -178,10 +176,12 @@ import {
   mapState
 } from 'vuex';
 import * as types from '../../store/mutation-types';
-
+import Footer from '@/components/public/Footer';
 export default {
    name: 'newstockrule',
-   
+   components: {
+      appFooter: Footer
+  },
 }
 </script>
 
@@ -201,7 +201,7 @@ export default {
     background: url(../../assets/img/newstock/stockrule_banner.jpg);
     background-size: 100% 100%;
     img {
-      width: 220px;
+      width: 80%;
     }
   }
   .number {
@@ -255,7 +255,7 @@ export default {
     }
   }
   .grey {
-    color: $grey2;
+    color: $grey7;
   }
   .warning {
     color: #ffa726;

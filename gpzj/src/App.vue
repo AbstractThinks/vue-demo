@@ -1,27 +1,21 @@
 <template>
   <div id="app">
     <router-view v-wechat-title="$route.meta.title" img-set="http://wxtest.hx168.com.cn/hxwwz/rest/json/gaoshou/info/param/page/favicon.ico"></router-view>
-    <!-- <mu-dialog :open="dialog" @close="close" dialogClass="loading">
-      <mu-circular-progress :size="60" :strokeWidth="5"/>
-    </mu-dialog> -->
   </div>
   
 </template>
 
 <script>
-
+import Footer from './components/public/Footer';
 export default {
-  name: 'app',
 
+  name: 'app',
 }
 </script>
 
 <style lang="scss">
-  //变量
-  // $pathDomain: "http://wxtest.hx168.com.cn/";
-  $pathDomain: "../../";
-  $nocolor: #999999;
-  $grey1: #e6e6e6;
+  @import "./assets/css/variable.scss";
+
 
   //global
   html,body,#app {
@@ -45,9 +39,11 @@ export default {
       height: #{$i*10}px;
     }
   }
-
+  .hidden {
+    display:none!important;
+  }
   .none-text {
-    color: $nocolor;
+    color: $grey7;
   }
   .text-center {
     text-align: center;
@@ -64,5 +60,15 @@ export default {
   .right {
     float: right;
   }
-
+  body .popup-top{
+    width: 80%;
+    opacity: .8;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 375px;
+    background-color: $black;
+    color: $white;
+  }
 </style>

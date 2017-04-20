@@ -3,8 +3,10 @@
       <mu-dialog :open="loading" dialogClass="loading">
         <mu-circular-progress :size="60" :strokeWidth="5"/>
       </mu-dialog>
+      <mu-popup position="top" :overlay="false" :open="topPopup" popupClass="popup-top">
+        取消订阅成功
+      </mu-popup>
       <mu-content-block class="banner">
-        <mu-toast v-if="toast" :message="msg" />
         <img src="../../assets/img/newstock/stockindex_text_banner.png" style="" alt=""> <br />
         <div>提醒服务</div>
         <div>
@@ -25,23 +27,17 @@
         <mu-content-block class="list">
         <mu-list>
             <router-link :to="{ name: 'newstocklist'}">
-            <!-- <a href="#/newstock/list"> -->
               <mu-list-item title="新股发行计划" >
                   <mu-icon slot="left" value=":iconfont icon-pandianjihua" href="http://192.168.2.24:8080/#/newstock/list"/>
                   <mu-icon slot="right" value=":iconfont icon-jiantou"/>
               </mu-list-item>
-              <!-- </a> -->
             </router-link>
             <mu-divider />
 
-            <!-- <router-link :to="{ name: 'newstockrule'}" > -->
-            <!-- <a href="#/newstock/rule"> -->
-                <mu-list-item title="跟我学新规" href="http://192.168.2.24:8080/#/newstock/rule">
-                    <mu-icon slot="left" value=":iconfont icon-kaidianguize"/>
-                    <mu-icon slot="right" value=":iconfont icon-jiantou"/>
-                </mu-list-item>
-            <!-- </a> -->
-            <!-- </router-link> -->
+            <mu-list-item title="跟我学新规" href="http://192.168.2.24:8080/#/newstock/rule">
+                <mu-icon slot="left" value=":iconfont icon-kaidianguize"/>
+                <mu-icon slot="right" value=":iconfont icon-jiantou"/>
+            </mu-list-item>
         </mu-list>
         <div class="blank40"></div>
         </mu-content-block>
@@ -64,14 +60,14 @@ import {
   mapState
 } from 'vuex';
 import * as types from '../../store/mutation-types';
-
+import Footer from '@/components/public/Footer';
 export default {
   name: 'newstockindex',
   data() {
     return {
       loading:true,
       show: true,
-      toast: false,
+      topPopup: false,
       orderTips: false,
       unorderTips: false,
       msg:""
@@ -94,10 +90,22 @@ export default {
 
     
   },
+  watch: {
+    topPopup (val) {
+      if (val) {
+        setTimeout(() => {
+          this.topPopup = false
+        }, 1000)
+      }
+    }
+  },
   computed: mapState({
     observer: state => state.newstock.observer,
   }),
   methods: {
+    open (position) {
+      this[position + 'Popup'] = true
+    },
     _orderTipsClose: function () {
       this.orderTips = false;
     },
@@ -113,11 +121,7 @@ export default {
     _cancelObserver() {
       this._unorderTipsClose();
       this.cancelObserverOrder().then(() => {
-        this.msg = "取消订阅成功";
-        this.toast = true;
-        if (this.toastTimer) clearTimeout(this.toastTimer);
-        this.toastTimer = setTimeout(() => { this.toast = false }, 2000);
-        this.show = false;
+        this.open('top');
       });
       
     },
@@ -156,6 +160,7 @@ export default {
   .blank10 {
     background: $grey;
   }
+  
   .mu-content-block.banner {
     background: url(../../assets/img/newstock/stockindex_banner.jpg);
     background-size: 100% 100%;

@@ -44,7 +44,7 @@ const router = new Router({
     	path: '/newstock/list', 
     	name: 'newstocklist', 
     	meta: {
-	    title: '新股发行一览',
+	    title: '新股申购提醒',
         desc: "今日新股申购提醒：XX新股（300XXX），XX新股（300XXX）",
         imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
 	    },
@@ -76,7 +76,9 @@ router.beforeEach(({meta, path}, from, next) => {　　
     if (path == "/newstock/list") {
 
         shareConfig(meta, path);
-    } 
+    } else {
+        
+    }
     next();
     
 })

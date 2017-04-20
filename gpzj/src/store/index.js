@@ -11,5 +11,7 @@ export default new Vuex.Store({
   modules: {
     newstock
   },
-  plugins: [createLogger()]
+  plugins: process.env.NODE_ENV !== 'production'
+    ? [createLogger()]
+    : []
 })

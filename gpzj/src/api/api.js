@@ -3,7 +3,8 @@ import Vue from 'vue';
 import axios from 'axios';
 import { filePath } from './config';
 
-// const domain = "http://wxtest.hx168.com.cn/";
+// const domain = "http://192.168.2.80:9080/";
+// const domain = "/";
 const domain = filePath;
 
 

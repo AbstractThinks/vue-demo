@@ -28,7 +28,13 @@ module.exports = {
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+        '/hxwwz/rest/json': 'http://wxtest.hx168.com.cn',
+        '/weichat/weichat/share': 'http://wxtest.hx168.com.cn'
+
+        // '/hxwwz/rest/json': 'http://wx.hx168.com.cn',
+        // '/weichat/weichat/share': 'http://wx.hx168.com.cn'
+    },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)

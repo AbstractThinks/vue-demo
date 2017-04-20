@@ -10,25 +10,42 @@
         </mu-card>
         <mu-list v-for="(results, index) in stocklist.results" :key="index">
 
-            <mu-content-block>
-              <!-- {{results[1].online_issue_date}} -->
+            <mu-content-block class="bgwhite">
               <mu-list-item :title="results[1].online_issue_date|dateFormat('yyyy-MM-dd')|show_weekend" :afterText="_filterShowText(results[1].online_issue_date, results[1].intime)">
                   <mu-icon slot="left" value=":iconfont icon-pandianjihua"/>
+                  <mu-icon-button slot="right" v-if="_filterShowContent(results[1].online_issue_date)" @click="toggleShow()">
+                    <mu-icon  :value="iconValue" />
+                  </mu-icon-button>
+                  <!-- <mu-icon-button  value=":iconfont icon-pandianjihua" /> -->
+                  <!-- <mu-icon-button slot="right" value=":iconfont icon-pandianjihua" /> -->
               </mu-list-item>
             </mu-content-block>
-            <mu-content-block class="list-item">
-              <mu-list-item :href="item.id|urlReq" v-for="item in results" :key="item.id">
+            <transition name="slide">
+            <mu-content-block class="list-item" v-if="_filterShowContent(results[1].online_issue_date)  && showList">
+              <mu-list-item  :href="item.id|urlReq" v-for="item in results" :key="item.id">
                   <mu-icon slot="right" value=":iconfont icon-jiantou"/>
                   <mu-row gutter>
-                  <mu-col width="750" tablet="25" desktop="25">{{item.short_name}}<br /><span class="description">{{item.stock_exchange|show_addr}} {{item.code}}</span></mu-col>
-                  <mu-col width="25" tablet="25" desktop="25">{{item.issue_price?parseFloat(item.issue_price).toFixed(2):""}}</mu-col>
-                  <mu-col width="25" tablet="25" desktop="25">顶格申购市值</mu-col>
-                  <mu-col width="25" tablet="25" desktop="25">{{item.subscribe_limit_total&&parseFloat(item.subscribe_limit_total)!== 0?parseFloat(item.subscribe_limit_total).toFixed(0)+"万":""}}</mu-col>
+                  <mu-col width="34" tablet="25" desktop="25">{{item.short_name}}<br /><span class="description">{{item.stock_exchange|show_addr}} {{item.code}}</span></mu-col>
+                  <mu-col width="21" tablet="25" desktop="25">{{item.issue_price?parseFloat(item.issue_price).toFixed(2):""}}</mu-col>
+                  <mu-col width="25" tablet="25" desktop="25"><span class="description">顶格<br />申购市值</span></mu-col>
+                  <mu-col width="20" tablet="25" desktop="25">{{item.subscribe_limit_total&&parseFloat(item.subscribe_limit_total)!== 0?parseFloat(item.subscribe_limit_total).toFixed(0)+"万":""}}</mu-col>
                   </mu-row>
               </mu-list-item>
               <mu-divider />
             </mu-content-block>
-
+            </transition>
+            <mu-content-block class="list-item" v-if="!_filterShowContent(results[1].online_issue_date) ">
+              <mu-list-item  :href="item.id|urlReq" v-for="item in results" :key="item.id">
+                  <mu-icon slot="right" value=":iconfont icon-jiantou"/>
+                  <mu-row gutter>
+                  <mu-col width="34" tablet="25" desktop="25">{{item.short_name}}<br /><span class="description">{{item.stock_exchange|show_addr}} {{item.code}}</span></mu-col>
+                  <mu-col width="21" tablet="25" desktop="25">{{item.issue_price?parseFloat(item.issue_price).toFixed(2):""}}</mu-col>
+                  <mu-col width="25" tablet="25" desktop="25"><span class="description">顶格<br />申购市值</span></mu-col>
+                  <mu-col width="20" tablet="25" desktop="25">{{item.subscribe_limit_total&&parseFloat(item.subscribe_limit_total)!== 0?parseFloat(item.subscribe_limit_total).toFixed(0)+"万":""}}</mu-col>
+                  </mu-row>
+              </mu-list-item>
+              <mu-divider />
+            </mu-content-block>
             <mu-content-block class="list-item button-container" v-if="_filterShow(results[1].online_issue_date, results[1].intime)">
                 <div class="blank20"></div>
                 <mu-raised-button label="立即申购" fullWidth primary href="https://trade.hx168.com.cn/v2/m/trade/index.html#!/newshare/apply.html"/>
@@ -40,7 +57,8 @@
           <div class="blank90"></div>
           暂无数据
         </div>
-        <div class="blank40"></div> 
+        <!-- <div class="blank40"></div>  -->
+        <appFooter></appFooter>
         <mu-dialog :open="dialog" title="系统提示" @close="close">
           新股列表加载失败，请稍后重试...
           <mu-flat-button slot="actions" @click="close" primary label="确定"/>
@@ -56,23 +74,23 @@ import {
 } from 'vuex';
 import * as types from '../../store/mutation-types';
 import { shareConfig } from '../../api/wxshare';
+import Footer from '@/components/public/Footer';
 export default {
    name: 'newstocklist',
    data() {
     return {
+      showList: false,
+      iconValue: ":iconfont icon-unfold",
       loading: true,
       dialog: false
     }
    },
    mounted () {
-    // console.log(this.$route)
     
     if ((!this.$store.state.newstock.stocklist) || (!this.$store.state.newstock.stocklist.firstData)) {
       this.getStockList()
         .then(() => {
-          // if (this.stocklist.error) {
             this.dialog = false;
-          // }
         },() => {
           this.dialog = false;
         }).then(() => {
@@ -82,6 +100,9 @@ export default {
       this.loading = false;
     }
 
+  },
+  components: {
+      appFooter: Footer
   },
    computed: mapState({
     stocklist: state => state.newstock.stocklist,
@@ -93,12 +114,31 @@ export default {
     close () {
       this.dialog = false
     },
+    toggleShow() {
+      if (this.showList) {
+        this.showList = false;
+        this.iconValue = ":iconfont icon-unfold";
+      } else {
+        this.showList = true;
+        this.iconValue = ":iconfont icon-fold"
+      }
 
+    },
     _showNone(value) {
       if (value) {
         return true;
       }
       return false;
+    },
+    _filterShowContent (value) {
+      let nowDate = new Date();
+          let myDate = new Date(value.replace(/-/g,'/'));
+          nowDate = `${nowDate.getFullYear()}-${nowDate.getMonth()+1}-${nowDate.getDate()}`;
+          myDate = `${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()}`;
+          if (myDate === nowDate) {
+            return false;
+          } 
+          return true;
     },
     _filterShow (value, value2) {
       let nowDate = new Date();
@@ -136,20 +176,7 @@ export default {
               return "";
           }
       },
-     // show_apply: function (value, value2) {
-     //      let nowDate = new Date();
-     //      let myDate = new Date(value.replace(/-/g,'/'));
-     //      nowDate = `${nowDate.getFullYear()}-${nowDate.getMonth()+1}-${nowDate.getDate()}`;
-     //      myDate = `${myDate.getFullYear()}-${myDate.getMonth()+1}-${myDate.getDate()}`;
-     //      if (myDate === nowDate && value2 === "1") {
-     //        return "申购中...";
-     //      } 
-     //      if (myDate === nowDate && value2 === "0") {
-     //        return "申购已结束";
-     //      } 
-     //      return "";
-
-     //  },
+    
       show_weekend: function (value) {
           let myDate = new Date(value)
           let day = myDate.getDay();
@@ -196,6 +223,33 @@ export default {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   position: relative;
+
+  .slide-enter-active {
+    animation: slide-in-down .5s;
+  }
+  .slide-leave-active {
+    animation: slide-out-up .5s;
+  }
+  @keyframes slide-in-down {
+    0% {
+      transform: scale(0);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes slide-out-up {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  .bgwhite {
+    background: #ffffff;
+  }
   .mu-content-block {
     padding: 8px 0px;
   }
@@ -204,11 +258,11 @@ export default {
   }
   .description {
     font-size: 12px;
-    color: $grey3;
+    color: $grey7;
   }
   .mu-list {
     padding: 0px;
-
+    background: $grey;
   }
   .mu-card.banner {
     .mu-card-media-title {
@@ -225,7 +279,7 @@ export default {
       padding: 0px 16px;
     }
     .mu-item {
-      color: $grey5;
+      color: $grey9;
     }
   }
   .mu-item-after {
