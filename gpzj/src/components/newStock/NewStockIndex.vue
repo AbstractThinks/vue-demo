@@ -28,16 +28,17 @@
         <mu-list>
             <router-link :to="{ name: 'newstocklist'}">
               <mu-list-item title="新股发行计划" >
-                  <mu-icon slot="left" value=":iconfont icon-pandianjihua" href="http://192.168.2.24:8080/#/newstock/list"/>
+                  <mu-icon slot="left" value=":iconfont icon-pandianjihua" />
                   <mu-icon slot="right" value=":iconfont icon-jiantou"/>
               </mu-list-item>
             </router-link>
             <mu-divider />
-
-            <mu-list-item title="跟我学新规" href="http://192.168.2.24:8080/#/newstock/rule">
+            <router-link :to="{ name: 'newstockrule'}">
+            <mu-list-item title="跟我学新规">
                 <mu-icon slot="left" value=":iconfont icon-kaidianguize"/>
                 <mu-icon slot="right" value=":iconfont icon-jiantou"/>
             </mu-list-item>
+            </router-link>
         </mu-list>
         <div class="blank40"></div>
         </mu-content-block>

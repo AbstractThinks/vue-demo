@@ -11,9 +11,12 @@
         <mu-list v-for="(results, index) in stocklist.results" :key="index">
 
             <mu-content-block class="bgwhite">
-              <mu-list-item :title="results[1].online_issue_date|dateFormat('yyyy-MM-dd')|show_weekend" :afterText="_filterShowText(results[1].online_issue_date, results[1].intime)" @click="toggleShow()">
+              <mu-list-item :title="results[1].online_issue_date|dateFormat('yyyy-MM-dd')|show_weekend"  v-if="_filterShowContent(results[1].online_issue_date)" @click="toggleShow()">
                   <mu-icon slot="left" value=":iconfont icon-pandianjihua"/>
-                  <mu-icon slot="right" :value="iconValue" v-if="_filterShowContent(results[1].online_issue_date)"/>
+                  <mu-icon slot="right" :value="iconValue"  />
+              </mu-list-item>
+              <mu-list-item :title="results[1].online_issue_date|dateFormat('yyyy-MM-dd')|show_weekend" :afterText="_filterShowText(results[1].online_issue_date, results[1].intime)" v-if="!_filterShowContent(results[1].online_issue_date)">
+                  <mu-icon slot="left" value=":iconfont icon-pandianjihua"/>
               </mu-list-item>
             </mu-content-block>
             <transition name="slide">
@@ -22,9 +25,9 @@
                   <mu-icon slot="right" value=":iconfont icon-jiantou"/>
                   <mu-row gutter>
                   <mu-col width="34" tablet="25" desktop="25">{{item.short_name}}<br /><span class="description">{{item.stock_exchange|show_addr}} {{item.code}}</span></mu-col>
-                  <mu-col width="21" tablet="25" desktop="25">{{item.issue_price?parseFloat(item.issue_price).toFixed(2):""}}</mu-col>
+                  <mu-col width="21" tablet="25" desktop="25">{{item.issue_price?parseFloat(item.issue_price):""}}</mu-col>
                   <mu-col width="25" tablet="25" desktop="25"><span class="description">顶格<br />申购市值</span></mu-col>
-                  <mu-col width="20" tablet="25" desktop="25">{{item.subscribe_limit_total&&parseFloat(item.subscribe_limit_total)!== 0?parseFloat(item.subscribe_limit_total).toFixed(0)+"万":""}}</mu-col>
+                  <mu-col width="20" tablet="25" desktop="25">{{item.subscribe_limit_total&&parseFloat(item.subscribe_limit_total)!== 0?parseFloat(item.subscribe_limit_total)+"万":""}}</mu-col>
                   </mu-row>
               </mu-list-item>
               <mu-divider />
@@ -35,9 +38,9 @@
                   <mu-icon slot="right" value=":iconfont icon-jiantou"/>
                   <mu-row gutter>
                   <mu-col width="34" tablet="25" desktop="25">{{item.short_name}}<br /><span class="description">{{item.stock_exchange|show_addr}} {{item.code}}</span></mu-col>
-                  <mu-col width="21" tablet="25" desktop="25">{{item.issue_price?parseFloat(item.issue_price).toFixed(2):""}}</mu-col>
+                  <mu-col width="21" tablet="25" desktop="25">{{item.issue_price?parseFloat(item.issue_price):""}}</mu-col>
                   <mu-col width="25" tablet="25" desktop="25"><span class="description">顶格<br />申购市值</span></mu-col>
-                  <mu-col width="20" tablet="25" desktop="25">{{item.subscribe_limit_total&&parseFloat(item.subscribe_limit_total)!== 0?parseFloat(item.subscribe_limit_total).toFixed(0)+"万":""}}</mu-col>
+                  <mu-col width="20" tablet="25" desktop="25">{{item.subscribe_limit_total&&parseFloat(item.subscribe_limit_total)!== 0?parseFloat(item.subscribe_limit_total)+"万":""}}</mu-col>
                   </mu-row>
               </mu-list-item>
               <mu-divider />
