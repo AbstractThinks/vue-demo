@@ -25,9 +25,9 @@
                   <mu-icon slot="right" value=":iconfont icon-jiantou"/>
                   <mu-row gutter>
                   <mu-col width="34" tablet="25" desktop="25">{{item.short_name}}<br /><span class="description">{{item.stock_exchange|show_addr}} {{item.code}}</span></mu-col>
-                  <mu-col width="21" tablet="25" desktop="25">{{item.issue_price?parseFloat(item.issue_price):""}}</mu-col>
+                  <mu-col width="21" tablet="25" desktop="25">{{item.issue_price?parseFloat(item.issue_price):"暂无"}}</mu-col>
                   <mu-col width="25" tablet="25" desktop="25"><span class="description">顶格<br />申购市值</span></mu-col>
-                  <mu-col width="20" tablet="25" desktop="25">{{item.subscribe_limit_total&&parseFloat(item.subscribe_limit_total)!== 0?parseFloat(item.subscribe_limit_total)+"万":""}}</mu-col>
+                  <mu-col width="20" tablet="25" desktop="25">{{item.subscribe_limit_total&&parseFloat(item.subscribe_limit_total)!== 0?parseFloat(item.subscribe_limit_total)+"万":"暂无"}}</mu-col>
                   </mu-row>
               </mu-list-item>
               <mu-divider />
@@ -38,9 +38,9 @@
                   <mu-icon slot="right" value=":iconfont icon-jiantou"/>
                   <mu-row gutter>
                   <mu-col width="34" tablet="25" desktop="25">{{item.short_name}}<br /><span class="description">{{item.stock_exchange|show_addr}} {{item.code}}</span></mu-col>
-                  <mu-col width="21" tablet="25" desktop="25">{{item.issue_price?parseFloat(item.issue_price):""}}</mu-col>
+                  <mu-col width="21" tablet="25" desktop="25">{{item.issue_price?parseFloat(item.issue_price):"暂无"}}</mu-col>
                   <mu-col width="25" tablet="25" desktop="25"><span class="description">顶格<br />申购市值</span></mu-col>
-                  <mu-col width="20" tablet="25" desktop="25">{{item.subscribe_limit_total&&parseFloat(item.subscribe_limit_total)!== 0?parseFloat(item.subscribe_limit_total)+"万":""}}</mu-col>
+                  <mu-col width="20" tablet="25" desktop="25">{{item.subscribe_limit_total&&parseFloat(item.subscribe_limit_total)!== 0?parseFloat(item.subscribe_limit_total)+"万":"暂无"}}</mu-col>
                   </mu-row>
               </mu-list-item>
               <mu-divider />
@@ -53,9 +53,11 @@
             <div class="blank10"></div>
         </mu-list>
         <div class="text-center none-text" v-if="stocklist.firstData == null">
-          <div class="blank90"></div>
+          <div class="blank60"></div>
           暂无数据
+          <div class="blank60"></div>
         </div>
+        <appAdvertisement></appAdvertisement>
         <!-- <div class="blank40"></div>  -->
         <appFooter></appFooter>
         <mu-dialog :open="dialog" title="系统提示" @close="close">
@@ -73,6 +75,7 @@ import {
 } from 'vuex';
 import * as types from '../../store/mutation-types';
 import { shareConfig } from '../../api/wxshare';
+import Advertisement from '@/components/public/Advertisement';
 import Footer from '@/components/public/Footer';
 export default {
    name: 'newstocklist',
@@ -101,7 +104,8 @@ export default {
 
   },
   components: {
-      appFooter: Footer
+      appFooter: Footer,
+      appAdvertisement: Advertisement
   },
    computed: mapState({
     stocklist: state => state.newstock.stocklist,

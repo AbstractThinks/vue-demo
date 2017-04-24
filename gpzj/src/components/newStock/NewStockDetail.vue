@@ -7,7 +7,7 @@
         <div v-if="_showNone(stockdetail.firstData)">
           <mu-content-block class="title">
               <mu-row gutter>
-                <mu-col width="60" tablet="60" desktop="60"><span class="main">{{stockdetail.firstData?stockdetail.firstData.short_name:""}}</span><span class="description">{{stockdetail.firstData?stockdetail.firstData.code:""}}</span></mu-col>
+                <mu-col width="60" tablet="60" desktop="60"><span class="main">{{stockdetail.firstData?stockdetail.firstData.short_name:"暂无"}}</span><span class="description">{{stockdetail.firstData?stockdetail.firstData.code:"暂无"}}</span></mu-col>
                 <mu-col width="40" tablet="40" desktop="40" class="text-right">
                   <mu-raised-button label="立即申购" primary href="https://trade.hx168.com.cn/v2/m/trade/index.html#!/newshare/apply.html" v-if="_filterShow(stockdetail.firstData.online_issue_date, stockdetail.firstData.intime)"/>
                 </mu-col>
@@ -18,7 +18,7 @@
           <mu-content-block class="article">
             <div class="blank20"></div>
               <mu-row gutter>
-                  <mu-col width="50" tablet="50" desktop="50" ><span class="description">新股名称</span>{{stockdetail.firstData?stockdetail.firstData.short_name:""}}</mu-col>
+                  <mu-col width="50" tablet="50" desktop="50" ><span class="description">新股名称</span>{{stockdetail.firstData?stockdetail.firstData.short_name:"暂无"}}</mu-col>
                   <mu-col width="50" tablet="50" desktop="50" ><span class="description">申购日期</span>{{stockdetail.firstData?stockdetail.firstData.online_issue_date:""|dateFormat('yyyy-MM-dd')}}</mu-col>
                   <mu-col width="50" tablet="50" desktop="50" ><span class="description">申购代码</span>{{stockdetail.firstData?stockdetail.firstData.code:""}}</mu-col>
                   <mu-col width="50" tablet="50" desktop="50" ><span class="description">上市地点</span>{{stockdetail.firstData?stockdetail.firstData.stock_exchange:""|show_addr }}</mu-col>
@@ -33,19 +33,19 @@
             <mu-row gutter>
               <mu-col width="100" tablet="100" desktop="100">
                 <span class="description">市盈率（倍）</span>
-                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.issue_price_earning_ratio&&parseFloat(stockdetail.firstData.issue_price_earning_ratio)!==0?parseFloat(stockdetail.firstData.issue_price_earning_ratio):""}}</span>
+                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.issue_price_earning_ratio&&parseFloat(stockdetail.firstData.issue_price_earning_ratio)!==0?parseFloat(stockdetail.firstData.issue_price_earning_ratio):"暂无"}}</span>
               </mu-col>
               <mu-col width="100" tablet="100" desktop="100">
                 <span class="description">总发行数量</span>
-                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.issue_circulation&&parseInt(stockdetail.firstData.issue_circulation)!== 0?parseFloat(stockdetail.firstData.issue_circulation)+"万股":""}} </span>
+                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.issue_circulation&&parseInt(stockdetail.firstData.issue_circulation)!== 0?parseFloat(stockdetail.firstData.issue_circulation)+"万股":"暂无"}} </span>
               </mu-col>
               <mu-col width="100" tablet="100" desktop="100">
                 <span class="description">网上发行数量</span>
-                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.online_issue_circulation&&parseInt(stockdetail.firstData.online_issue_circulation)!==0?parseFloat(stockdetail.firstData.online_issue_circulation)+"万股":""}} </span>
+                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.online_issue_circulation&&parseInt(stockdetail.firstData.online_issue_circulation)!==0?parseFloat(stockdetail.firstData.online_issue_circulation)+"万股":"暂无"}} </span>
               </mu-col>
               <mu-col width="100" tablet="100" desktop="100">
                 <span class="description">网上申购上限</span>
-                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.subscribe_limit&&parseFloat(stockdetail.firstData.subscribe_limit)!==0?parseFloat(stockdetail.firstData.subscribe_limit)+"万股":""}} </span>
+                <span class="float-right">{{stockdetail.firstData&&stockdetail.firstData.subscribe_limit&&parseFloat(stockdetail.firstData.subscribe_limit)!==0?parseFloat(stockdetail.firstData.subscribe_limit)+"万股":"暂无"}} </span>
               </mu-col>
               <mu-col width="100" tablet="100" desktop="100">
                 <span class="description">顶格申购需市值</span>
@@ -156,7 +156,7 @@ export default {
               return "";
           }
         } else {
-          return "";
+          return "暂无";
         }
         
       }

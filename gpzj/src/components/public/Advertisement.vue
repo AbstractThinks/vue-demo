@@ -4,71 +4,48 @@
     
     <mu-content-block>
     <mu-tabs :value="activeTab" @change="handleTabChange">
-	  <mu-tab value="tab1" :icon="titles[0].icon" :title="titles[0].name"/>
-	  <mu-tab value="tab2" :icon="titles[1].icon" :title="titles[1].name"/>
-	  <mu-tab value="tab3" :icon="titles[2].icon" :title="titles[2].name"/>
+	  <mu-tab :value="item.tabValue" :icon="item.icon" :title="item.name" v-for="(item, index) in advertises.columnHeader" :key="index"/>
 	</mu-tabs>
-	<div v-if="activeTab === 'tab1'">
+	<div v-if="activeTab === list.tabValue" v-for="(list, index) in advertises.columnContent">
 		<mu-list>
-			<mu-list-item title="Photos" describeText="Jan 9, 2014">
-				<mu-avatar icon="folder" slot="leftAvatar"/>
-				<mu-icon value="info" slot="right"/>
-			</mu-list-item>
-			<mu-list-item title="Recipes" describeText="Jan 17, 2014">
-				<mu-avatar icon="folder" slot="leftAvatar"/>
-				<mu-icon value="info" slot="right"/>
-			</mu-list-item>
-			<mu-list-item title="Work" describeText="Jan 28, 2014">
-				<mu-avatar icon="folder" slot="leftAvatar"/>
-				<mu-icon value="info" slot="right"/>
-			</mu-list-item>
+			<a :href="item.url" v-for="(item, index) in list.lists" :key="index">
+			<div class="mu-item show-left show-right" >
+				<div class="mu-item-left">
+					<div class="mu-avatar">
+						<div class="mu-avatar-inner">
+							<img :src="item.iconUrl" /> 
+						</div>
+					</div> 
+				</div> 
+				<div class="mu-item-content item-list-content">
+					<div class="mu-item-title-row">
+						<div class="mu-item-title" v-html="item.title"></div> 
+					</div> 
+					<div class="mu-item-text" v-html="item.describeText"></div> 
+				</div>
+				<div class="mu-item-right mu-badge-container">
+					<mu-badge :content="item.btnText"  :primary="item.primary" :secondary="item.secondary"/>
+				</div>
+			</div>
+			</a>
 		</mu-list>
 	</div>
-	<div v-if="activeTab === 'tab2'">
-		<mu-list>
-			<mu-list-item title="Photos" describeText="Jan 9, 2014">
-				<mu-avatar icon="folder" slot="leftAvatar"/>
-				<mu-icon value="info" slot="right"/>
-			</mu-list-item>
-			<mu-list-item title="Recipes" describeText="Jan 17, 2014">
-				<mu-avatar icon="folder" slot="leftAvatar"/>
-				<mu-icon value="info" slot="right"/>
-			</mu-list-item>
-			<mu-list-item title="Work" describeText="Jan 28, 2014">
-				<mu-avatar icon="folder" slot="leftAvatar"/>
-				<mu-icon value="info" slot="right"/>
-			</mu-list-item>
-		</mu-list>
-	</div>
-	<div v-if="activeTab === 'tab3'">
-		<mu-list>
-			<mu-list-item title="Photos" describeText="Jan 9, 2014">
-				<mu-avatar icon="folder" slot="leftAvatar"/>
-				<mu-icon value="info" slot="right"/>
-			</mu-list-item>
-			<mu-list-item title="Recipes" describeText="Jan 17, 2014">
-				<mu-avatar icon="folder" slot="leftAvatar"/>
-				<mu-icon value="info" slot="right"/>
-			</mu-list-item>
-			<mu-list-item title="Work" describeText="Jan 28, 2014">
-				<mu-avatar icon="folder" slot="leftAvatar"/>
-				<mu-icon value="info" slot="right"/>
-			</mu-list-item>
-		</mu-list>
-	</div>
+	
 	</mu-content-block>
-    <!-- <div class="blank20"></div> -->
+    <div class="blank20"></div>
+    <img src="http://r0.hx168.com.cn/gpzj/img/v4/banner/20170414_2.jpg?v=1.2" class="image">
   </div>
 </template>
 
 <script>
-const titles = [{"name":"热门服务","icon":""},{"name":"教你炒股","icon":""},{"name":"积分福利","icon":""}];
+
+import { advertises } from '../../api/advisment';
 export default {
   name: 'advertisement',
   data () {
     return {
       activeTab: 'tab1',
-      titles: titles
+      advertises:advertises,
     }
   },
   methods: {
@@ -79,4 +56,41 @@ export default {
 }
 </script>  
 <style lang="scss">
+	@import "../../assets/css/variable.scss";
+	#advertisement {
+		.mu-content-block {
+			padding:0px;
+		}
+		.mu-badge-secondary {
+			background-color:$info; 
+		}
+		.image {
+			width: 100%;
+		}
+		.mu-tabs {
+			background-color: $grey2;
+		}
+		.mu-tab-text {
+			color:$grey8
+		}
+		.mu-tab-link-highlight {
+			// height: 48px;
+		}
+		.mu-tab-link.mu-tab-active {
+			background-color: $info;
+			.mu-tab-text {
+				color:$white
+			}
+		}
+		.mu-tab-link-highlight {
+			display: none;
+		}
+		.mu-badge-primary {
+			background-color: $red;
+		}
+		.mu-badge {
+			padding: 8px;
+			border-radius: 0px;
+		}
+	}
 </style>
