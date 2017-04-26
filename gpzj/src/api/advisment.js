@@ -18,7 +18,7 @@ export const advertises = {
 		"lists":[{
 			"url":"/hxwwz/rest/json/gaoshou/info/param/page/mstock_detail?t=mstock_detail&articleid=2516&channel=mstock_article_detail",
 			"title":"《<span style='color:#c52728'>4月金股</span>》已发布",
-			"describeText":"<span style='color:#c52728;font-size:13px;'>精选2只个股，分别为高分红潜力股及...</span>",
+			"describeText":"<span style='color:#c52728;font-size:13px;'>精选2只个股，分别为高分红潜...</span>",
 			"iconUrl":"http://r0.hx168.com.cn/gpzj/img/v4/icon-mstock.png",
 			"btnText":"阅读",
 			"primary":true,

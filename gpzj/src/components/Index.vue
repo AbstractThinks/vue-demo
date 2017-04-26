@@ -158,6 +158,7 @@ export default {
       top: 0px;
       z-index: 999;
     }
+    
     .index-container {
       height: 100%;
        width: 100%;

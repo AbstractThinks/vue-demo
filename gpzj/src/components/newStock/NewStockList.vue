@@ -77,6 +77,7 @@ import * as types from '../../store/mutation-types';
 import { shareConfig } from '../../api/wxshare';
 import Advertisement from '@/components/public/Advertisement';
 import Footer from '@/components/public/Footer';
+
 export default {
    name: 'newstocklist',
    data() {
@@ -105,7 +106,8 @@ export default {
   },
   components: {
       appFooter: Footer,
-      appAdvertisement: Advertisement
+      appAdvertisement: Advertisement,
+
   },
    computed: mapState({
     stocklist: state => state.newstock.stocklist,

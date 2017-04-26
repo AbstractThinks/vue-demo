@@ -62,6 +62,8 @@
               {{stockdetail.firstData?stockdetail.firstData.fundament:""}}
             </p>
             
+            
+            <div class="desc-extro">信息来源：{{stockdetail.firstData?stockdetail.firstData.info_src:""}}</div>
             <div class="blank20"></div>
           </mu-content-block>
         </div>
@@ -74,7 +76,7 @@
           新股详情加载失败，请稍后重试...
           <mu-flat-button slot="actions" @click="close" primary label="确定"/>
         </mu-dialog>
-        
+        <!-- <appLockContent></appLockContent> -->
   </div>
 </template>
 
@@ -85,7 +87,7 @@ import {
   mapState
 } from 'vuex';
 import * as types from '../../store/mutation-types';
-
+import LockContent from '@/components/public/LockContent';
 export default {
   name: 'newstockdetail',
   data(){
@@ -97,6 +99,10 @@ export default {
   computed: mapState({
     stockdetail: state => state.newstock.stockdetail,
   }),
+  // components: {
+  //     appLockContent: LockContent,
+
+  // },
   mounted () {
       this.getStockDetail({id:this.$route.params.id})
         .then(() => {
@@ -192,6 +198,10 @@ export default {
   }
   .desc {
     color: $grey9;
+  }
+  .desc-extro {
+    color: $grey9;
+    font-size: 13px;
   }
   .mu-content-block {
     padding-top: 0px;

@@ -30,10 +30,10 @@
 			</a>
 		</mu-list>
 	</div>
-	<div class="blank20"></div>
-    <img src="http://r0.hx168.com.cn/gpzj/img/v4/banner/20170414_2.jpg?v=1.2" class="image">
+	
 	</mu-content-block>
-    
+    <div class="blank20"></div>
+    <img src="http://r0.hx168.com.cn/gpzj/img/v4/banner/20170414_2.jpg?v=1.2" class="image">
   </div>
 </template>
 
@@ -59,10 +59,7 @@ export default {
 	@import "../../assets/css/variable.scss";
 	#advertisement {
 		.mu-content-block {
-			// padding:0px;
-			padding-top: 24px;
-			padding-right: 16px;
-			padding-left: 16px;
+			padding:0px;
 		}
 		.mu-badge-secondary {
 			background-color:$info; 

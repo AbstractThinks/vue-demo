@@ -32,6 +32,12 @@ export default {
       justify-content: center;
       align-items: center;
     }
+    .mu-dialog {
+      width: 90%;
+    }
+    .mu-dialog-title {
+      justify-content: center;
+    }
   }
 
   @for $i from 1 to 10 {
