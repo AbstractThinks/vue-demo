@@ -22,7 +22,7 @@
                   <mu-col width="50" tablet="50" desktop="50" ><span class="description">申购日期</span>{{stockdetail.firstData?stockdetail.firstData.online_issue_date:""|dateFormat('yyyy-MM-dd')}}</mu-col>
                   <mu-col width="50" tablet="50" desktop="50" ><span class="description">申购代码</span>{{stockdetail.firstData?stockdetail.firstData.code:""}}</mu-col>
                   <mu-col width="50" tablet="50" desktop="50" ><span class="description">上市地点</span>{{stockdetail.firstData?stockdetail.firstData.stock_exchange:""|show_addr }}</mu-col>
-                  <mu-col width="50" tablet="50" desktop="50" ><span class="description">发行价格</span>{{stockdetail.firstData&&stockdetail.firstData.issue_price&&parseFloat(stockdetail.firstData.issue_price)!==0?parseFloat(stockdetail.firstData.issue_price):""}}</mu-col>
+                  <mu-col width="50" tablet="50" desktop="50" ><span class="description">发行价格</span>{{stockdetail.firstData&&stockdetail.firstData.issue_price&&parseFloat(stockdetail.firstData.issue_price)!==0?parseFloat(stockdetail.firstData.issue_price)+"元":""}}</mu-col>
                   <mu-col width="50" tablet="50" desktop="50" ><span class="description">所属板块</span>{{stockdetail.firstData?stockdetail.firstData.channel:""}}</mu-col>
               </mu-row>
               <div class="blank20"></div>

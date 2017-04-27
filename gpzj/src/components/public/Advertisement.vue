@@ -6,7 +6,8 @@
     <mu-tabs :value="activeTab" @change="handleTabChange">
 	  <mu-tab :value="item.tabValue" :icon="item.icon" :title="item.name" v-for="(item, index) in advertises.columnHeader" :key="index"/>
 	</mu-tabs>
-	<div v-if="activeTab === list.tabValue" v-for="(list, index) in advertises.columnContent">
+	<transition name="slide-fade" v-for="(list, index) in advertises.columnContent" :key="index">
+	<div v-if="activeTab === list.tabValue" >
 		<mu-list>
 			<a :href="item.url" v-for="(item, index) in list.lists" :key="index">
 			<div class="mu-item show-left show-right" >
@@ -30,6 +31,7 @@
 			</a>
 		</mu-list>
 	</div>
+	</transition>
 	<div class="blank20"></div>
     <img src="http://r0.hx168.com.cn/gpzj/img/v4/banner/20170414_2.jpg?v=1.2" class="image">
 	</mu-content-block>
@@ -94,6 +96,16 @@ export default {
 		.mu-badge {
 			padding: 8px;
 			border-radius: 0px;
+		}
+		.slide-fade-enter-active {
+		  transition: all .8s ease;
+		}
+		.slide-fade-leave-active {
+		  transition: all 0s ;
+		}
+		.slide-fade-enter, .slide-fade-leave-active {
+		  transform: translateX(10px);
+		  opacity: 0;
 		}
 	}
 </style>
