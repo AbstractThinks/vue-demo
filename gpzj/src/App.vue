@@ -6,12 +6,52 @@
 </template>
 
 <script>
-import Footer from './components/public/Footer';
+import { 
+  mapGetters,
+  mapActions,
+  mapState
+} from 'vuex';
+import * as types from './store/mutation-types';
 export default {
 
   name: 'app',
+  mounted () {
+    this.getUserInfo();
+  },
+  methods: {
+    ...mapActions({
+      getUserInfo: types.USER_INFO_ACTION,
+    })
+    
+  }
 }
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <style lang="scss">
   @import "./assets/css/variable.scss";

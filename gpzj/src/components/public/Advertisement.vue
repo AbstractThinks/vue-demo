@@ -32,8 +32,10 @@
 		</mu-list>
 	</div>
 	</transition>
-	<div class="blank20"></div>
-    <img src="http://r0.hx168.com.cn/gpzj/img/v4/banner/20170414_2.jpg?v=1.2" class="image">
+		<div class="blank20"></div>
+		<a href="http://wx.hx168.com.cn/hxwwz/rest/json/gaoshou/info2/param/page/hxaccount">
+			<img src="http://r0.hx168.com.cn/gpzj/img/v4/banner/20170502_2.jpg?v=1.2" class="image">
+		</a>
 	</mu-content-block>
     
   </div>

@@ -16,7 +16,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       commit(types.USER_INFO_REQUEST);
       api.get(
-        ``,
+        `hxwwz/rest/json/info/getUserInfo`,
         (payload) => commit(types.USER_INFO_SUCCESS, payload),
         (payload) => commit(types.USER_INFO_FAILURE, payload),
         resolve,

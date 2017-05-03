@@ -3,8 +3,7 @@ import axios from 'axios';
 import { filePath, wechatToken } from './config';
 
 export function shareConfig(configMsg = {}, path = "") {
-
-	var link = encodeURIComponent(`${filePath}hxwwz/rest/json/gaoshou/info/param/page/index`);
+	var link = encodeURIComponent(`${location.href.split('#')[0]}`);
 	var getUrl = `${filePath}weichat/weichat/share/${wechatToken}?url=${link}`;
 
 	axios.get(getUrl).then(response => {
