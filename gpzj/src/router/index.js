@@ -64,9 +64,9 @@ const router = new Router({
     	path: '/newstock/detail/:id', 
     	name: 'newstockdetail', 
     	meta: {
-	    title: '新股详情',
-        desc: "新股申购技巧,2017超火的投资项目,三天让你学会抓牛股",
-        imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
+    	    title: '新股详情',
+            desc: "新股申购技巧,2017超火的投资项目,三天让你学会抓牛股",
+            imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
 	    },
     	component: NewStockDetail 
     },
@@ -74,8 +74,7 @@ const router = new Router({
 });
 router.beforeEach(({meta, path}, from, next) => {　　
     if (path == "/newstock/list") {
-
-        shareConfig(meta, path);
+        // shareConfig(meta, path);
     } else {
         
     }

@@ -12,7 +12,7 @@ export default {
 	get(url, cb, errorCb, resolve, reject) {
 		axios.get(domain+url).then(response => {
 				cb(response.data);
-				resolve && resolve();
+				resolve && resolve(response);
 			}, response => {
 				errorCb(response.data);
 				reject && reject(response);

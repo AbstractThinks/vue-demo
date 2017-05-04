@@ -89,32 +89,17 @@ export default {
     }
    },
    mounted () {
-    // if ((!this.$store.state.newstock.stocklist) || (!this.$store.state.newstock.stocklist.firstData)) {
-      this.getStockList().then((result) => {
+    
+    if ((!this.$store.state.newstock.stocklist) || (!this.$store.state.newstock.stocklist.firstData)) {
+      this.getStockList()
+        .then(() => {
             this.dialog = false;
-            let str = this.shareName(JSON.parse(result.request.responseText));
-            shareConfig({
-              title: '新股申购提醒',
-              desc: '股票专家今日新股申购提醒'+str,
-              imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
-            }, '/newstock/list');
         },() => {
           this.dialog = false;
-          shareConfig({
-              title: '新股申购提醒',
-              desc: `股票专家今日新股申购提醒`,
-              imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
-            }, '/newstock/list');
-        })
-        .then(() => {
-          this.loading = false;
         });
-    // } 
-    // else {
-    //   this.loading = false;
-    //   // console.log(this.$store.state.newstock.stocklist)
-    // }
-
+    } else {
+      this.loading = false;
+    }
 
   },
   components: {
@@ -126,21 +111,9 @@ export default {
     stocklist: state => state.newstock.stocklist,
   }),
    methods: {
-    
     ...mapActions({
       getStockList: types.NEWSTOCK_LIST_ACTION,
     }),
-    shareName (result) {
-      if (result.results.length > 0 && !this._filterShowContent(result.results[0][1].online_issue_date)) {
-        var str = ':';  
-        for (let i in result.results[0]) {
-          str = str + result.results[0][i].short_name + `(${result.results[0][i].code}),`
-        }
-        return str.substring(0, str.length-1);
-      } else {
-        return ""
-      }
-    },
     close () {
       this.dialog = false
     },

@@ -16,7 +16,7 @@ export default {
 
   name: 'app',
   mounted () {
-    this.getUserInfo();
+    // this.getUserInfo();
   },
   methods: {
     ...mapActions({

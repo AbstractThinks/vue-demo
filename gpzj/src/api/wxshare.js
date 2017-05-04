@@ -15,7 +15,7 @@ export function shareConfig(configMsg = {}, path = "") {
 	        }
 	    };
 	    var configData = eval('(' + response.data + ')');
-	    
+	    console.log(configData)
 	    var wxconfig = {
 	    	debug: false,
 	    	...configData.data,

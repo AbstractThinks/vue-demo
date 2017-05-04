@@ -12,11 +12,15 @@ const getters = {
 }
 
 const actions = {
+
+
   [types.USER_INFO_ACTION] ({ commit ,state}, queryCondition={}) {
     return new Promise((resolve, reject) => {
       commit(types.USER_INFO_REQUEST);
       api.get(
-        `hxwwz/rest/json/info/getUserInfo`,
+        process.env.NODE_ENV !== 'production'
+          ?`hxwwz/rest/json/info/getUserInfo?1234`
+          :`hxwwz/rest/json/info/getUserInfo`,
         (payload) => commit(types.USER_INFO_SUCCESS, payload),
         (payload) => commit(types.USER_INFO_FAILURE, payload),
         resolve,
