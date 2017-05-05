@@ -1,6 +1,6 @@
 <template>
   <div id="newstocklist">
-        <mu-dialog :open="loading" @close="close" dialogClass="loading">
+        <mu-dialog :open="loading" dialogClass="loading">
           <mu-circular-progress :size="60" :strokeWidth="5"/>
         </mu-dialog>
         <mu-card class="banner">
@@ -89,32 +89,7 @@ export default {
     }
    },
    mounted () {
-    // if ((!this.$store.state.newstock.stocklist) || (!this.$store.state.newstock.stocklist.firstData)) {
-      this.getStockList().then((result) => {
-            this.dialog = false;
-            let str = this.shareName(JSON.parse(result.request.responseText));
-            shareConfig({
-              title: '新股申购提醒',
-              desc: '股票专家今日新股申购提醒'+str,
-              imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
-            }, '/newstock/list');
-        },() => {
-          this.dialog = false;
-          shareConfig({
-              title: '新股申购提醒',
-              desc: `股票专家今日新股申购提醒`,
-              imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
-            }, '/newstock/list');
-        })
-        .then(() => {
-          this.loading = false;
-        });
-    // } 
-    // else {
-    //   this.loading = false;
-    //   // console.log(this.$store.state.newstock.stocklist)
-    // }
-
+    this.initData()
 
   },
   components: {
@@ -130,6 +105,19 @@ export default {
     ...mapActions({
       getStockList: types.NEWSTOCK_LIST_ACTION,
     }),
+    async initData() {
+      if ((!this.$store.state.newstock.stocklist) || (!this.$store.state.newstock.stocklist.firstData)) {
+        await this.getStockList()
+      }
+      let str = this.shareName(JSON.parse(JSON.stringify(this.$store.state.newstock.stocklist)));
+      shareConfig({
+        title: '新股申购提醒',
+        desc: '股票专家今日新股申购提醒'+str,
+        imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
+      }, '/newstock/list');
+      this.loading = false;
+
+    },
     shareName (result) {
       if (result.results.length > 0 && !this._filterShowContent(result.results[0][1].online_issue_date)) {
         var str = ':';  
