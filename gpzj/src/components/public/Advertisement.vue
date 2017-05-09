@@ -99,15 +99,15 @@ export default {
 			padding: 8px;
 			border-radius: 0px;
 		}
-		.slide-fade-enter-active {
-		  transition: all .8s ease;
-		}
-		.slide-fade-leave-active {
-		  transition: all 0s ;
-		}
-		.slide-fade-enter, .slide-fade-leave-active {
-		  transform: translateX(10px);
-		  opacity: 0;
-		}
+		// .slide-fade-enter-active {
+		//   transition: all .8s ease;
+		// }
+		// .slide-fade-leave-active {
+		//   transition: all 0s ;
+		// }
+		// .slide-fade-enter, .slide-fade-leave-active {
+		//   transform: translateX(10px);
+		//   opacity: 0;
+		// }
 	}
 </style>
