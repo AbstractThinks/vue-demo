@@ -111,8 +111,8 @@ export default {
       }
       let str = this.shareName(JSON.parse(JSON.stringify(this.$store.state.newstock.stocklist)));
       shareConfig({
-        title: '新股申购提醒',
-        desc: '股票专家今日新股申购提醒'+str,
+        title: '今日新股申购提醒'+str,
+        desc: '新股申购提醒',
         imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
       }, '/newstock/list');
       this.loading = false;

@@ -9,8 +9,9 @@
 </template>
 
 <script>
+import Bus from '../public/Bus';
 export default {
-  name: 'footer'
+  name: 'footer',
 }
 </script>  
 <style lang="scss">
