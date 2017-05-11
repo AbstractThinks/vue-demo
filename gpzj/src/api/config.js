@@ -5,8 +5,8 @@
 
 
 // export const filePath = process.env.NODE_ENV !== 'production' ? "/" : "http://wxtest.hx168.com.cn/";
-export const filePath = "/";
-// export const filePath = "http://wxtest.hx168.com.cn/";
+// export const filePath = "/";
+export const filePath = "http://wxtest.hx168.com.cn/";
 export const wechatToken = "da39a3ee5e6b4b0d3255bfef95601890afd80710";
 
 

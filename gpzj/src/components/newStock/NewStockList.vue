@@ -1,13 +1,18 @@
 <template>
   <div id="newstocklist">
+       
+       <appLoginHeader v-if="loginHeader"></appLoginHeader>
         <mu-dialog :open="loading" dialogClass="loading">
           <mu-circular-progress :size="60" :strokeWidth="5"/>
         </mu-dialog>
         <mu-card class="banner">
+          
           <mu-card-media >
             <img src="../../assets/img/newstock/stocklist_banner.jpg"/>
           </mu-card-media>
+
         </mu-card>
+        
         <mu-list v-for="(results, index) in stocklist.results" :key="index">
 
             <mu-content-block class="bgwhite">
@@ -77,6 +82,7 @@ import * as types from '../../store/mutation-types';
 import { shareConfig } from '../../api/wxshare';
 import Advertisement from '@/components/public/Advertisement';
 import Footer from '@/components/public/Footer';
+import LoginHeader from '@/components/public/LoginHeader';
 
 export default {
    name: 'newstocklist',
@@ -85,7 +91,8 @@ export default {
       showList: false,
       iconValue: ":iconfont icon-unfold",
       loading: true,
-      dialog: false
+      loginHeader: false,
+      dialog: false,
     }
    },
    mounted () {
@@ -95,28 +102,57 @@ export default {
   components: {
       appFooter: Footer,
       appAdvertisement: Advertisement,
+      appLoginHeader: LoginHeader,
 
   },
    computed: mapState({
     stocklist: state => state.newstock.stocklist,
+    userinfo: state => state.user.userinfo,
   }),
    methods: {
     
     ...mapActions({
       getStockList: types.NEWSTOCK_LIST_ACTION,
+      getUserInfo: types.USER_INFO_ACTION,
     }),
     async initData() {
       if ((!this.$store.state.newstock.stocklist) || (!this.$store.state.newstock.stocklist.firstData)) {
         await this.getStockList()
       }
-      let str = this.shareName(JSON.parse(JSON.stringify(this.$store.state.newstock.stocklist)));
-      shareConfig({
-        title: '今日新股申购提醒'+str,
-        desc: '新股申购提醒',
-        imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
-      }, '/newstock/list');
+
+      await Promise.all([this.initStocklist(), this.initUser()]);
+      let user = JSON.parse(JSON.stringify(this.$store.state.user.userinfo));
+      let stocklist = JSON.parse(JSON.stringify(this.$store.state.newstock.stocklist));
+      let str = this.shareName(stocklist);
+
+      if (user.firstData.status === "2") {
+        shareConfig({
+          title: '今日新股申购提醒'+str,
+          desc: '新股申购提醒',
+          imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png"
+        }, '/newstock/list',user);
+      } else {
+        this.loginHeader = true;
+        shareConfig({
+          title: '今日新股申购提醒'+str,
+          desc: '新股申购提醒',
+          imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png"
+        }, '/newstock/list',location.search);
+      } 
       this.loading = false;
 
+    },
+    async initStocklist() {
+      await this.getStockList();
+      return new Promise((resolve, reject) => { 
+        resolve();
+      });
+    },
+    async initUser() {
+      await this.getUserInfo();
+      return new Promise((resolve, reject) => {       
+        resolve();
+      });
     },
     shareName (result) {
       if (result.results.length > 0 && !this._filterShowContent(result.results[0][1].online_issue_date)) {
@@ -236,35 +272,14 @@ export default {
 <style lang="scss">
 @import "../../assets/css/variable.scss";
 #newstocklist {
+
   width: 100%;
   height: 100%;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   position: relative;
 
-  .slide-enter-active {
-    animation: slide-in-down .5s;
-  }
-  .slide-leave-active {
-    animation: slide-out-up .5s;
-  }
-  @keyframes slide-in-down {
-    0% {
-      transform: scale(0);
-    }
-
-    100% {
-      transform: scale(1);
-    }
-  }
-  @keyframes slide-out-up {
-    0% {
-      transform: scale(1);
-    }
-    100% {
-      transform: scale(0);
-    }
-  }
+  
   .bgwhite {
     background: #ffffff;
   }

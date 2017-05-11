@@ -1,6 +1,4 @@
-import Vue from 'vue';
 import Router from 'vue-router';
-
 // public
 import Error from '@/components/public/Error';
 
@@ -11,8 +9,7 @@ import NewStockList from '@/components/newStock/NewStockList';
 import NewStockRule from '@/components/newStock/NewStockRule';
 import { shareConfig } from '../api/wxshare';
 import { sharelocation } from '../api/config'
-Vue.use(Router);
-Vue.use(require('vue-wechat-title'));
+
 
 const router = new Router({
 

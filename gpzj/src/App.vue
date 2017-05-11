@@ -16,12 +16,15 @@ export default {
 
   name: 'app',
   mounted () {
-    // this.getUserInfo();
+    // this.initData();
   },
   methods: {
-    ...mapActions({
-      getUserInfo: types.USER_INFO_ACTION,
-    })
+    // ...mapActions({
+    //   getUserInfo: types.USER_INFO_ACTION,
+    // }),
+    // async initData() {
+    //   await this.getUserInfo();
+    // }
     
   }
 }
