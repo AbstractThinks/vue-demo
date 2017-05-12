@@ -28,7 +28,7 @@ export default {
 .content {
 	padding: 3rem;
 	font-size: 2rem;
-	color: black;
+	color: white;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -37,6 +37,6 @@ a,
 a:active,
 a:hover {
  text-decoration: none;
- color: black;
+ color: white;
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
-  <div class="footer">
-    footer
+  <div class="list">
+    list
   </div>
 </template>
 
 <script>
 export default {
-  name: 'footer',
+  name: 'list',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
@@ -17,9 +17,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.footer{
-	padding: 3rem;
-	font-size: 2rem;
-	z-index: 100;
-}
+
 </style>
