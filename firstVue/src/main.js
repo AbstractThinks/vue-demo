@@ -6,7 +6,7 @@ import router from './router'
 
 import store from './store/index'
 // import store from './store/simple';  //vuex 简单例子
-import { currency } from './filter/filter'
+import global from './filter/filter'
 
 Vue.config.productionTip = false
 Vue.config.debug = true;
@@ -16,7 +16,7 @@ Vue.component('my-component', {
   template: '<div>A custom component!</div>'
 })
 
-Vue.filter('currency', currency);
+Vue.filter('global', global);
 
 new Vue({
   el: '#app',

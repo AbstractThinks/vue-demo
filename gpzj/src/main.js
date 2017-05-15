@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import Router from 'vue-router';
 import Vuex from 'vuex';
 import store from './store/index';
 import MuseUI from 'muse-ui';
@@ -13,6 +14,8 @@ import './assets/css/theme-gpzj.css';
 
 Vue.use(Vuex);
 Vue.use(MuseUI);
+Vue.use(Router);
+Vue.use(require('vue-wechat-title'));
 
 Vue.filter('dateFormat', dateFormat);
 
