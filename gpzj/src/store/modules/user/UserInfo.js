@@ -19,7 +19,9 @@ const actions = {
       commit(types.USER_INFO_REQUEST);
       api.get(
         process.env.NODE_ENV !== 'production'
-          ?`hxwwz/rest/json/info/getUserInfo?openid=oBeVNt2nD16OasaxZ9-iOMZ8S5l4`
+          // oBeVNt2nD16OasaxZ9-iOMZ8S5l4 登录
+          // oBeVNtxBA5D-5NcUDMIsukqoIZQU 注销
+          ?`hxwwz/rest/json/info/getUserInfo?openid=oBeVNt2nD16OasaxZ9-iOMZ8S5l4`   
           :`hxwwz/rest/json/info/getUserInfo`,
         (payload) => commit(types.USER_INFO_SUCCESS, payload),
         (payload) => commit(types.USER_INFO_FAILURE, payload),

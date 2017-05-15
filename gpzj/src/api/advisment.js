@@ -35,17 +35,17 @@ export const advertises = {
 	},{
 		"tabValue": "tab2",
 		"lists":[{
-			"url":"/hxwwz/rest/json/gaoshou/info/param/page/article_detail?t=article_detail&articleid=2908&channel=newstock_list",
-			"title":"经典K线组合：旭日东升",
+			"url":"/hxwwz/rest/json/gaoshou/info/param/page/article_detail?t=article_detail&articleid=3037&channel=newstock_list",
+			"title":"经典K线组合：曙光初现",
 			"describeText":"<span style='color:#c52728;font-size:13px;'>常见的见底回升信号</span>",
 			"iconUrl":"http://r0.hx168.com.cn/gpzj/img/v4/icon-secret.png?v=1.2",
 			"btnText":"阅读",
 			"primary":false,
 			"secondary":true,
 		},{
-			"url":"/hxwwz/rest/json/gaoshou/info/param/page/article_detail?t=article_detail&articleid=2907&channel=newstock_list",
-			"title":"中证流通指数",
-			"describeText":"<span style='color:#c52728;font-size:13px;'>上证指数失真时或许可以看它</span>",
+			"url":"/hxwwz/rest/json/gaoshou/info/param/page/article_detail?t=article_detail&articleid=3036&channel=newstock_list",
+			"title":`"旭日东升"的失败图例`,
+			"describeText":"<span style='color:#c52728;font-size:13px;'>形态分析仅是大概率结果</span>",
 			"iconUrl":"http://r0.hx168.com.cn/gpzj/img/v4/icon-secret2.png?v=1.2",
 			"btnText":"阅读",
 			"primary":false,
