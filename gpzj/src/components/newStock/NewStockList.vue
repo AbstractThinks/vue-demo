@@ -116,11 +116,11 @@ export default {
       getUserInfo: types.USER_INFO_ACTION,
     }),
     async initData() {
-      if ((!this.$store.state.newstock.stocklist) || (!this.$store.state.newstock.stocklist.firstData)) {
-        await this.getStockList()
-      }
+      // if ((!this.$store.state.newstock.stocklist) || (!this.$store.state.newstock.stocklist.firstData)) {
+      //   await this.getStockList()
+      // }
 
-      // await Promise.all([this.initStocklist(), this.initUser()]);
+      await Promise.all([this.initStocklist(), this.initUser()]);
       let user = JSON.parse(JSON.stringify(this.$store.state.user.userinfo));
       let stocklist = JSON.parse(JSON.stringify(this.$store.state.newstock.stocklist));
       let str = this.shareName(stocklist);
@@ -132,7 +132,7 @@ export default {
           imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png"
         }, '/newstock/list',user);
       } else {
-        this.loginHeader = false;
+        this.loginHeader = true;
         shareConfig({
           title: '今日新股申购提醒'+str,
           desc: '新股申购提醒',
