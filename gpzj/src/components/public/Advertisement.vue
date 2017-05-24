@@ -39,15 +39,34 @@
 </template>
 
 <script>
-
-import { advertises } from '../../api/advisment';
+import api from '../../api/api';
+// import { advertises } from '../../api/advisment';
 export default {
   name: 'advertisement',
   data () {
     return {
       activeTab: 'tab1',
-      advertises:advertises,
+      advertises: {
+      	// columnHeader:[],
+      	// columnContent:[]
+      } ,
     }
+  },
+  mounted () {
+  	let that = this;
+  	api.get(
+  		'hxwwz/rest/json/gaoshou/commfunc/param/funcId/98020505?p_operator=F&p_name=xgsg_ad_banner_code',
+  		function (data) {
+  			let obj = eval('(' + data + ')');
+  			if (obj.firstData && obj.firstData.desc) {
+  				that.advertises = JSON.parse(obj.firstData.desc)
+  			}
+  		},
+  		function (data) {
+  			console.error(data)
+  		}
+
+  	)
   },
   methods: {
   	handleTabChange (val) {
