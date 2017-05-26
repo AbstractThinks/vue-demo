@@ -50,26 +50,29 @@
         <h6>05月23日发布</h6>
       </div>
       <p>今日三股关键词分为社保新进、锂电设备、锆概念股。</p>
-      <mu-raised-button label="点击查看个股" fullWidth backgroundColor="#49a5f0"/>
       <div class="blank20"></div>
-      <mu-list-item title="查看历史回顾表现" toggleNested>
-        <mu-list-item slot="nested" @click="open('topRule')"> 
+      
+      <div class="text-center">
+          <mu-flat-button label="文字在后面" icon="android" primary @click="toggleHistory()">
+            <!-- <mu-icon slot="right" value=":iconfont icon-jiantou"/> -->
+          </mu-flat-button>
+      </div>
+      <mu-list  v-if="toggleHistoryShow" class="vanish-in">
+        <mu-list-item @click="open('topRule')"> 
           <h6 class="text-center">5月16日发布个股近5交易日最大涨幅</h6>
         </mu-list-item> 
-        <mu-list-item title="荣盛发展(002146)" slot="nested" afterText="涨幅  +8.03%" >
+        <mu-list-item title="荣盛发展(002146)" afterText="涨幅  +8.03%" >
         </mu-list-item>
-         <mu-list-item title="荣盛发展(002146)" slot="nested" afterText="涨幅  +8.03%" >
+         <mu-list-item title="荣盛发展(002146)"  afterText="涨幅  +8.03%" >
         </mu-list-item>
-        <mu-list-item title="荣盛发展(002146)" slot="nested" afterText="涨幅  +8.03%" >
+        <mu-list-item title="荣盛发展(002146)" afterText="涨幅  +8.03%" >
         </mu-list-item>
         <mu-list-item slot="nested"> 
           <h6 class="text-center">数据统计至5月22日收盘后</h6>
           <h6 class="text-center">回顾股票现在已失去参考意义</h6> 
         </mu-list-item> 
-       
-      </mu-list-item>
+      </mu-list>
 
-      
       <div class="blank20"></div>
     </mu-content-block>
     </mu-paper>
@@ -91,11 +94,13 @@ import * as types from '../../store/mutation-types';
 import Advertisement from '@/components/public/Advertisement';
 import Risk from '@/components/public/Risk';
 import Investment from '@/components/public/Investment';
+// import History from '@/components/public/History';
 export default {
   name: 'recommendmorning',
   data() {
     return {
       loading: false,
+      toggleHistoryShow: true,
       topPopup: false,
       topRulePopup: false
     }
@@ -107,11 +112,19 @@ export default {
     close (position) {
       this[position + 'Popup'] = false
     },
+    toggleHistory() {
+      if (this.toggleHistoryShow) {
+        this.toggleHistoryShow = false
+      } else {
+        this.toggleHistoryShow = true
+      }
+    }
   },
   components: {
       appAdvertisement: Advertisement,
       appRisk: Risk,
       appInvestment: Investment,
+      // appHistory: History,
   },
 }
 </script>
