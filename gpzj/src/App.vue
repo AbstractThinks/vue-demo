@@ -121,4 +121,95 @@ export default {
     background-color: $black;
     color: $white;
   }
+
+  //animation
+  .flip-in-x {animation:flipInX 1s 0s 1 both}
+  @keyframes flipInX {
+    from {
+      transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+      animation-timing-function: ease-in;
+      opacity: 0;
+    }
+
+    40% {
+      transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+      animation-timing-function: ease-in;
+    }
+
+    60% {
+      transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+      opacity: 1;
+    }
+
+    80% {
+      transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+    }
+
+    to {
+      transform: perspective(400px);
+    }
+  }
+  .slide-in-down{animation:slideInDown 0.5s 0s 1 both}
+  .slide-in-up{animation:slideInUp 0.5s 0s 1 both}
+  @keyframes slideInDown {
+    from {
+      transform: translate3d(0, -100%, 0);
+      visibility: visible;
+    }
+
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  @keyframes slideInUp {
+    from {
+      transform: translate3d(0, 100%, 0);
+      visibility: visible;
+    }
+
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .fade-in-up {animation:fadeInUp 1s 0s 1 both}
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .roll-in {animation:fallInX 0.5s 0s 1 both}
+  @keyframes fallInX {
+  0% {
+    opacity: 0;
+    transform: translateY(-200px); }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0); } 
+  }
+  .vanish-in{
+    animation:vanishIn 0.3s 0s 1 both
+  }
+  @keyframes vanishIn {
+  0% {
+    opacity: 0;
+    transform-origin: 50% 50%;
+    transform: scale(2, 2);
+    filter: blur(90px);
+  }
+
+  100% {
+    opacity: 1;
+    transform-origin: 50% 50%;
+    transform: scale(1, 1);
+    filter: blur(0px);
+  }
+}
 </style>

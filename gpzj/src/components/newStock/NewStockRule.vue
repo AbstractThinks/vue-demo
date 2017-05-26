@@ -1,5 +1,5 @@
 <template>
-  <div id="newstockrule">
+  <div id="newstockrule" class="roll-in">
   <div class="banner">
     <div class="blank40"></div>
     <img src="../../assets/img/newstock/stockrule_text.png">

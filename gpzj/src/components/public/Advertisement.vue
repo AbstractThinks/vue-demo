@@ -5,29 +5,29 @@
 	<mu-content-block>
 		<mu-tabs :value="activeTab" @change="handleTabChange">
 			<mu-tab :value="item.tabValue" :icon="item.icon" :title="item.name" v-for="(item, index) in advertises.columnHeader" :key="index"/>
-		</mu-tabs>		
-			<mu-list v-if="activeTab === list.tabValue" v-for="(list, index) in advertises.columnContent" :key="index">
-			<a :href="item.url" v-for="(item, index) in list.lists" :key="index">
-				<div class="mu-item show-left show-right" >
-					<div class="mu-item-left">
-						<div class="mu-avatar">
-							<div class="mu-avatar-inner">
-								<img :src="item.iconUrl" /> 
-							</div>
+		</mu-tabs>
+			<mu-list  v-for="(list, index) in advertises.columnContent" v-if="activeTab === list.tabValue" :key="index" class="flip-in-x">
+				<a :href="item.url" v-for="(item, index) in list.lists" :key="index">
+					<div class="mu-item show-left show-right" >
+						<div class="mu-item-left">
+							<div class="mu-avatar">
+								<div class="mu-avatar-inner">
+									<img :src="item.iconUrl" /> 
+								</div>
+							</div> 
 						</div> 
-					</div> 
-					<div class="mu-item-content item-list-content">
-						<div class="mu-item-title-row">
-							<div class="mu-item-title" v-html="item.title"></div> 
-						</div> 
-						<div class="mu-item-text" v-html="item.describeText"></div> 
+						<div class="mu-item-content item-list-content">
+							<div class="mu-item-title-row">
+								<div class="mu-item-title" v-html="item.title"></div> 
+							</div> 
+							<div class="mu-item-text" v-html="item.describeText"></div> 
+						</div>
+						<div class="mu-item-right mu-badge-container">
+							<mu-badge :content="item.btnText"  :primary="item.primary" :secondary="item.secondary"/>
+						</div>
 					</div>
-					<div class="mu-item-right mu-badge-container">
-						<mu-badge :content="item.btnText"  :primary="item.primary" :secondary="item.secondary"/>
-					</div>
-				</div>
-			</a>
-		</mu-list>
+				</a>
+			</mu-list>
 	</mu-content-block>
 
 	<mu-content-block>
@@ -124,6 +124,7 @@ export default {
 		.mu-list {
 			transition: all 2s;
 		}
+		
 		
 		
 	}

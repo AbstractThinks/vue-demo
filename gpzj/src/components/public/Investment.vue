@@ -9,7 +9,7 @@
 						<mu-avatar src="http://r0.hx168.com.cn/gpzj//img/v3/avatar/20170330/aktj.png" slot="leftAvatar"/>
 					</mu-list-item>
 				</mu-list>
-				<mu-raised-button label="立即加入" fullWidth/>
+				<mu-raised-button label="立即加入" fullWidth backgroundColor="#49a5f0"/>
 				<h6>75人已加入</h6>
 				<mu-flat-button label="更多投资计划" class="investment-btn"/>
 			</mu-content-block>
@@ -29,4 +29,5 @@ export default {
 			width: 100%;
 		}
 	}
+	
 </style>

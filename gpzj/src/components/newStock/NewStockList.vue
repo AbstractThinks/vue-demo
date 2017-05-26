@@ -1,5 +1,5 @@
 <template>
-  <div id="newstocklist">
+  <div id="newstocklist" class="roll-in">
        
        <appLoginHeader v-if="loginHeader"></appLoginHeader>
         <mu-dialog :open="loading" dialogClass="loading">
@@ -24,8 +24,7 @@
                   <mu-icon slot="left" value=":iconfont icon-pandianjihua"/>
               </mu-list-item>
             </mu-content-block>
-            <transition name="slide">
-            <mu-content-block class="list-item" v-if="_filterShowContent(results[1].online_issue_date)  && showList">
+            <mu-content-block class="list-item vanish-in" v-if="_filterShowContent(results[1].online_issue_date)  && showList">
               <mu-list-item  :href="item.id|urlReq" v-for="item in results" :key="item.id">
                   <mu-icon slot="right" value=":iconfont icon-jiantou"/>
                   <mu-row gutter>
@@ -37,8 +36,7 @@
               </mu-list-item>
               <mu-divider />
             </mu-content-block>
-            </transition>
-            <mu-content-block class="list-item" v-if="!_filterShowContent(results[1].online_issue_date) ">
+            <mu-content-block class="list-item " v-if="!_filterShowContent(results[1].online_issue_date) ">
               <mu-list-item  :href="item.id|urlReq" v-for="item in results" :key="item.id">
                   <mu-icon slot="right" value=":iconfont icon-jiantou"/>
                   <mu-row gutter>
