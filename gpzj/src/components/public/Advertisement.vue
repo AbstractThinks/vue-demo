@@ -31,8 +31,8 @@
 	</mu-content-block>
 
 	<mu-content-block>
-		<a href="http://wx.hx168.com.cn/hxwwz/rest/json/gaoshou/info2/param/page/hxaccount">
-			<img src="http://r0.hx168.com.cn/gpzj/img/v4/banner/20170502_2.jpg?v=1.2" class="image">
+		<a :href="advertises2.href">
+			<img :src="advertises2.img" class="image">
 		</a>
     </mu-content-block>
   </div>
@@ -40,18 +40,27 @@
 
 <script>
 import api from '../../api/api';
+import { 
+  mapGetters,
+  mapActions,
+  mapState
+} from 'vuex';
 // import { advertises } from '../../api/advisment';
 export default {
   name: 'advertisement',
   data () {
     return {
       activeTab: 'tab1',
-      advertises: {
-      	// columnHeader:[],
-      	// columnContent:[]
-      } ,
+      advertises: {} ,
+      advertises2: {
+      	href: "",
+      	img: ""
+      },
     }
   },
+  computed: mapState({
+    userinfo: state => state.user.userinfo,
+  }),
   mounted () {
   	let that = this;
   	api.get(
@@ -67,13 +76,31 @@ export default {
   		}
 
   	)
+  	
   },
   methods: {
   	handleTabChange (val) {
       this.activeTab = val
-
     },
+    initAdvertises2() {
+    	let user = JSON.parse(JSON.stringify(this.userinfo));	
+	  	if (user.firstData && user.firstData.capital_account == 1) {
+	  		this.advertises2 = {
+	  			href:"http://wx.hx168.com.cn/hxwwz/rest/json/gaoshou/info/param/page/article_detail?t=article_detail&articleid=3455",
+	  			img:"http:///info.hx168.com.cn/gpzj/images/732000003/20170607/1496828232747_1612.jpg?v=1.2"
+	  		}	
+	  	} else {
+	  		this.advertises2 = {
+	  			href:"http://wx.hx168.com.cn/hxwwz/rest/json/gaoshou/info2/param/page/hxaccount?f=1",
+	  			img:"http:///info.hx168.com.cn/gpzj/images/732000003/20170607/1496828303509_9141.jpg?v=1.2"
+	  		}
+	  	}
+    }
+  },
+  watch: {
+  	'userinfo': 'initAdvertises2'
   }
+
 }
 </script>  
 <style lang="scss">

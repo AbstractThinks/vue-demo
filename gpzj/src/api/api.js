@@ -3,9 +3,9 @@ import Vue from 'vue';
 import axios from 'axios';
 import { filePath } from './config';
 
-// const domain = "http://192.168.2.80:9080/";
-// const domain = "/";
-const domain = filePath;
+// const domain = "http://192.168.2.108:8050/";
+const domain = "/";
+// const domain = filePath;
 
 
 export default {

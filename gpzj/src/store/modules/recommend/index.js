@@ -1,22 +1,22 @@
-import userinfo from './UserInfo';
+import recommendmor from './Morning.js';
 
 // initial state
 const state = {
-  ...userinfo.state,
+  ...recommendmor.state,
 }
 
 // getters
 const getters = {
-  ...userinfo.getters,
+  ...recommendmor.getters,
 }
 
 const actions = {
-  ...userinfo.actions,
+  ...recommendmor.actions,
 }
 
 // mutations
 const mutations = {
-  ...userinfo.mutations,
+  ...recommendmor.mutations,
 }
 
 export default {

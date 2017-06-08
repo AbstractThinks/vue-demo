@@ -9,7 +9,7 @@
 		本文所提及观点，是基于一定假设条件下，不代表未来市场走势，仅供参考，投资者请勿将本文观点作为投资决策的唯一参考因素，亦不要以本文观点取代自己的合理判断。在任何情况下，华西证券均不承诺投资者一定获利，且不对任何人因使用本文观点所导致的任何损失负任何责任。
 		</p>
     <div class="text-right">
-      <mu-flat-button label="更多必读" class="" @click="toggle()"/>
+      <mu-flat-button label="更多必读" class="" @click="toggle()" primary/>
     </div>
     <div v-if="show" class="fade-in-up">
       <p  class="text-left">

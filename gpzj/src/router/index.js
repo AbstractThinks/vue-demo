@@ -73,7 +73,7 @@ const router = new Router({
     	component: NewStockDetail 
     },
     { 
-        path: '/recommend/morning/:id', 
+        path: '/recommend/morning/:id/:preview', 
         name: 'recommendmorning', 
         meta: {
             title: '股票专家',
@@ -94,14 +94,6 @@ const router = new Router({
     },
   ]
 });
-// router.beforeEach(({meta, path}, from, next) => {　　
-//     if (path == "/newstock/list") {
-//         // shareConfig(meta, path);
-//     } else {
-        
-//     }
-//     next();
-    
-// })
+
  
 export default router

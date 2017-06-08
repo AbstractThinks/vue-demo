@@ -3,12 +3,12 @@ import * as types from '../../mutation-types'
 
 // initial state
 const state = {
-  userinfo:{}
+  recommendmor:{}
 }
 
 // getters
 const getters = {
-  userinfo: state => state.userinfo,
+  recommendmor: state => state.recommendmor,
 }
 
 const actions = {

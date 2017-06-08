@@ -23,7 +23,7 @@
         <mu-flat-button label="知道了" fullWidth @click="close('top')"/>
     </mu-popup>
 
-    <mu-content-block class="slide-in-down">
+    <mu-content-block class=" ">
     <h3 class="text-center">股市午评(5月23日)</h3>
     <h6 class="text-center">2017年05月23日</h6>
     <h6 class="text-center"><mu-flat-button label="相关资讯" class="" @click="open('top')"/></h6>

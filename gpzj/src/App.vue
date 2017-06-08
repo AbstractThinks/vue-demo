@@ -110,6 +110,12 @@ export default {
   .right {
     float: right;
   }
+  .color-blue {
+    color: $blue;
+  }
+  .color-grey7 {
+    color: $grey7;
+  }
   body .popup-top{
     width: 80%;
     opacity: .8;
@@ -121,7 +127,9 @@ export default {
     background-color: $black;
     color: $white;
   }
-
+  img {
+    cursor: -webkit-zoom-in;
+  }
   //animation
   .flip-in-x {animation:flipInX 1s 0s 1 both}
   @keyframes flipInX {
@@ -194,22 +202,29 @@ export default {
     opacity: 1;
     transform: translateY(0); } 
   }
-  .vanish-in{
-    animation:vanishIn 0.3s 0s 1 both
+  
+  .zoom-in{animation:zoomIn 0.5s 0s 1 both}
+  @keyframes zoomIn {
+    from {
+      opacity: 0;
+      transform: scale3d(.3, .3, .3);
+    }
+
+    50% {
+      opacity: 1;
+    }
   }
-  @keyframes vanishIn {
-  0% {
-    opacity: 0;
-    transform-origin: 50% 50%;
-    transform: scale(2, 2);
-    filter: blur(90px);
+  
+  .zoom-in{animation:zoomIn 0.5s 0s 1 both}
+  @keyframes zoomIn {
+    from {
+      opacity: 0;
+      transform: scale3d(.3, .3, .3);
+    }
+
+    50% {
+      opacity: 1;
+    }
   }
 
-  100% {
-    opacity: 1;
-    transform-origin: 50% 50%;
-    transform: scale(1, 1);
-    filter: blur(0px);
-  }
-}
 </style>

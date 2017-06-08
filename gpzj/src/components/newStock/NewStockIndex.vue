@@ -1,5 +1,5 @@
 <template>
-  <div id="newstockindex" class="roll-in">
+  <div id="newstockindex">
       <mu-dialog :open="loading" dialogClass="loading">
         <mu-circular-progress :size="60" :strokeWidth="5"/>
       </mu-dialog>
@@ -7,7 +7,7 @@
         取消订阅成功
       </mu-popup>
       <mu-content-block class="banner">
-        <img src="../../assets/img/newstock/stockindex_text_banner.png" style="" alt=""> <br />
+        <img src="../../assets/img/newstock/stockindex_text_banner.png" style="" alt="" class=""> <br />
         <div>提醒服务</div>
         <div>
           <mu-flat-button  v-if="observer.firstData && observer.firstData.isordered == '1'" label="已订阅" class="observer"  @click="_unorderTipsOpen"/>

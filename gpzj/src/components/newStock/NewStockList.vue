@@ -1,14 +1,14 @@
 <template>
-  <div id="newstocklist" class="roll-in">
+  <div id="newstocklist">
        
-       <appLoginHeader v-if="loginHeader"></appLoginHeader>
+        <appLoginHeader v-if="loginHeader"></appLoginHeader>
         <mu-dialog :open="loading" dialogClass="loading">
           <mu-circular-progress :size="60" :strokeWidth="5"/>
         </mu-dialog>
         <mu-card class="banner">
           
           <mu-card-media >
-            <img src="../../assets/img/newstock/stocklist_banner.jpg"/>
+            <img src="../../assets/img/newstock/stocklist_banner.jpg" class=""/>
           </mu-card-media>
 
         </mu-card>
@@ -24,7 +24,7 @@
                   <mu-icon slot="left" value=":iconfont icon-pandianjihua"/>
               </mu-list-item>
             </mu-content-block>
-            <mu-content-block class="list-item vanish-in" v-if="_filterShowContent(results[1].online_issue_date)  && showList">
+            <mu-content-block class="list-item zoom-in" v-if="_filterShowContent(results[1].online_issue_date)  && showList">
               <mu-list-item  :href="item.id|urlReq" v-for="item in results" :key="item.id">
                   <mu-icon slot="right" value=":iconfont icon-jiantou"/>
                   <mu-row gutter>
@@ -103,7 +103,7 @@ export default {
       appLoginHeader: LoginHeader,
 
   },
-   computed: mapState({
+  computed: mapState({
     stocklist: state => state.newstock.stocklist,
     userinfo: state => state.user.userinfo,
   }),
@@ -114,10 +114,29 @@ export default {
       getUserInfo: types.USER_INFO_ACTION,
     }),
     async initData() {
-      // if ((!this.$store.state.newstock.stocklist) || (!this.$store.state.newstock.stocklist.firstData)) {
-      //   await this.getStockList()
-      // }
 
+      // await Promise.all([this.initStocklist(), this.initUser()]);
+      // let user = JSON.parse(JSON.stringify(this.$store.state.user.userinfo));
+      // let stocklist = JSON.parse(JSON.stringify(this.$store.state.newstock.stocklist));
+      // let str = this.shareName(stocklist);
+
+      // if (user.firstData && user.firstData.status === "2") {
+      //   shareConfig({
+      //     title: '今日新股申购提醒'+str,
+      //     desc: '新股申购提醒',
+      //     imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png"
+      //   }, '/newstock/list',user);
+      // } else {
+      //   this.loginHeader = true;
+      //   shareConfig({
+      //     title: '今日新股申购提醒'+str,
+      //     desc: '新股申购提醒',
+      //     imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png"
+      //   }, '/newstock/list',location.search);
+      // } 
+      // this.loading = false;
+
+      
       await Promise.all([this.initStocklist(), this.initUser()]);
       let user = JSON.parse(JSON.stringify(this.$store.state.user.userinfo));
       let stocklist = JSON.parse(JSON.stringify(this.$store.state.newstock.stocklist));
@@ -128,7 +147,7 @@ export default {
           title: '今日新股申购提醒'+str,
           desc: '新股申购提醒',
           imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png"
-        }, '/newstock/list',user);
+        }, '/newstock/list',location.search);
       } else {
         this.loginHeader = true;
         shareConfig({
@@ -138,7 +157,6 @@ export default {
         }, '/newstock/list',location.search);
       } 
       this.loading = false;
-
     },
     async initStocklist() {
       await this.getStockList();
