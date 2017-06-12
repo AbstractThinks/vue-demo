@@ -76,8 +76,9 @@ import {
   mapActions,
   mapState
 } from 'vuex';
-import * as types from '../../store/mutation-types';
+import * as types from '../../store/mutation-types'; 
 import { shareConfig } from '../../api/wxshare';
+import Bus from '../../api/Bus';
 import Advertisement from '@/components/public/Advertisement';
 import Footer from '@/components/public/Footer';
 import LoginHeader from '@/components/public/LoginHeader';
@@ -138,23 +139,20 @@ export default {
 
       
       await Promise.all([this.initStocklist(), this.initUser()]);
+      Bus.$emit('initAdvertisement');
       let user = JSON.parse(JSON.stringify(this.$store.state.user.userinfo));
       let stocklist = JSON.parse(JSON.stringify(this.$store.state.newstock.stocklist));
       let str = this.shareName(stocklist);
-
+      shareConfig({
+        title: '今日新股申购提醒'+str,
+        desc: '新股申购提醒',
+        imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png"
+      }, '/newstock/list',location.search);
       if (user.firstData && user.firstData.status === "2") {
-        shareConfig({
-          title: '今日新股申购提醒'+str,
-          desc: '新股申购提醒',
-          imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png"
-        }, '/newstock/list',location.search);
+        
       } else {
         this.loginHeader = true;
-        shareConfig({
-          title: '今日新股申购提醒'+str,
-          desc: '新股申购提醒',
-          imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png"
-        }, '/newstock/list',location.search);
+        
       } 
       this.loading = false;
     },

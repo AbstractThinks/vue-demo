@@ -2,6 +2,8 @@ import Router from 'vue-router';
 // public
 import Error from '@/components/public/Error';
 
+// 首页
+import Homepage from '@/components/homepage/Homepage';
 // 新股
 import NewStockDetail from '@/components/newStock/NewStockDetail';
 import NewStockIndex from '@/components/newStock/NewStockIndex';
@@ -21,6 +23,27 @@ const router = new Router({
   routes: [
 
     { path: '/error', name: 'error', component: Error },
+    // 首页
+    { 
+        path: '/', 
+        name: 'homepage', 
+        meta: {
+            title: '股票专家',
+            desc: "新股申购技巧,2017超火的投资项目,三天让你学会抓牛股",
+            imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
+        },
+        component: Homepage
+    },
+    { 
+        path: '/homepage/index', 
+        name: 'homepage', 
+        meta: {
+            title: '股票专家',
+            desc: "新股申购技巧,2017超火的投资项目,三天让你学会抓牛股",
+            imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
+        },
+        component: Homepage
+    },
     // 新股
     { 
 	    path: '/newstock', 
@@ -72,6 +95,7 @@ const router = new Router({
 	    },
     	component: NewStockDetail 
     },
+    // 盘前股讯
     { 
         path: '/recommend/morning/:id/:preview', 
         name: 'recommendmorning', 
@@ -92,6 +116,8 @@ const router = new Router({
         },
         component: RecommendAfternoon
     },
+    
+
   ]
 });
 

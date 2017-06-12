@@ -177,7 +177,6 @@ import {
 } from 'vuex';
 import * as types from '../../store/mutation-types';
 import Footer from '@/components/public/Footer';
-import Bus from '../public/Bus';
 export default {
    name: 'newstockrule',
    components: {

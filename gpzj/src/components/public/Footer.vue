@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import Bus from '../public/Bus';
 export default {
   name: 'footer',
 }

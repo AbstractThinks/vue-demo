@@ -104,6 +104,10 @@ export default {
   .text-right {
     text-align: right;
   }
+  .text-ellipsis {
+    text-overflow:ellipsis;
+  }
+  
   .left {
     float: left;
   }

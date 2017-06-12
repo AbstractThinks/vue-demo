@@ -40,11 +40,13 @@
 
 <script>
 import api from '../../api/api';
+import Bus from '../../api/Bus';
 import { 
   mapGetters,
   mapActions,
   mapState
 } from 'vuex';
+
 // import { advertises } from '../../api/advisment';
 export default {
   name: 'advertisement',
@@ -76,29 +78,30 @@ export default {
   		}
 
   	)
+
+  	Bus.$on('initAdvertisement', function () {
+
+  		let user = JSON.parse(JSON.stringify(that.userinfo));	
+	  	if (user.firstData && user.firstData.capital_account == 1) {
+	  		that.advertises2 = {
+	  			href:"http://wx.hx168.com.cn/hxwwz/rest/json/gaoshou/info/param/page/article_detail?t=article_detail&articleid=3455",
+	  			img:"http:///info.hx168.com.cn/gpzj/images/732000003/20170607/1496828232747_1612.jpg?v=1.2"
+	  		}	
+	  	} else {
+	  		that.advertises2 = {
+	  			href:"http://wx.hx168.com.cn/hxwwz/rest/json/gaoshou/info2/param/page/hxaccount?f=1",
+	  			img:"http:///info.hx168.com.cn/gpzj/images/732000003/20170607/1496828303509_9141.jpg?v=1.2"
+	  		}
+	  	}
+	})
   	
   },
   methods: {
   	handleTabChange (val) {
       this.activeTab = val
     },
-    initAdvertises2() {
-    	let user = JSON.parse(JSON.stringify(this.userinfo));	
-	  	if (user.firstData && user.firstData.capital_account == 1) {
-	  		this.advertises2 = {
-	  			href:"http://wx.hx168.com.cn/hxwwz/rest/json/gaoshou/info/param/page/article_detail?t=article_detail&articleid=3455",
-	  			img:"http:///info.hx168.com.cn/gpzj/images/732000003/20170607/1496828232747_1612.jpg?v=1.2"
-	  		}	
-	  	} else {
-	  		this.advertises2 = {
-	  			href:"http://wx.hx168.com.cn/hxwwz/rest/json/gaoshou/info2/param/page/hxaccount?f=1",
-	  			img:"http:///info.hx168.com.cn/gpzj/images/732000003/20170607/1496828303509_9141.jpg?v=1.2"
-	  		}
-	  	}
-    }
   },
   watch: {
-  	'userinfo': 'initAdvertises2'
   }
 
 }
