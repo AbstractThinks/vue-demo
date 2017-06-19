@@ -6,12 +6,8 @@
     
     <mu-paper class="mu-bottom-paper">
 	    <mu-bottom-nav :value="bottomNav" @change="handleChange">
-	      <mu-bottom-nav-item value="index" title="股票专家">
-          <img src="http://r0.hx168.com.cn/gpzj/img/v4/icon-home-gpzj-active.png" alt="">
-        </mu-bottom-nav-item>
-	      <mu-bottom-nav-item value="mine" title="我的" href="/hxwwz/rest/json/gaoshou/info/param/page/user">
-          <img src="http://r0.hx168.com.cn/gpzj/img/v4/icon-home-user.png" alt="">
-        </mu-bottom-nav-item>
+	      <mu-bottom-nav-item value="index" title="股票专家" icon=":iconfont icon-pandianjihua"/>
+	      <mu-bottom-nav-item value="mine" title="我的" icon=":iconfont icon-pandianjihua"/>
 	    </mu-bottom-nav>
     </mu-paper>
   </div>
@@ -34,10 +30,7 @@ export default {
   },
   methods: {
     handleChange (val) {
-      if (val == 'index') {
-        this.bottomNav = val
-      }
-      
+      this.bottomNav = val
     }
   }
 }
@@ -55,19 +48,6 @@ export default {
 			bottom: 0;
 			width: 100%;
 		}
-    .mu-buttom-item {
-      img {
-          width: 26px;
-          height: 26px;
-        }
-    }
-    .mu-bottom-item-active {
-        
-        .mu-bottom-item-icon,.mu-bottom-item-text {
-             color: $info;
-        }
-       
-    }
 
 	}
 </style>

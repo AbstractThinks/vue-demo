@@ -1,5 +1,5 @@
 <template>
-  <div id="newstocklist">
+  <div id="newstocklist" class="slide-in-down">
        
         <appLoginHeader v-if="loginHeader"></appLoginHeader>
         <mu-dialog :open="loading" dialogClass="loading">

@@ -104,8 +104,10 @@ export default {
   .text-right {
     text-align: right;
   }
-  .text-ellipsis {
-    text-overflow:ellipsis;
+ .text-ellipsis {
+      overflow: hidden;
+      text-overflow:ellipsis;
+      white-space: nowrap;
   }
   
   .left {
@@ -114,8 +116,31 @@ export default {
   .right {
     float: right;
   }
+  .warning {
+    color: $red6;
+  }
+
   .color-blue {
     color: $blue;
+    .mu-flat-button-label {
+      color: $blue;
+    }
+    .mu-item {
+      .mu-item-content {
+        color: $blue;
+      }
+    }
+  }
+  .color-red {
+    color: $primary;
+    .mu-flat-button-label {
+      color: $primary;
+    }
+    .mu-item {
+      .mu-item-content {
+        color: $primary;
+      }
+    }
   }
   .color-grey7 {
     color: $grey7;
@@ -134,6 +159,7 @@ export default {
   img {
     cursor: -webkit-zoom-in;
   }
+  
   //animation
   .flip-in-x {animation:flipInX 1s 0s 1 both}
   @keyframes flipInX {
@@ -219,16 +245,6 @@ export default {
     }
   }
   
-  .zoom-in{animation:zoomIn 0.5s 0s 1 both}
-  @keyframes zoomIn {
-    from {
-      opacity: 0;
-      transform: scale3d(.3, .3, .3);
-    }
-
-    50% {
-      opacity: 1;
-    }
-  }
+  
 
 </style>

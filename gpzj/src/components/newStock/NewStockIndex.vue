@@ -1,5 +1,5 @@
 <template>
-  <div id="newstockindex">
+  <div id="newstockindex" class="slide-in-down">
       <mu-dialog :open="loading" dialogClass="loading">
         <mu-circular-progress :size="60" :strokeWidth="5"/>
       </mu-dialog>

@@ -4,6 +4,7 @@ import Error from '@/components/public/Error';
 
 // 首页
 import Homepage from '@/components/homepage/Homepage';
+// import HomepageService from '@/components/homepage/HomepageService';
 // 新股
 import NewStockDetail from '@/components/newStock/NewStockDetail';
 import NewStockIndex from '@/components/newStock/NewStockIndex';
@@ -24,9 +25,9 @@ const router = new Router({
 
     { path: '/error', name: 'error', component: Error },
     // 首页
-    { 
-        path: '/', 
-        name: 'homepage', 
+    {
+        path: '/',
+        name: 'homepage',
         meta: {
             title: '股票专家',
             desc: "新股申购技巧,2017超火的投资项目,三天让你学会抓牛股",
@@ -34,9 +35,9 @@ const router = new Router({
         },
         component: Homepage
     },
-    { 
-        path: '/homepage/index', 
-        name: 'homepage', 
+    {
+        path: '/homepage/index',
+        name: 'homepage',
         meta: {
             title: '股票专家',
             desc: "新股申购技巧,2017超火的投资项目,三天让你学会抓牛股",
@@ -44,71 +45,81 @@ const router = new Router({
         },
         component: Homepage
     },
+    // {
+    //     path: '/homepage/service',
+    //     name: 'service',
+    //     meta: {
+    //         title: '股票专家',
+    //         desc: "新股申购技巧,2017超火的投资项目,三天让你学会抓牛股",
+    //         imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
+    //     },
+    //     component: HomepageService
+    // },
     // 新股
-    { 
-	    path: '/newstock', 
-	    name: 'newstockindex', 
+    {
+	    path: '/newstock',
+	    name: 'newstockindex',
 	    meta: {
 	    title: '新股申购',
         desc: "今日新股申购提醒：XX新股（300XXX），XX新股（300XXX）",
         imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
 	    },
-	    component: NewStockIndex 
+	    component: NewStockIndex
 	},
-    { 
-    	path: '/newstock/index', 
-    	name: 'newstockindex', 
+    {
+    	path: '/newstock/index',
+    	name: 'newstockindex',
     	meta: {
 	    title: '新股申购',
         desc: "今日新股申购提醒：XX新股（300XXX），XX新股（300XXX）",
         imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
 	    },
-    	component: NewStockIndex 
+    	component: NewStockIndex
     },
-    { 
-    	path: '/newstock/list', 
-    	name: 'newstocklist', 
+    {
+    	path: '/newstock/list',
+    	name: 'newstocklist',
     	meta: {
 	    title: '新股申购提醒',
         desc: "今日新股申购提醒：XX新股（300XXX），XX新股（300XXX）",
         imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
 	    },
-    	component: NewStockList 
+    	component: NewStockList
     },
-    { 
-    	path: '/newstock/rule', 
-    	name: 'newstockrule', 
+    {
+    	path: '/newstock/rule',
+    	name: 'newstockrule',
     	meta: {
 	      title: '学新规',
         desc: "2016新股新“玩法”有什么要点？",
         imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
 	    },
-    	component: NewStockRule 
+    	component: NewStockRule
     },
-    { 
-    	path: '/newstock/detail/:id', 
-    	name: 'newstockdetail', 
+    {
+    	path: '/newstock/detail/:id',
+    	name: 'newstockdetail',
     	meta: {
     	    title: '新股详情',
             desc: "新股申购技巧,2017超火的投资项目,三天让你学会抓牛股",
             imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
 	    },
-    	component: NewStockDetail 
+    	component: NewStockDetail
     },
     // 盘前股讯
-    { 
-        path: '/recommend/morning/:id/:preview', 
-        name: 'recommendmorning', 
+    {
+        path: '/recommend/morning/:id/:preview',
+        name: 'recommendmorning',
         meta: {
             title: '股票专家',
             desc: "新股申购技巧,2017超火的投资项目,三天让你学会抓牛股",
             imgUrl: "http://wxtest.hx168.com.cn/hxwwz/gaoshou/img/v4/logo-stock.png",
         },
-        component: RecommendMorning 
+        component: RecommendMorning
     },
-    { 
-        path: '/recommend/afternoon/:id', 
-        name: 'recommendafternoon', 
+    {
+        path: '/recommend/afternoon/:id',
+        name: 'recommendafternoon',
         meta: {
             title: '股票专家',
             desc: "新股申购技巧,2017超火的投资项目,三天让你学会抓牛股",
@@ -116,10 +127,10 @@ const router = new Router({
         },
         component: RecommendAfternoon
     },
-    
+
 
   ]
 });
 
- 
+
 export default router

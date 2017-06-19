@@ -4,47 +4,56 @@
     <mu-dialog :open="loading" dialogClass="loading">
       <mu-circular-progress :size="60" :strokeWidth="5"/>
     </mu-dialog>
-    <mu-dialog position="top" popupClass="consultation-popup" :open="topPopup" @close="close('top')">
+    <div class="blank10"></div>
+    <mu-content-block class="header" v-if="recommendmor.firstData">
+      <h2 class="text-center title" >
+        {{recommendmor.firstData.title}}
+      </h2>
+      <mu-list-item class="title-desc" @click="toggleInfo()">
+          <h6 class="text-center">
+            {{recommendmor.firstData.dateint}}
+          </h6> 
+           <h6 class="text-center">
+            相关资质
+          </h6> 
+      </mu-list-item>
+      <div class="blank10"></div>
+
+      <fieldset class="">
+        <div class="title-img"></div>
+        <div class="blank30"></div>
+        <appComment :content="recommendmor.firstData.content" :private="recommendmor.firstData.private_content"></appComment>
+        <div class="blank10"></div>
+        <div class="text-center">
+          <mu-chip class="stock-stitle">
+            {{recommendmor.firstData.stitle}}
+          </mu-chip>
+        </div>
+
+        <appStock :sremark="recommendmor.firstData.sremark" :dateInt="recommendmor.firstData.dateint" :stocks="recommendmor.firstData.stocks" :yesterday="recommendmor.firstData.yesterday" ></appStock>
+      </fieldset>
+      
+      
+      <mu-dialog :open="toggleInfoShow" dialogClass="recommendmor-dialog" @close="toggleInfo()">
         <h4 class="text-center color-blue">相关资质</h4>
-        <mu-content-block class="color-grey7" v-if="recommendmor.firstData">
-          <mu-list class="" >
-            <mu-list-item :title="item.brokername|_filterBrokername" :describeText="item.certificate_num|_filterCertificateNum" v-for="item in recommendmor.firstData.certificates" :key="item.id" :disabled="true"/>
-          </mu-list>
-        </mu-content-block>
-        <mu-raised-button label="我知道了" fullWidth @click="close('top')" primary/>
-    </mu-dialog>
-    <mu-dialog position="top" popupClass="consultation-popup" :open="topRulePopup" @close="close('topRule')">
-        <h4 class="text-center color-blue">统计规则</h4>
-        <mu-content-block class="color-grey7">
-          <p> 按照股票发布日的开盘价对比发布后近{{daterange}}交易日的最高价，统计最大涨幅。（如果发布日开盘价为近{{daterange}}交易日最高价，统计最大涨幅将为0%）</p>
-          <div class="blank10"></div>
-        </mu-content-block>
-        <mu-raised-button label="我知道了" fullWidth @click="close('topRule')" primary/>
-    </mu-dialog>
-    <appLoginHeader v-if="loginHeader"></appLoginHeader>
-
-    <mu-content-block class="">
-      <h2 class="text-center">{{recommendmor.firstData?recommendmor.firstData.title:""}}</h2>
-      <h6 class="text-center">{{recommendmor.firstData?recommendmor.firstData.dateint:""|_filterTitleDate}}</h6>
-      <h6 class="text-center"><mu-flat-button label="相关资讯" class="" @click="open('top')" primary/></h6>
-    </mu-content-block>
-
-    <mu-content-block class="">
-    <mu-paper :zDepth="1" >
-    <mu-content-block class="relative">
-      <div class="title-img"></div>
-      <div class="blank40"></div>
-      <div v-html="recommendmor.firstData?recommendmor.firstData.content:''"></div>
-      <div v-html="recommendmor.firstData?recommendmor.firstData.private_content:''"></div>
-      <div class="blank20"></div>
-    </mu-content-block>
-    </mu-paper>
+        <mu-list-item>
+          <p v-for="item in recommendmor.firstData.certificates">
+            投顾姓名：{{item.brokername}}<br/>
+            证书编号：{{item.certificate_num}}
+          </p>
+        </mu-list-item>
+        <mu-divider/>
+        <mu-list-item class="text-center color-blue" @click="toggleInfo()">
+          我知道了
+        </mu-list-item>
+      </mu-dialog>
     </mu-content-block>
     
-    <appStock :stockdata="recommendmor"></appStock>
+    <!-- <appStock :stockdata="recommendmor"></appStock> -->
     <appInvestment></appInvestment>
     <appAdvertisement></appAdvertisement>
     <appRisk></appRisk>
+    <div class="blank20"></div>
   </div>
 </template>
 
@@ -55,6 +64,7 @@ import {
   mapState
 } from 'vuex';
 import * as types from '../../store/mutation-types';
+import Comment from '@/components/recommend/Comment';
 import Advertisement from '@/components/public/Advertisement';
 import Risk from '@/components/public/Risk';
 import Investment from '@/components/public/Investment';
@@ -68,7 +78,7 @@ export default {
     return {
       loading: true,
       toggleHistoryShow: true,
-      topPopup: false,
+      toggleInfoShow: false,
       topRulePopup: false,
       loginHeader: false,
       enddate: '',
@@ -147,12 +157,9 @@ export default {
     // _filterShowProfitRate(val) {
     //   return parseInt(val) > 0 ? `+${val}`:val;
     // },
-    open (position) {
-      this[position + 'Popup'] = true
-    },
-    close (position) {
-      this[position + 'Popup'] = false
-    },
+   toggleInfo() {
+    this.toggleInfoShow = this.toggleInfoShow?false: true;
+   }
     // toggleHistory() {
     //   if (this.toggleHistoryShow) {
     //     this.toggleHistoryShow = false
@@ -162,6 +169,7 @@ export default {
     // }
   },
   components: {
+      appComment: Comment,
       appAdvertisement: Advertisement,
       appRisk: Risk,
       appInvestment: Investment,
@@ -172,11 +180,27 @@ export default {
 
 <style lang="scss">
 @import "../../assets/css/variable.scss";
-.mu-popup-top.consultation-popup {
-  width: 80%;
-  button {
-    width: 100%;
+.recommendmor-dialog {
+  .mu-dialog-body  {
+    padding:0px;
+    h4 {
+      font-weight: normal;
+    }
+    .mu-item {
+      padding: 0px 22px;
+      .mu-item-content {
+        color: $grey7;
+      }
+    }
+    .color-blue {
+      .mu-item {
+        .mu-item-content {
+          color: $blue;
+        }
+      }
+    }
   }
+  
 }
 #recommendmorning {
   width: 100%;
@@ -184,16 +208,17 @@ export default {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   position: relative;
-  h3,h6{
-    color: $grey7;
-    margin-bottom: 8px;
-    margin-top: 8px;
-  }
+  background-color: $grey4;
   .relative {
     position: relative;
   }
-  .font14 {
-    font-size: 14px;
+  fieldset {
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+  }
+  .title {
+    margin: 0px;
   }
   .title-img {
     background: transparent url(http://r0.hx168.com.cn/gpzj/img/v4/bg-recommend.png) 0 -50px;
@@ -204,32 +229,140 @@ export default {
     left: 50%;
     margin-left: -62px;
   }
-  .mu-item-title,.mu-item-after {
-    color: $primary
-  }
-  .text-indent {
-    text-indent: 2em;
-  }
-  .yesterday {
+  .title-desc {
     .mu-item {
-      padding: 0;
+      padding: 0px;
+    }
+    h6 {
+      margin: 0px;
+      font-weight: normal;
+      color: $grey7;
+    }
+  }
+  #comment {
+    .mu-content-block {
+      padding-left: 12px;
+      padding-right: 12px;
     }
     
-  } 
-  .mu-chip {
-     padding-left: 24px;
-    padding-right: 24px;
-  } 
- 
-  .rise {
-      color:$primary;
-      .mu-item-content {
-        color:$primary;
-        // font-size: 24px;
-      }
   }
-  .fall {
-    color: $green;
-  } 
+  .stock-stitle {
+    background-color:$primary;
+    color: $white;
+    font-size:18px;
+    padding-left: 20px; 
+    padding-right: 20px; 
+  }
+  #stock {
+    padding-left: 12px;
+    padding-right: 12px;
+    .mu-item {
+      padding: 0px;
+      min-height: 32px;
+    }
+    .mu-raised-button-wrapper {
+        padding-left: 38px;
+        padding-right: 38px;
+    }
+    .mu-raised-button {
+        // padding-left: 38px;
+        // padding-right: 38px;
+        height: 40px;
+        background-color: $info;
+        .mu-raised-button-label {
+            color: $white;
+            font-size: 16px
+        }
+    }
+    .check-btn {
+      .mu-item {
+        padding: 0px;
+        min-height: 32px;
+      }
+      .mu-item-content {
+        color: $blue1;
+      }
+    }
+    .iconfont.icon-tishi {
+        color: $blue1;
+        font-size: 16px;
+    }
+    h6 {
+      margin: 0;
+      font-weight: normal;
+      color: $grey7;
+    }
+    .text-indent {
+        text-indent: 2em;
+    }
+    .rise {
+        .mu-item {
+            font-size: 18px;
+            color: $red5;
+            min-height: 32px;
+            padding: 0px;
+        }
+    }
+    .up {
+        .mu-item {
+            color: $red5;
+        }
+        
+    }
+    .fall {
+        .mu-item {
+            color: $green;
+        }
+    }
+    h6.tip {
+        padding: 4px 0px;
+    }
+  }
+  
+  // h3,h6{
+  //   color: $grey7;
+  //   margin-bottom: 8px;
+  //   margin-top: 8px;
+  // }
+  
+  // .font14 {
+  //   font-size: 14px;
+  // }
+  // .title-img {
+  //   background: transparent url(http://r0.hx168.com.cn/gpzj/img/v4/bg-recommend.png) 0 -50px;
+  //   width: 124px;
+  //   height: 37px;
+  //   position: absolute;
+  //   top: -6px;
+  //   left: 50%;
+  //   margin-left: -62px;
+  // }
+  // .mu-item-title,.mu-item-after {
+  //   color: $primary
+  // }
+  // .text-indent {
+  //   text-indent: 2em;
+  // }
+  // .yesterday {
+  //   .mu-item {
+  //     padding: 0;
+  //   }
+    
+  // } 
+  // .mu-chip {
+  //    padding-left: 24px;
+  //   padding-right: 24px;
+  // } 
+ 
+  // .rise {
+  //     color:$primary;
+  //     .mu-item-content {
+  //       color:$primary;
+  //       // font-size: 24px;
+  //     }
+  // }
+  // .fall {
+  //   color: $green;
+  // } 
 }
 </style>

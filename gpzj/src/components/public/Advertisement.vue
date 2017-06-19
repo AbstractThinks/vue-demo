@@ -80,19 +80,25 @@ export default {
   	)
 
   	Bus.$on('initAdvertisement', function () {
-
-  		let user = JSON.parse(JSON.stringify(that.userinfo));	
-	  	if (user.firstData && user.firstData.capital_account == 1) {
-	  		that.advertises2 = {
-	  			href:"http://wx.hx168.com.cn/hxwwz/rest/json/gaoshou/info/param/page/article_detail?t=article_detail&articleid=3455",
-	  			img:"http:///info.hx168.com.cn/gpzj/images/732000003/20170607/1496828232747_1612.jpg?v=1.2"
-	  		}	
-	  	} else {
-	  		that.advertises2 = {
-	  			href:"http://wx.hx168.com.cn/hxwwz/rest/json/gaoshou/info2/param/page/hxaccount?f=1",
-	  			img:"http:///info.hx168.com.cn/gpzj/images/732000003/20170607/1496828303509_9141.jpg?v=1.2"
+  		let user = JSON.parse(JSON.stringify(that.userinfo));
+  		let requrl = user.firstData.capital_account == 1?"gpzj/api/v1.0/info/views/wx_article_ad/1":"gpzj/api/v1.0/info/views/wx_article_ad/2";	
+	  	
+	  	api.get(
+	  		requrl,
+	  		function (data) {
+	  			let obj = data;
+	  			obj.results[0].list[0].link
+	  			obj.results[0].list[0].img
+	  			that.advertises2 = {
+		  			href:obj.results[0].list[0].link,
+		  			img:obj.results[0].list[0].img
+		  		}
+	  		},
+	  		function (data) {
+	  			console.error(data)
 	  		}
-	  	}
+
+	  	)
 	})
   	
   },
