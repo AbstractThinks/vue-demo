@@ -3,14 +3,14 @@
     <mu-dialog :open="loading" dialogClass="loading">
         <mu-circular-progress :size="60" :strokeWidth="5"/>
     </mu-dialog>
-    <div>
-      <appReview></appReview>
-      <appThreestock></appThreestock>
-      <appStock></appStock>
-      <appStock></appStock>
-      <appStrategy></appStrategy>
-      <appStrategy></appStrategy>
-      <appExtension></appExtension>
+    <div v-for="(result, index) in homepageindex.results" :key="index">
+      <appReview v-if="result.datas && result.datas.length > 0 && result.keyword == 'minfo'" :data="result"></appReview>
+      <appThreestock v-if="result.datas && result.datas.length > 0 && result.keyword == 'tstocks'" :data="result"></appThreestock>
+      <appStock v-if="result.datas && result.datas.length > 0 && (result.keyword == 'hot' || result.keyword == 'glod')" :data="result"></appStock>
+      <!-- <appStock v-if="result.datas && result.datas.length > 0 && result.keyword == 'glod'"></appStock> -->
+      <appStrategy v-if="result.datas && result.datas.length > 0 && (result.keyword == 'short' || result.keyword == 'plan')" :data="result"></appStrategy>
+      <!-- <appStrategy v-if="result.datas && result.datas.length > 0 && result.keyword == 'plan'"></appStrategy> -->
+      <!-- <appExtension v-if="result.datas && result.datas.length > 0 && result.keyword == 'infos'"></appExtension> -->
     </div>
     <div>
       <appAccount></appAccount>
@@ -120,30 +120,38 @@ export default {
       &>.mu-flat-button {
         width: 100%;
       }
-      &>.mu-content-block {
         
-        .header {
-            .mu-item {
-                padding-left: 40px;
-                .mu-item-title {
-                    font-size: 12px;
-                    color: $grey8; 
-                }
-                .mu-item-text {
-                    font-size: 12px;
-                    color: $grey7; 
-                }
-                .mu-item-left {
-                    left: 0px;
-                    .mu-avatar {
-                        height: 32px;
-                        width: 32px;
-                        border-radius: 4px;  
-                    }
+      .header {
+          &>div{
+            padding-right: 16px;
+            padding-left: 16px;
+          }
+          .mu-item {
+              padding-left: 40px;
+              .mu-icon {
+                font-size: 20px;
+              }
+              .mu-item-title {
+                  font-size: 12px;
+                  color: $grey8; 
+              }
+              .mu-item-text {
+                  font-size: 12px;
+                  color: $grey7; 
+              }
+              .mu-item-left {
+                  left: 0px;
+                  .mu-avatar {
+                      height: 32px;
+                      width: 32px;
+                      border-radius: 4px;  
+                  }
 
-                }
-            }
-        }
+              }
+              .mu-item-right {
+                right: 0px;
+              }
+          }
         .title {
             font-size: 18px;
             color: $grey8; 
@@ -165,14 +173,17 @@ export default {
           }
           .mu-item-title {
             font-size: 20px;
+            color: $grey8;
           }
           .mu-item-text {
             font-size: 12px;
+            color:$grey7;
           }
 
       }
       &>button {
         background: $grey14;
+        color: $grey9;
       }
       
     }
@@ -189,9 +200,16 @@ export default {
           }
           
         }
+        .mu-item-title {
+          color: $grey8;
+        }
+        .mu-item-text {
+          color: $grey7;
+        }
       }
       &>button {
         background: $grey14;
+        color: $blue;
       }
       
     }
@@ -221,6 +239,10 @@ export default {
         padding-left: 40px;
         .mu-item-title {
           font-size: 20px;
+          color: $grey8;
+        }
+        .mu-item-text {
+          color:$red7;
         }
         .mu-item {
           padding: 0px;
@@ -228,8 +250,59 @@ export default {
       }
       &>button {
         background: $grey14;
+        color: $grey9;
       }
     }
-	
+    #threestock {
+      .mu-content-block {
+        .mu-raised-button {
+          padding: 16px 16px;
+          border-radius: 24px;
+          height: 40px;
+          line-height: 40px;
+        }
+      }
+      &>button {
+        background: $grey14;
+        color: $grey9;
+      }
+      .tip {
+        color: $grey7;
+      }
+    }
+    #review {
+       &>button {
+        background: $grey14;
+        color: $blue;
+      }
+      .title {
+        font-size: 18px;
+        color: $grey8;
+      }
+    }
+    .icon-review-color {
+      background-color:$red7;
+    }
+    .icon-threestock-color {
+      background-color:$blue3;
+    }
+    .icon-extension-color {
+      background-color:$yellow2;
+    }
+    .icon-hot-color {
+      background-color:$red8;
+    }
+    .icon-gold-color {
+      background-color:$yellow;
+    }
+    .icon-account-color {
+      background-color:$blue5;
+    }
+    .icon-plan-color {
+      background-color:$red9;
+    }
+	  .icon-short-color {
+      background-color:$blue4;
+    }
 }
 </style>

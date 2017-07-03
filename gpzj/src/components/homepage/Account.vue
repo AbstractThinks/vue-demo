@@ -1,9 +1,9 @@
 <template>
  <div id="account">
+ 	<mu-list-item title="我的账户" describeText="近期热门计划" class="header" :disabled="true">
+		<mu-avatar icon=":iconfont icon-wo" slot="leftAvatar" class="icon-account-color"/>
+	</mu-list-item>
   	<mu-content-block>
-		<mu-list-item title="我的账户" describeText="近期热门计划" class="header">
-			<mu-avatar icon=":iconfont icon-wo" slot="leftAvatar"/>
-		</mu-list-item>
 		<mu-list-item class="content">
 			<mu-flexbox>
 				<mu-flexbox-item>

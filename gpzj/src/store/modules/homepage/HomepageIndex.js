@@ -41,21 +41,21 @@ const mutations = {
   [types.HOMEPAGE_INDEX_SUCCESS] (state, payload) {
    
     // console.log(payload);
-    let strategy = {
-      keyword:"strategy",
-      datas:[]
-    }
-    if (payload.results.length > 0) {
-      payload.results = payload.results.map((item) => {
-        if (item.keyword == "short" || item.keyword == "plan") {
-          strategy.datas.push(item)
-          return {}
-        } else {
-          return item
-        }
-      });
-    }
-    payload.results.push(strategy)
+    // let strategy = {
+    //   keyword:"strategy",
+    //   datas:[]
+    // }
+    // if (payload.results.length > 0) {
+    //   payload.results = payload.results.map((item) => {
+    //     if (item.keyword == "short" || item.keyword == "plan") {
+    //       strategy.datas.push(item)
+    //       return {}
+    //     } else {
+    //       return item
+    //     }
+    //   });
+    // }
+    // payload.results.push(strategy)
     state.index = {
       ...state.index,
       ...payload,
