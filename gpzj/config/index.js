@@ -30,7 +30,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
         '/hxwwz/rest/json': 'http://wxtest.hx168.com.cn',
-        '/weichat/weichat/share': 'http://wxtest.hx168.com.cn'
+        '/weichat/weichat/share': 'http://wxtest.hx168.com.cn',
+        '/gpzj/api/v1.0': 'http://wxtest.hx168.com.cn'
 
         // '/hxwwz/rest/json': 'http://wx.hx168.com.cn',
         // '/weichat/weichat/share': 'http://wx.hx168.com.cn'

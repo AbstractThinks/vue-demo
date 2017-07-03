@@ -121,30 +121,62 @@ export default {
   }
 
   .color-blue {
-    color: $blue;
+    color: $blue!important;
     .mu-flat-button-label {
-      color: $blue;
+      color: $blue!important;
     }
     .mu-item {
       .mu-item-content {
-        color: $blue;
+        color: $blue!important;
       }
     }
   }
   .color-red {
-    color: $primary;
+    color: $primary!important;
     .mu-flat-button-label {
-      color: $primary;
+      color: $primary!important;
     }
     .mu-item {
       .mu-item-content {
-        color: $primary;
+        color: $primary!important;
       }
     }
   }
   .color-grey7 {
     color: $grey7;
   }
+  .font14 {
+    font-size: 14px;
+  }
+  .mu-flexbox {
+    .mu-flexbox-item.vertical-item {
+        width: 1px;
+        min-width: 1px;
+    }
+    .vertical-border {
+        height: 48px;
+        border-right: 1px solid rgba(0,0,0,.12);
+        width: 1px;
+    }
+  }
+  #app {
+    .aplayer{
+      margin: 0px;
+      .aplayer-info {
+        padding: 10px 7px 0 10px;
+        .aplayer-music {
+          margin: 0px;
+          .aplayer-title {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            display: block;
+          }
+        }
+      }
+    }
+  }
+  
   body .popup-top{
     width: 80%;
     opacity: .8;
@@ -159,6 +191,26 @@ export default {
   img {
     cursor: -webkit-zoom-in;
   }
+
+  .mu-dialog-body  {
+  padding:0px!important;
+  h4 {
+    font-weight: normal;
+  }
+  .mu-item {
+    padding: 0px 22px;
+    .mu-item-content {
+      color: $grey7;
+    }
+  }
+  .color-blue {
+    .mu-item {
+      .mu-item-content {
+        color: $blue;
+      }
+    }
+  }
+} 
   
   //animation
   .flip-in-x {animation:flipInX 1s 0s 1 both}

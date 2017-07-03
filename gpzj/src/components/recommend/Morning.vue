@@ -1,14 +1,14 @@
 <template>
-  <div id="recommendmorning">
+  <div id="recommendmorning" class="slide-in-down">
     
     <mu-dialog :open="loading" dialogClass="loading">
       <mu-circular-progress :size="60" :strokeWidth="5"/>
     </mu-dialog>
-    <div class="blank10"></div>
+    
     <mu-content-block class="header" v-if="recommendmor.firstData">
-      <h2 class="text-center title" >
+      <h3 class="text-center title" >
         {{recommendmor.firstData.title}}
-      </h2>
+      </h3> 
       <mu-list-item class="title-desc" @click="toggleInfo()">
           <h6 class="text-center">
             {{recommendmor.firstData.dateint}}
@@ -18,22 +18,9 @@
           </h6> 
       </mu-list-item>
       <div class="blank10"></div>
-
-      <fieldset class="">
-        <div class="title-img"></div>
-        <div class="blank30"></div>
-        <appComment :content="recommendmor.firstData.content" :private="recommendmor.firstData.private_content"></appComment>
-        <div class="blank10"></div>
-        <div class="text-center">
-          <mu-chip class="stock-stitle">
-            {{recommendmor.firstData.stitle}}
-          </mu-chip>
-        </div>
-
-        <appStock :sremark="recommendmor.firstData.sremark" :dateInt="recommendmor.firstData.dateint" :stocks="recommendmor.firstData.stocks" :yesterday="recommendmor.firstData.yesterday" ></appStock>
-      </fieldset>
-      
-      
+      <appPlayer autoplay :music=songs mode='order'/>
+      <div class="blank20"></div>
+      <appComment :content="recommendmor.firstData.content" :private="recommendmor.firstData.private_content"></appComment>
       <mu-dialog :open="toggleInfoShow" dialogClass="recommendmor-dialog" @close="toggleInfo()">
         <h4 class="text-center color-blue">相关资质</h4>
         <mu-list-item>
@@ -48,12 +35,22 @@
         </mu-list-item>
       </mu-dialog>
     </mu-content-block>
-    
-    <!-- <appStock :stockdata="recommendmor"></appStock> -->
-    <appInvestment></appInvestment>
-    <appAdvertisement></appAdvertisement>
-    <appRisk></appRisk>
-    <div class="blank20"></div>
+    <div class="blank10"></div>
+    <div class="stock text-center" v-if="recommendmor.firstData && userinfo.firstData">
+      <div class="blank20"></div>
+      <mu-chip class="stock-stitle">
+        {{recommendmor.firstData.stitle}}
+      </mu-chip>
+      <div class="blank10"></div>
+      <appStock :userinfo="userinfo.firstData" :sremark="recommendmor.firstData.sremark" :dateInt="recommendmor.firstData.dateint" :stocks="recommendmor.firstData.stocks" :yesterday="recommendmor.firstData.yesterday" ></appStock>
+    </div>
+    <!-- <div class="blank10"></div>
+    <appInvestment></appInvestment> -->
+    <!-- <div class="blank10"></div> -->
+    <!-- <appAdvertisement></appAdvertisement> -->
+    <!-- <div class="blank10"></div> -->
+    <!-- <appRisk></appRisk> -->
+    <!-- <div class="blank20"></div> -->
   </div>
 </template>
 
@@ -71,7 +68,7 @@ import Investment from '@/components/public/Investment';
 import Stock from '@/components/public/Stock';
 import Bus from '../../api/Bus';
 import { shareConfig } from '../../api/wxshare';
-
+import VueAplayer from 'vue-aplayer';
 export default {
   name: 'recommendmorning',
   data() {
@@ -84,6 +81,15 @@ export default {
       enddate: '',
       daterange: '',
       startdate: '',
+      songs: [
+          {
+            title: '股票专家今日飙股重点板块解析股票专家今日飙股重点板块解析股票专家今日飙股重点板块解析',
+            author: '来自华西证券股票专家团队',
+            url: 'http://wxtest.hx168.com.cn/hxwwz/upload/20170619.mp3',
+            pic: 'http://devtest.qiniudn.com/Preparation.jpg',
+            lrc: '[00:00.00]lrc here\n[00:01.00]aplayer'
+          }
+      ]
     }
   },
   mounted () {
@@ -174,6 +180,7 @@ export default {
       appRisk: Risk,
       appInvestment: Investment,
       appStock: Stock,
+      appPlayer: VueAplayer
   },
 }
 </script>
@@ -199,16 +206,27 @@ export default {
         }
       }
     }
-  }
-  
+  } 
+}
+.header {
+
 }
 #recommendmorning {
+
   width: 100%;
   height: 100%;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  position: relative;
+  // position: relative;
   background-color: $grey4;
+  &>.mu-content-block,
+  &>.stock,
+  #advertisement,
+  #investment,
+  #risk
+  {
+    background: $grey11;
+  }
   .relative {
     position: relative;
   }
@@ -317,52 +335,11 @@ export default {
     h6.tip {
         padding: 4px 0px;
     }
+    .warning {
+        color: $red6;
+    }
   }
   
-  // h3,h6{
-  //   color: $grey7;
-  //   margin-bottom: 8px;
-  //   margin-top: 8px;
-  // }
   
-  // .font14 {
-  //   font-size: 14px;
-  // }
-  // .title-img {
-  //   background: transparent url(http://r0.hx168.com.cn/gpzj/img/v4/bg-recommend.png) 0 -50px;
-  //   width: 124px;
-  //   height: 37px;
-  //   position: absolute;
-  //   top: -6px;
-  //   left: 50%;
-  //   margin-left: -62px;
-  // }
-  // .mu-item-title,.mu-item-after {
-  //   color: $primary
-  // }
-  // .text-indent {
-  //   text-indent: 2em;
-  // }
-  // .yesterday {
-  //   .mu-item {
-  //     padding: 0;
-  //   }
-    
-  // } 
-  // .mu-chip {
-  //    padding-left: 24px;
-  //   padding-right: 24px;
-  // } 
- 
-  // .rise {
-  //     color:$primary;
-  //     .mu-item-content {
-  //       color:$primary;
-  //       // font-size: 24px;
-  //     }
-  // }
-  // .fall {
-  //   color: $green;
-  // } 
 }
 </style>

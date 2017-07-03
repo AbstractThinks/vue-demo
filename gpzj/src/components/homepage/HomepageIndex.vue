@@ -1,5 +1,5 @@
 <template>
-  <div id="homepageindex">
+  <div id="homepageindex" class="slide-in-down">
     <mu-dialog :open="loading" dialogClass="loading">
         <mu-circular-progress :size="60" :strokeWidth="5"/>
     </mu-dialog>
@@ -36,7 +36,7 @@
             <div class="blank10"></div>
             <h6>{{result.datas[0].create_time|show_date}} 8:25前发布</h6>
             <div v-html="result.datas[0].sremark"></div>
-            <mu-raised-button label="点击查看个股"  class="info-raised-btn" @click="showStockList" v-if="!showStock"/>
+            <mu-raised-button label="点击查看个股"  class="info-raised-btn"  v-if="true" :href="_filterGetUrl2(0, result.datas[0].id)"/>
             <div class="blank10"></div>
             <mu-dialog :open="dialog" @close="close()" dialogClass="homepageindex-dialog">
                 <h4 class="text-center color-blue">华西证券开户用户可免费查看</h4>
@@ -62,12 +62,24 @@
                 </mu-flexbox>
                 
             </mu-dialog>
-            <h6 v-if="showStock">开户用户及适当性匹配用户</h6>
-            <h6 v-if="showStock">目前免费查看以下内容</h6>
-            <mu-list v-if="showStock">
-                <mu-list-item v-for="item in result.datas[0].stocks" :key="item.id" class="text-center rise" :href="_filterGetUrl(item.stock_code, item.stockarea)">
-                  {{item.stock_name}}({{item.stock_code}})
+            <h6 v-if="false">开户用户及适当性匹配用户</h6>
+            <h6 v-if="false">目前免费查看以下内容</h6>
+            <mu-list v-if="false">
+                <mu-list-item v-for="item in result.datas[0].stocks" :key="item.id" class="text-center rise" @click="toggleStockItem(item.stock_name, item.stock_code, item.remark)">
+                  {{item.stock_name}}({{item.stock_code}}) <mu-icon value=":iconfont icon-tishi"/>
                 </mu-list-item>
+                <mu-dialog :open="toggleStockItemShow" @close="toggleStockItem()" dialogClass="homepageindex-dialog">
+                    <h4 class="text-center color-blue">{{toggleStockItemTitle}}</h4>
+                    <mu-content-block class="color-grey7">
+                      <p>{{toggleStockItemContent}}</p>
+                      <div class="blank10"></div>
+                    </mu-content-block>
+                    <mu-divider/>
+                    <mu-list-item class="homepageindex-dialog-button text-center color-blue" @click="toggleStockItem()">
+                        我知道了
+                    </mu-list-item>
+                    <!-- <mu-raised-button label="我知道了" fullWidth @click="closeRule()" primary/> -->
+                </mu-dialog>
                     <div class="blank10"></div>
                   <h6 class="text-center warning">以上个股不做推荐，仅供参考</h6>
                   <h6 class="text-center warning">股市有风险，投资须谨慎</h6>
@@ -98,13 +110,13 @@
                 <div class="blank10"></div>
                 <mu-list-item :class="subResult.profit_rate|show_stock_status" v-for="(subResult, index) in result.datas[0].yesterday" :key="index" :href="_filterGetUrl(subResult.stock_code, subResult.stockarea)">
                   <mu-row gutter >
-                    <mu-col width="55" tablet="60" desktop="60" class="text-left">
+                    <mu-col width="60" tablet="60" desktop="60" class="text-left">
                       {{subResult.stock_name}}（{{subResult.stock_code}}）
                     </mu-col>
-                    <mu-col width="20" tablet="15" desktop="15" class="text-right">
+                    <mu-col width="18" tablet="15" desktop="15" class="text-right">
                       {{subResult.profit_rate|show_status}}
                     </mu-col>
-                    <mu-col width="25" tablet="25" desktop="25" class="text-right">
+                    <mu-col width="22" tablet="25" desktop="25" class="text-right">
                       {{subResult.profit_rate|show_num}}
                     </mu-col>
                   </mu-row>
@@ -159,7 +171,7 @@
                         </mu-flexbox>
                          <mu-row>
                             <mu-col width="50" tablet="50" desktop="50" class="text-left ">
-                                <div class="grey">30日笔均</div>
+                                <div class="grey">30日累计</div>
                                 <div :class="subResult.datas[0].profit|show_stock_status2" v-if="subResult.datas.length > 0">{{parseFloat(subResult.datas[0].profit).toFixed(2)}}%</div>
                             </mu-col>
                             <mu-col width="50" tablet="50" desktop="50" class="text-right">
@@ -230,7 +242,10 @@ export default {
   data() {
     return {
       loading:true,
-      toggleHistoryShow: false,
+      toggleHistoryShow: true,
+      toggleStockItemShow: false,
+      toggleStockItemTitle: "",
+      toggleStockItemContent: "",
       showStock: false,
       dialog: false,
       dialogRule: false,
@@ -320,7 +335,7 @@ export default {
         await Promise.all([this.initHomepageIndex(), this.initUser()]);
         let user = JSON.parse(JSON.stringify(this.$store.state.user.userinfo));
         this.showStock = user.firstData && user.firstData.capital_account == "1"? true: false;
-        this.toggleHistoryShow = user.firstData && user.firstData.capital_account == "1"? false: true;
+        // this.toggleHistoryShow = user.firstData && user.firstData.capital_account == "1"? false: true;
         // daterange = 
         shareConfig({
             title: '赶快来获取：散户炒股助手',
@@ -345,6 +360,11 @@ export default {
     showStockList() {
         this.dialog = true;
         
+    },
+    toggleStockItem(stock_name, stock_code, remark) {      
+        this.toggleStockItemShow = this.toggleStockItemShow? false: true;
+        this.toggleStockItemTitle = `${stock_name}（${stock_code}）`;
+        this.toggleStockItemContent = remark;
     },
     toggleHistory() {
       if (this.toggleHistoryShow) {
@@ -412,15 +432,8 @@ export default {
             font-size: 14px;
         }
     }
-    .mu-flexbox-item.vertical-item {
-        width: 1px;
-        min-width: 1px;
-    }
-    .vertical-border {
-        height: 48px;
-        border-right: 1px solid rgba(0,0,0,.12);
-        width: 1px;
-    }
+    
+    
 }
 
 

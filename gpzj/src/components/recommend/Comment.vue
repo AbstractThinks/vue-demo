@@ -1,9 +1,9 @@
 <template>
   <div id="comment">
-  	<mu-content-block v-html="content">
-    </mu-content-block> 
-    <mu-content-block v-html="private">
-    </mu-content-block>   
+  	<div v-html="content">
+    </div> 
+    <div v-html="private">
+    </div>   
   </div>
 </template>
 
