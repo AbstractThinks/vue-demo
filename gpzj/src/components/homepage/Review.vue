@@ -11,7 +11,6 @@
 		<div class="content" ref="reviewContent">
 			<div v-html="data.datas[0].content"></div>
 			<div v-html="data.datas[0].private_content"></div>
-			今日观点：指数张良不足，或校服正当上扬早评：指数张良不足，或校服正当上扬早评：指数张良不足，或校服正当上扬早评：指数张良不足，或校服正当上扬早评：指数张良不足，或校服正当上扬早评：指数张良不足，或校服正当上扬早评：指数张良不足，或校服正当上扬早评：指数张良不足，或校服正当上扬早评：指数张良不足，或校服正当上扬
 			<div class="gradient-mask" ref="reviewMask"></div>
 		</div>
 	</mu-content-block>
@@ -25,8 +24,14 @@ export default {
   props: ["data"],
   methods: {
   	toggleContent() {
-  		this.$refs.reviewContent.getAttribute("class").indexOf("visible") > -1 ?this.$refs.reviewContent.setAttribute("class", "content"):this.$refs.reviewContent.setAttribute("class", "content visible")
-  		this.$refs.reviewMask.getAttribute("class").indexOf("hide") > -1 ?this.$refs.reviewMask.setAttribute("class", "content"):this.$refs.reviewMask.setAttribute("class", "content hide")
+  		if (this.$refs.reviewContent.getAttribute("class").indexOf("visible") > -1) {
+  			this.$refs.reviewContent.setAttribute("class", "content")
+  			this.$refs.reviewContent.style.height = "48px";
+  		} else {
+  			this.$refs.reviewContent.setAttribute("class", "content visible")
+  			this.$refs.reviewContent.style.height = this.$refs.reviewContent.scrollHeight+"px";
+  		}
+  		this.$refs.reviewMask.getAttribute("class").indexOf("hide") > -1 ?this.$refs.reviewMask.setAttribute("class", "gradient-mask"):this.$refs.reviewMask.setAttribute("class", "gradient-mask hide")
   	}
   },
   filters: {
@@ -43,7 +48,7 @@ export default {
 		.content {
 			position: relative;
 			height: 48px;
-			transition: height 0.8s;
+			transition: height 0.5s;
 			overflow: hidden;
 		}
 		.gradient-mask {
@@ -57,9 +62,7 @@ export default {
 		.hide {
 			display: none;
 		}
-		.content.visible {
-			height: 200px;
-        }
+		
 
 		
 	}

@@ -6,7 +6,7 @@
     </mu-list-item>
   	<mu-content-block>
 		
-		<mu-list-item :title="data.datas[0].wxbt" :describeText="data.datas[0].wxzy" class="content">
+		<mu-list-item :title="data.datas[0].wxbt" :describeText="data.datas[0].wxzy" class="content"  :disabled="true">
 		</mu-list-item>
 	</mu-content-block>
 	<mu-flat-button label="立即查看（积分解锁）"/>

@@ -6,7 +6,7 @@
     </mu-list-item>
   	<mu-content-block>
 		
-  		<mu-list-item :title="data.datas[0].name || data.datas[0].gsname" describeText="发觉蓝筹股上涨" class="content">
+  		<mu-list-item :title="data.datas[0].name || data.datas[0].gsname" describeText="发觉蓝筹股上涨" class="content"  :disabled="true">
   			<mu-avatar :src="data.resource+'/'+data.datas[0].pic" slot="leftAvatar"/>
   		</mu-list-item>
   	</mu-content-block>
