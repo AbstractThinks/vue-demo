@@ -10,7 +10,7 @@ import MuseUI from 'muse-ui';
 import { dateFormat } from './filter/filter';
 import './assets/css/iconfont.css';
 import './assets/css/muse-ui.css';
-import './assets/css/theme-gpzj.css';
+import './assets/css/theme-gpzj2.css';
 
 Vue.use(Vuex);
 Vue.use(MuseUI);
