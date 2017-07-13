@@ -7,16 +7,10 @@
       <appReview v-if="result.datas && result.datas.length > 0 && result.keyword == 'minfo'" :data="result"></appReview>
       <appThreestock v-if="result.datas && result.datas.length > 0 && result.keyword == 'tstocks'" :data="result"></appThreestock>
       <appStock v-if="result.datas && result.datas.length > 0 && (result.keyword == 'hot' || result.keyword == 'glod')" :data="result"></appStock>
-      <!-- <appStock v-if="result.datas && result.datas.length > 0 && result.keyword == 'glod'"></appStock> -->
       <appStrategy v-if="result.datas && result.datas.length > 0 && (result.keyword == 'short' || result.keyword == 'plan')" :data="result"></appStrategy>
-      <!-- <appStrategy v-if="result.datas && result.datas.length > 0 && result.keyword == 'plan'"></appStrategy> -->
-      <!-- <appExtension v-if="result.datas && result.datas.length > 0 && result.keyword == 'infos'"></appExtension> -->
+      <appExtension v-if="result.datas  && result.keyword == 'extension'" :data="result"></appExtension>
+      <appAccount v-if="result.datas  && result.datas.length > 0 && result.keyword == 'account'" :data="result"></appAccount>
     </div>
-    <div>
-      <appAccount></appAccount>
-    </div>
-    
-    
     <div class="blank80"></div>
   </div>
 </template>
@@ -111,10 +105,12 @@ export default {
     &>div.blank80 {
       background-color: $grey;
     }
-    
+    &>div{
+      margin-top: 10px;
+    }
     &>div>div {
       background: $white;
-      margin-top: 10px;
+      
       color: $grey8; 
       font-size: 14px;
       &>.mu-flat-button {
@@ -122,18 +118,23 @@ export default {
       }
         
       .header {
+          &>a,
           &>div{
             padding-right: 16px;
             padding-left: 16px;
           }
           .mu-item {
+              padding-top: 8px;
+              padding-bottom: 8px;
               padding-left: 40px;
               .mu-icon {
                 font-size: 20px;
+                margin-top: 4px;
               }
               .mu-item-title {
                   font-size: 12px;
-                  color: $grey8; 
+                  color: $grey8;
+                  font-weight: bolder; 
               }
               .mu-item-text {
                   font-size: 12px;
@@ -141,6 +142,7 @@ export default {
               }
               .mu-item-left {
                   left: 0px;
+                  height: 90%;
                   .mu-avatar {
                       height: 32px;
                       width: 32px;
@@ -164,6 +166,11 @@ export default {
       
     }
     #account {
+      .content.auth {
+        &>a>div>.mu-item {
+          padding-left: 40px;
+        }
+      }
       .content {
           &>div>div>.mu-item {
             padding-left: 40px;
@@ -179,20 +186,54 @@ export default {
             font-size: 12px;
             color:$grey7;
           }
-
+        
       }
-      &>button {
+
+      &>a.mu-flat-button {
         background: $grey14;
         color: $grey9;
+        // margin-bottom: -8px;
       }
-      
+      .authentication {
+        .mu-item-title {
+          color: $blue;
+        }
+        color: $blue;
+      }
+      .authentication.decoration {
+        .mu-item-title {
+          text-decoration: underline;
+        }
+      }
+      .mu-flexbox .mu-flexbox-item {
+        width: auto;
+      }
+      .footer {
+        .mu-item {
+          background: $grey14;
+          text-align: center;
+          padding: 8px 16px;
+          min-height: 36px;
+          .mu-item-title {
+            text-align: center;
+            font-size: 14px;
+            // color: $blue;
+            color: $grey9;
+          }
+        }
+        
+      }
     }
 
     #strategy {
       .content {
-        padding-left: 40px;
+
+        .mu-item.show-left {
+            padding-left: 112px;
+            padding-right: 16px;
+        }
         .mu-item-left {
-          left: 0px;
+          left: 56px;
           width: 48px;
           .mu-avatar {
             height: 48px;
@@ -205,30 +246,82 @@ export default {
         }
         .mu-item-text {
           color: $grey7;
+          font-size: 13px;
+          margin-top: 8px;
         }
       }
-      &>button {
-        background: $grey14;
-        color: $blue;
+      &>.mu-content-block {
+        margin-top: -16px;
+      }
+      &>.footer {
+        .mu-item {
+          background: $grey14;
+          padding: 8px 16px;
+          min-height: 36px;
+          .mu-item-title {
+            text-align: center;
+            font-size: 14px;
+            // color: $blue;
+            color: $grey9;
+          }
+        }
+        
       }
       
     }
 
     #extension {
+      position: relative;
+      .container {
+        &>div>div>.mu-item,
+        &>a>div>.mu-item {
+          padding: 0px;
+        }
+      }
+      .header {
+        .mu-item-title {
+          color: $white;
+        }
+      }
+      .img-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+        
+      }
       .content { 
-        padding-left: 40px;
+        padding-left: 56px;
         .mu-item {
           padding: 0px;
+          padding-right: 16px;
         }
         .mu-item-title {
           font-size: 20px;
+          color: $white;
         }
         .mu-item-text {
           font-size: 12px;
+          color: $white;
         }
         button {
           border: 1px solid $white;
+          color: $white;
+          border-radius: 24px;
+          min-width: 80px;
+          height: 24px;
+          line-height: 22px;
+          .mu-flat-button-label {
+            padding-right: 8px;
+            padding-left: 8px;
+          }
         }
+
       }
       &>button {
         background: $grey14;
@@ -236,25 +329,36 @@ export default {
     }
     #stock {
       .content {
-        padding-left: 40px;
+        // padding-left: 40px;
         .mu-item-title {
           font-size: 20px;
           color: $grey8;
         }
         .mu-item-text {
           color:$red7;
+          margin-top: 8px;
         }
         .mu-item {
-          padding: 0px;
+          padding-left: 56px;
         }
       }
-      &>button {
-        background: $grey14;
-        color: $grey9;
+      &>.footer {
+        .mu-item {
+          background: $grey14;
+          padding: 8px 16px;
+          min-height: 36px;
+          .mu-item-title {
+            text-align: center;
+            font-size: 14px;
+            color: $grey9;
+          }
+        }
+        
       }
     }
     #threestock {
       .mu-content-block {
+        text-align: center;
         .mu-raised-button {
           padding: 16px 16px;
           border-radius: 24px;
@@ -268,12 +372,32 @@ export default {
       }
       .tip {
         color: $grey7;
+        margin: 0px;
+        font-weight: initial;
+      }
+      .yesterday {
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+
+        // &>div {
+        //   max-width: 400px;
+        // }
+
+        .mu-item {
+          padding: 0px 16px;
+          min-height: 24px;
+
+        }
       }
     }
     #review {
        &>button {
-        background: $grey14;
+        // background: $grey14;
         color: $blue;
+      }
+      .content {
+        font-size: 16px;
       }
       .title {
         font-size: 18px;

@@ -16,6 +16,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       commit(types.HOMEPAGE_INDEX_REQUEST);
       api.get(
+        //hxwwz/rest/json/info/getIndex?openid=oBeVNt51G2IKUtpHVou6T1yBe_ss   绑定  openid=oBeVNt5oLvU9XgC_L2PpXeYL2faw 未绑定
         `hxwwz/rest/json/info/getIndex`,
         (payload) => commit(types.HOMEPAGE_INDEX_SUCCESS, payload),
         (payload) => commit(types.HOMEPAGE_INDEX_FAILURE, payload),

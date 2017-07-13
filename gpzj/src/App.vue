@@ -67,6 +67,9 @@ export default {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    .blur {
+      filter: blur(4px);
+    }
     .mu-dialog.loading {
       box-shadow:none;
       max-width: 100%;
@@ -75,6 +78,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+      background: rgba(0,0,0,.52);
     }
     .mu-dialog {
       width: 90%;
@@ -82,6 +86,82 @@ export default {
     .mu-dialog-title {
       justify-content: center;
     }
+    .mu-dialog {
+      .dialog-title {
+        font-size: 18px;
+        font-weight: border;
+        color: $blue;
+      }
+      .dialog-content {
+        font-size: 14px;
+        color: $grey9;
+      }
+      .dialog-action {
+        button {
+          width: 80%;
+          border-radius: 24px;
+          height: 40px;
+          line-height: 40px;
+        }
+        
+      }
+      
+    }
+    .share-dialog {
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      position: relative;
+      #qrcode {
+        width:200px;
+        height: 200px;
+      }
+      .mu-dialog-body {
+        height: 100%;
+        color: $white;
+        padding: 0px;
+        .navbar {
+          background: $black;
+        }
+        header {
+          position: absolute;
+          width: 100%;
+          top: 0px;
+          font-weight: bolder;
+        }
+        article {
+          display: flex;
+          font-size: 18px;
+          height: 100%;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          font-weight: bolder;
+          .desc {
+            font-size: 14px;
+            font-weight: normal;
+          }
+        }
+        footer {
+          position: absolute;
+          width: 100%;
+          bottom: 0px;
+          font-size: 12px;
+          letter-spacing: 8px;
+          img {
+            width: 80px
+          }
+        }
+        .share-arrow {
+          position: absolute;
+          width: 80px;
+          right: 8px;
+          top: 0px;
+        }
+      }
+      
+    }
+    
   }
 
   @for $i from 1 to 10 {
@@ -216,7 +296,18 @@ export default {
       opacity: 1;
     }
   }
-  
+  .fade-out-up{animation:fadeOutUp 0.5s 0s 1 both}
+  @keyframes fadeOutUp {
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
+      transform: translate3d(0, -100%, 0);
+    }
+  }
+    
   
 
 </style>

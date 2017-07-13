@@ -1,20 +1,25 @@
 <template>
   <div id="extension">
-  	<mu-content-block>
-		<mu-list-item title="Photos" describeText="Jan 9, 2014" class="header">
-			<mu-avatar icon=":iconfont icon-unfold" slot="leftAvatar"/>
+  	<div class="img-container">
+  		<img :src="data.img" alt="" class="banner-img">
+  	</div>
+  	<mu-list-item class="container" :href="data.link">
+  		<mu-list-item :title="data.title" class="header" :disabled="true">
+			<mu-avatar :icon="data.icon" slot="leftAvatar" class="icon-extension-color"/>
+		</mu-list-item>	
+		<mu-list-item :title="data.sub_title" :describeText="data.remark" class="content" :disabled="true">
+			<div class="blank10"></div>
+			<mu-flat-button :label="data.btn_title"/>
+			<div class="blank20"></div>
 		</mu-list-item>
-		<mu-list-item title="开户送金股" describeText="发觉蓝筹股上涨" class="content">
-			<mu-flat-button label="查看更多"/>
-		</mu-list-item>
-	</mu-content-block>
-	<mu-flat-button label="查看更多"/>
+	</mu-list-item>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'extension'
+  name: 'extension',
+  props: ["data"],
 }
 </script>  
 <style lang="scss">

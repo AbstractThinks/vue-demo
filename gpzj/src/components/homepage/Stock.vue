@@ -1,15 +1,12 @@
 <template>
   <div id="stock">
-    <mu-list-item :title="data.title" :describeText="data.sub_title" class="header">
-      <mu-avatar :icon="icon" slot="leftAvatar" :class="iconColor"/>
-      <mu-icon slot="right" value=":iconfont icon-fenxiang1"/>
-    </mu-list-item>
-  	<mu-content-block>
-		
-		<mu-list-item :title="data.datas[0].wxbt" :describeText="data.datas[0].wxzy" class="content"  :disabled="true">
-		</mu-list-item>
-	</mu-content-block>
-	<mu-flat-button label="立即查看（积分解锁）"/>
+    <mu-list-item :title="data.title|showTitle(data.sub_title)" :describeText="data.datas[0].format_time" class="header" :href="data.link">
+      <mu-avatar :icon="data.icon" slot="leftAvatar" :class="iconColor"/>
+      <mu-icon slot="right" value=":iconfont icon-fenxiang1" />
+    </mu-list-item>		
+		<mu-list-item :title="data.datas[0].wxbt" :describeText="data.datas[0].wxzy" class="content" :href="data.detail_link" />
+
+   <mu-list-item title="立即查看（积分解锁）" :href="data.detail_link" class="footer"/>
   </div>
 </template>
 
@@ -26,7 +23,18 @@ export default {
   mounted () {
   	this.data.keyword == 'hot'?(this.icon = ":iconfont icon-re"):(this.icon = ":iconfont icon-jin")
   	this.data.keyword == 'hot'?(this.iconColor = "icon-hot-color"):(this.iconColor = "icon-gold-color")
-  }
+  },
+  filters: {
+    showTitle(val, val2) {
+      return `${val}·${val2}`;
+    },
+    showDate: function(val) {
+        let date = new Date(val);
+        let str = val?`${date.getMonth()+1}月${date.getDate()}日`:'';
+        return str;
+        
+    },
+  },
 }
 </script>  
 <style lang="scss">
